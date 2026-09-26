@@ -13,8 +13,9 @@ script = ExtResource("1_vot3s")
 
 [node name="BoxContainer" type="BoxContainer" parent="." unique_id=1739732161]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 160.0
+offset_bottom = 66.0
+vertical = true
 
 [node name="Server" type="Button" parent="BoxContainer" unique_id=628583242]
 layout_mode = 2
