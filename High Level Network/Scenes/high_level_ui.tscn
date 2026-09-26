@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cgryu1knqykgk"]
+
+[ext_resource type="Script" uid="uid://b6gummjor5im2" path="res://High Level Network/Scripts/high_level_ui.gd" id="1_vot3s"]
+
+[node name="HighLevelUI" type="Control" unique_id=1056797833]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vot3s")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=1739732161]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Server" type="Button" parent="BoxContainer" unique_id=628583242]
+layout_mode = 2
+text = "Server"
+
+[node name="Client" type="Button" parent="BoxContainer" unique_id=1344624134]
+layout_mode = 2
+text = "Client
+"
+
+[connection signal="pressed" from="BoxContainer/Server" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="BoxContainer/Client" to="." method="_on_client_pressed"]
