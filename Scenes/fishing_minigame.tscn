@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="2_y8wf2"]
 [ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="3_w1gml"]
 [ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="4_cgipk"]
+[ext_resource type="Texture2D" uid="uid://bhl4lods3y3d4" path="res://Assets/Sprites/black line.png" id="5_y8wf2"]
 
 [node name="Fishing Minigame" type="Node2D" unique_id=346692332]
 script = ExtResource("1_qrmsd")
@@ -15,5 +16,9 @@ _spawnable_scenes = PackedStringArray("uid://dto7aeti1rlbc")
 spawn_path = NodePath("..")
 script = ExtResource("3_w1gml")
 network_player = ExtResource("4_cgipk")
+
+[node name="Divider" type="Sprite2D" parent="." unique_id=2007857911]
+scale = Vector2(4, 34)
+texture = ExtResource("5_y8wf2")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
