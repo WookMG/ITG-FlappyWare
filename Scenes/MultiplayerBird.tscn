@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dto7aeti1rlbc"]
 
-[ext_resource type="Script" uid="uid://colpnufmqrb5r" path="res://Scenes/multiplayer_bird.gd" id="1_rgt1b"]
+[ext_resource type="Script" uid="uid://colpnufmqrb5r" path="res://Scripts/multiplayer_bird.gd" id="1_rgt1b"]
 [ext_resource type="Texture2D" uid="uid://bdrst7yf0ki6x" path="res://Assets/Sprites/bird.png" id="2_c7umc"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="3_iq0eg"]
 [ext_resource type="AudioStream" uid="uid://dsb3v57t021a6" path="res://Assets/Sounds/explosion-42132.mp3" id="4_xopup"]

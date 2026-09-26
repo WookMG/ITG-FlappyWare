@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cx3vjercl1oyx"]
+
+[ext_resource type="Script" uid="uid://68ja0hn831fn" path="res://Scripts/fishing_minigame.gd" id="1_qrmsd"]
+[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="2_y8wf2"]
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="3_w1gml"]
+[ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="4_cgipk"]
+
+[node name="Fishing Minigame" type="Node2D" unique_id=346692332]
+script = ExtResource("1_qrmsd")
+
+[node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("2_y8wf2")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=65125177]
+_spawnable_scenes = PackedStringArray("uid://dto7aeti1rlbc")
+spawn_path = NodePath("..")
+script = ExtResource("3_w1gml")
+network_player = ExtResource("4_cgipk")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
