@@ -11,7 +11,7 @@ script = ExtResource("1_7mxwi")
 [node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("1_62igp")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
-_spawnable_scenes = PackedStringArray("uid://dto7aeti1rlbc")
+_spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
 spawn_path = NodePath("..")
 script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")

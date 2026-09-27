@@ -13,8 +13,11 @@ height = 24.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
-[node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041]
+[node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
 script = ExtResource("1_4rd5n")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=896503774]
