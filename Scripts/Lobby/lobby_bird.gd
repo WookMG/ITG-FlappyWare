@@ -5,9 +5,11 @@ const JUMP_VELOCITY = -1000
 const HORIZONTAL_ACCELERATION: float = 20
 const HORIZONTAL_DECCELERATION: float = -25
 const MAX_HORIZONTAL_SPEED: float = 1500
+const WALL_ABSORBTION: float = 2.5
 
 var isOnFloor = false
 var isFacingLeft = false
+var lastVelocity: Vector2
 
 #Multiplayer Shizzy
 func _enter_tree() -> void:
@@ -28,31 +30,39 @@ func _physics_process(delta: float) -> void:
 			position.y += 5*sin(Time.get_ticks_msec()/100)
 				
 		Global.States.Playing:
-			if not is_on_floor():
+			if !is_on_floor():
 				velocity += get_gravity() * delta
-				
+			else:
+				velocity.y = 0
+			
+			if is_on_wall():
+				if !isFacingLeft && lastVelocity.x > 0:
+					isFacingLeft = true
+					scale.x = -scale.x
+					velocity.x = - lastVelocity.x / WALL_ABSORBTION
+				elif isFacingLeft && lastVelocity.x < 0:
+					isFacingLeft = false
+					scale.x = -scale.x
+					velocity.x = - lastVelocity.x / WALL_ABSORBTION
+			
+			if is_on_ceiling() && velocity.y < 0:
+				velocity.y = -velocity.y
+			
 			# Handle jump.
 			if Input.is_action_just_pressed("Jump"):
 				jump()
-				
-			# Handle movement.
-			if global_position.x >= get_viewport_rect().size.x && !isFacingLeft:
-				velocity.x = -velocity.x
-				isFacingLeft = true
-				scale.x = -scale.x
-			elif global_position.x <= 0 && isFacingLeft:
-				velocity.x = -velocity.x
-				scale.x = -scale.x
-				isFacingLeft = false
 			
+			# Handle movement.
 			if Input.is_action_pressed("Alternate Action"):
 				move()
 			else:
 				deccelerate()
 			
 			$Sprite2D.rotation = speed_to_rotation(velocity.y)
-			move_and_slide()
 			
+			lastVelocity = velocity
+			move_and_slide()
+		
 		Global.States.Dead:
 			position.x -= Global.bird_speed
 
@@ -78,7 +88,7 @@ func deccelerate() -> void:
 	elif sign(velocity.x) == -1:
 		velocity.x += -HORIZONTAL_DECCELERATION
 	
-	if abs(velocity.x) <= 0:
+	if abs(velocity.x) <= abs(HORIZONTAL_DECCELERATION):
 		velocity.x = 0
 
 func speed_to_rotation(speed):

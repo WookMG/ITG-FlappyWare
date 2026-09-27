@@ -1,21 +1,21 @@
 extends Node2D
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
-@onready var collision_shape_2d: CollisionShape2D = $Floor/CollisionShape2D
+@onready var pipe_container: Node2D = $"Pipe Container"
+@onready var collision_shape_2d: CollisionShape2D = $"Pipe Container/Floor/CollisionShape2D"
 
 const PLAYERSCALE: float = 0.5
 
-var defaultPlayerY: int = 160
+var defaultPlayerY: float
 var playerNodes: Array[LobbyBird]
-var red: Color = Color(1.0, 0.323, 0.361, 1.0)
-var blue: Color = Color(0.084, 0.321, 0.655, 1.0)
-var green: Color = Color(0.42, 0.963, 0.444, 1.0)
-var yellow: Color = Color(1.0, 1.0, 1.0, 1.0)
+#Player colors
+var p1Color: Color = Color(1.0, 1.0, 1.0, 1.0) #default color
+var p2Color: Color = Color(1.0, 0.323, 0.361, 1.0)
+var p3Color: Color = Color(0.42, 0.963, 0.444, 1.0)
+var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
 
 func _ready() -> void:
-	#Floor placement
-	collision_shape_2d.global_position = Vector2(get_viewport().get_visible_rect().size.x/2, get_viewport().get_visible_rect().size.y + 10)
-	collision_shape_2d.scale = Vector2(get_viewport().get_visible_rect().size.x, 5)
+	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 
 func _on_child_entered_tree(node: Node) -> void:
 	var numberOfPlayers: int
@@ -28,13 +28,13 @@ func _on_child_entered_tree(node: Node) -> void:
 		
 		#set player color
 		if numberOfPlayers == 1:
-			setBirdColor(node, yellow)
+			setBirdColor(node, p1Color)
 		elif numberOfPlayers == 2:
-			setBirdColor(node, red)
+			setBirdColor(node, p2Color)
 		elif numberOfPlayers == 3:
-			setBirdColor(node, green)
+			setBirdColor(node, p3Color)
 		elif numberOfPlayers == 4:
-			setBirdColor(node, blue)
+			setBirdColor(node, p4Color)
 		
 		#set player location
 		var divisionLength: float = get_viewport().get_visible_rect().size.x / 4
@@ -43,3 +43,6 @@ func _on_child_entered_tree(node: Node) -> void:
 
 func setBirdColor(node: LobbyBird, color: Color) -> void:
 	node.find_child("Sprite2D").modulate = color
+
+func findCollisionShape(container: Node, name: String) -> CollisionShape2D:
+		return container.find_child(name).find_child("CollisionShape2D")

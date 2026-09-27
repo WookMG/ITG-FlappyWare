@@ -4,25 +4,88 @@
 [ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="1_62igp"]
 [ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="2_7mxwi"]
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
+[ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="5_dx3ka"]
+[ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq0dr"]
-size = Vector2(1152.5, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_830bo"]
+size = Vector2(278.9313, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lquo"]
+size = Vector2(278.91534, 105.64282)
 
 [node name="Lobby" type="Node2D" unique_id=465588410]
 script = ExtResource("1_7mxwi")
 
+[node name="Pipe Container" type="Node2D" parent="." unique_id=1255261386]
+
+[node name="Go Back Pipe" type="Sprite2D" parent="Pipe Container" unique_id=2059497906]
+position = Vector2(-188.99998, 128.00003)
+rotation = 1.5707964
+scale = Vector2(0.38004372, 0.473293)
+texture = ExtResource("5_dx3ka")
+
+[node name="Area2D" type="Area2D" parent="Pipe Container/Go Back Pipe" unique_id=1267229261]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Go Back Pipe/Area2D" unique_id=235723266]
+position = Vector2(0, -530)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_830bo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pipe Container/Go Back Pipe" unique_id=667338920]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Go Back Pipe/StaticBody2D" unique_id=159850763]
+position = Vector2(-9.1552734e-05, -466.94116)
+scale = Vector2(0.9999998, 0.99999976)
+shape = SubResource("RectangleShape2D_2lquo")
+
+[node name="Start Pipe" type="Sprite2D" parent="Pipe Container" unique_id=627719797]
+position = Vector2(1339.0001, 128)
+rotation = -1.5707964
+scale = Vector2(0.38, 0.473)
+texture = ExtResource("5_dx3ka")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pipe Container/Start Pipe" unique_id=2070740281]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Start Pipe/StaticBody2D" unique_id=2076379423]
+position = Vector2(-9.1552734e-05, -466.94116)
+scale = Vector2(0.9999998, 0.99999976)
+shape = SubResource("RectangleShape2D_2lquo")
+
+[node name="Area2D" type="Area2D" parent="Pipe Container/Start Pipe" unique_id=1761213603]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Start Pipe/Area2D" unique_id=22908956]
+position = Vector2(0, -530)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_830bo")
+
+[node name="Left Wall" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("6_s46go")]
+position = Vector2(-43, 300)
+scale = Vector2(0.5, 0.6999999)
+
+[node name="Right Wall" parent="Pipe Container" unique_id=985348563 instance=ExtResource("6_s46go")]
+position = Vector2(1193, 300)
+scale = Vector2(0.5, 0.6999999)
+
+[node name="Floor" parent="Pipe Container" unique_id=629353476 instance=ExtResource("6_s46go")]
+position = Vector2(535.02625, 691)
+rotation = -1.5707964
+scale = Vector2(0.5, 1.5485)
+
+[node name="Roof" parent="Pipe Container" unique_id=467948618 instance=ExtResource("6_s46go")]
+position = Vector2(535.026, -42)
+rotation = -1.5707964
+scale = Vector2(0.5, 1.5485)
+
 [node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("1_62igp")]
+offset_left = 9.0
+offset_top = 10.0
+offset_right = 9.0
+offset_bottom = 10.0
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
 _spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
 spawn_path = NodePath("..")
 script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
-
-[node name="Floor" type="StaticBody2D" parent="." unique_id=925076192]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1126570662]
-position = Vector2(575.75, 652)
-shape = SubResource("RectangleShape2D_mq0dr")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

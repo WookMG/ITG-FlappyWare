@@ -6,8 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://dsb3v57t021a6" path="res://Assets/Sounds/explosion-42132.mp3" id="4_2levc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2h58u"]
-radius = 9.5
-height = 24.0
+radius = 11.0
+height = 31.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sseh2"]
 properties/0/path = NodePath(".:position")
@@ -23,8 +23,6 @@ script = ExtResource("1_4rd5n")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=896503774]
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_yu38w")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="Sprite2D" unique_id=661713402]
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=924959964]
 rotation = 1.5707964

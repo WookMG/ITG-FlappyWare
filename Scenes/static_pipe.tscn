@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cp3y723xuea8r"]
+
+[ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="1_hmixe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq0dr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uagv5"]
+
+[node name="Static Pipe" type="Sprite2D" unique_id=1407374869]
+texture = ExtResource("1_hmixe")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028621641]
+
+[node name="Neck" type="CollisionShape2D" parent="StaticBody2D" unique_id=1264458931]
+scale = Vector2(10, 54)
+shape = SubResource("RectangleShape2D_mq0dr")
+
+[node name="Head" type="CollisionShape2D" parent="StaticBody2D" unique_id=256036925]
+position = Vector2(0, -490)
+scale = Vector2(14.03, 5)
+shape = SubResource("RectangleShape2D_uagv5")
