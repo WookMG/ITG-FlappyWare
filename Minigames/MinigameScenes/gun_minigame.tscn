@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://dtivmpl0lcno"]
+
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="1_5h1is"]
+[ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="1_68e0m"]
+[ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="2_rbtvy"]
+[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="4_5ushq"]
+
+[sub_resource type="Gradient" id="Gradient_5h1is"]
+colors = PackedColorArray(0.6039216, 0, 0, 1, 0.99820966, 0.37082726, 0.29429373, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ilm2e"]
+gradient = SubResource("Gradient_5h1is")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5ibt"]
+size = Vector2(70.20307, 58.700684)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8l3ms"]
+size = Vector2(111.595, 1028.5264)
+
+[node name="GunMinigame" type="Node2D" unique_id=2082737476]
+
+[node name="MultiplayerContainer" type="Node2D" parent="." unique_id=1733335150]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MultiplayerContainer" unique_id=1740861918]
+spawn_path = NodePath("../Players")
+script = ExtResource("1_5h1is")
+network_player = ExtResource("2_rbtvy")
+
+[node name="Players" type="Node2D" parent="MultiplayerContainer" unique_id=1356843281]
+
+[node name="SpawnPoints" type="Node2D" parent="MultiplayerContainer/Players" unique_id=1363422]
+
+[node name="Player1" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=254756183]
+position = Vector2(400, 300)
+gizmo_extents = 0.0
+
+[node name="Player2" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=2025147632]
+position = Vector2(400, 750)
+gizmo_extents = 0.0
+
+[node name="Player3" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=1530129175]
+position = Vector2(1400, 300)
+gizmo_extents = 0.0
+
+[node name="Player4" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=1871301156]
+position = Vector2(1400, 750)
+gizmo_extents = 0.0
+
+[node name="FloorContainer" type="Node2D" parent="." unique_id=1998773563 groups=["Floor"]]
+
+[node name="Spikes" type="Sprite2D" parent="FloorContainer" unique_id=1349123704]
+position = Vector2(963, 1082)
+scale = Vector2(30.46875, 1.2265614)
+texture = SubResource("GradientTexture2D_ilm2e")
+
+[node name="Area2D" type="Area2D" parent="FloorContainer/Spikes" unique_id=1543422884]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorContainer/Spikes/Area2D" unique_id=223408229]
+position = Vector2(-0.11485672, 8.96814)
+scale = Vector2(1.0000005, 1)
+shape = SubResource("RectangleShape2D_p5ibt")
+
+[node name="WallContainer" type="Node2D" parent="." unique_id=1005311966 groups=["Wall"]]
+
+[node name="LeftWall" type="Sprite2D" parent="WallContainer" unique_id=887815448]
+position = Vector2(-52.595, 556.5)
+scale = Vector2(1, 1.049074)
+texture = ExtResource("1_68e0m")
+
+[node name="Area2D" type="Area2D" parent="WallContainer/LeftWall" unique_id=565661157]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallContainer/LeftWall/Area2D" unique_id=346730649]
+position = Vector2(62.595, -7.149145)
+shape = SubResource("RectangleShape2D_8l3ms")
+
+[node name="RightWall" type="Sprite2D" parent="WallContainer" unique_id=1120449482]
+position = Vector2(1980, 556.5)
+scale = Vector2(-1, 1.049)
+texture = ExtResource("1_68e0m")
+
+[node name="Area2D" type="Area2D" parent="WallContainer/RightWall" unique_id=1143976113]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallContainer/RightWall/Area2D" unique_id=2094609229]
+position = Vector2(62.595, -7.149145)
+shape = SubResource("RectangleShape2D_8l3ms")
+
+[node name="UI" type="Control" parent="." unique_id=1797731085]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Control" parent="UI" unique_id=282251227]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Nametags" type="Control" parent="UI" unique_id=318555788]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HighLevelUI" parent="UI" unique_id=1056797833 instance=ExtResource("4_5ushq")]
+layout_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=982888657]
+position = Vector2(964, 552)
+zoom = Vector2(0.6, 0.6)

@@ -62,6 +62,7 @@ shape = SubResource("RectangleShape2D_ba6x0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=749316963]
 position = Vector2(960, 540)
+zoom = Vector2(0.6, 0.6)
 script = ExtResource("4_k12tt")
 
 [node name="Bird" type="CharacterBody2D" parent="." unique_id=196389483 groups=["Player"]]
