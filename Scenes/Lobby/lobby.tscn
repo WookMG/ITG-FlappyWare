@@ -38,6 +38,26 @@ position = Vector2(-9.1552734e-05, -466.94116)
 scale = Vector2(0.9999998, 0.99999976)
 shape = SubResource("RectangleShape2D_2lquo")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Pipe Container/Go Back Pipe" unique_id=927163351]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.6494
+offset_top = -1074.884
+offset_right = -0.12905884
+offset_bottom = -983.7434
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 48
+text = "Return"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Start Pipe" type="Sprite2D" parent="Pipe Container" unique_id=627719797]
 position = Vector2(1339.0001, 128)
 rotation = -1.5707964
@@ -57,6 +77,26 @@ shape = SubResource("RectangleShape2D_2lquo")
 position = Vector2(0, -530)
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_830bo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pipe Container/Start Pipe" unique_id=1104185702]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.6494
+offset_top = -1074.884
+offset_right = -0.12905884
+offset_bottom = -983.7434
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 48
+text = "Start Game"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Left Wall" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("6_s46go")]
 position = Vector2(-43, 300)
@@ -89,3 +129,4 @@ script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_on_area_2d_body_entered"]

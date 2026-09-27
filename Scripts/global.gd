@@ -32,9 +32,6 @@ func _ready() -> void:
 	end_game.connect(on_end_game)
 	restart_game.connect(on_restart_game)
 	start_game.connect(on_start_game)
-	
-func _process(delta: float) -> void:
-	pass
 
 func on_start_game():
 	current_state = States.Playing

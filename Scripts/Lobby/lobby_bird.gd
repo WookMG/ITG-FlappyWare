@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("Jump") || Input.is_action_just_pressed("Alternate Action"):
 				jump()
 				Global.start_game.emit()
-			position.y += 5*sin(Time.get_ticks_msec()/100)
+			position.y += 5*sin(Time.get_ticks_msec()/100.0)
 				
 		Global.States.Playing:
 			if !is_on_floor():

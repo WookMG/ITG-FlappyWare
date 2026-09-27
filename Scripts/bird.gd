@@ -3,6 +3,9 @@ extends CharacterBody2D
 
 const JUMP_VELOCITY = -1000.0
 
+var lobby = preload("res://Scenes/Lobby/lobby.tscn")
+var lobbyBird = preload("res://Scenes/Lobby/lobby_bird.tscn")
+
 func _ready():
 	Global.start_game.connect(on_start_game)
 	Global.end_game.connect(on_end_game)
@@ -14,7 +17,9 @@ func _physics_process(delta: float) -> void:
 				jump()
 				Global.start_game.emit()
 			position.y += 5*sin(Time.get_ticks_msec()/100)
-				
+			
+			if Input.is_action_just_pressed("Swap Gamemode"):
+				get_tree().change_scene_to_file("res://Scenes/Lobby/lobby.tscn")
 		Global.States.Playing:
 			if not is_on_floor():
 				velocity += get_gravity() * delta

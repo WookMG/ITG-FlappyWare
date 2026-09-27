@@ -6,11 +6,6 @@ const TRANSPARENT = 0
 func _ready() -> void:
 	fade_black_out()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func fade_black_in():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", FULL_BLACK, 0.5)
