@@ -24,6 +24,8 @@ script = ExtResource("1_4rd5n")
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_yu38w")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="Sprite2D" unique_id=661713402]
+
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=924959964]
 rotation = 1.5707964
 scale = Vector2(4, 4)

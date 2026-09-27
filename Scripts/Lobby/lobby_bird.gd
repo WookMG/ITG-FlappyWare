@@ -6,6 +6,7 @@ const HORIZONTAL_ACCELERATION: float = 20
 const HORIZONTAL_DECCELERATION: float = -25
 const MAX_HORIZONTAL_SPEED: float = 1500
 
+var isOnFloor = false
 var isFacingLeft = false
 
 #Multiplayer Shizzy
@@ -49,13 +50,9 @@ func _physics_process(delta: float) -> void:
 			else:
 				deccelerate()
 			
-			#land on bottom of screen
-			if global_position.y >= get_viewport().get_visible_rect().size.y && velocity.y >= 0:
-				velocity.y = 0
-				global_position.y = get_viewport().get_visible_rect().size.y
-			
 			$Sprite2D.rotation = speed_to_rotation(velocity.y)
 			move_and_slide()
+			
 		Global.States.Dead:
 			position.x -= Global.bird_speed
 

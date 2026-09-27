@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mq0dr"]
-size = Vector2(1161, 20)
+size = Vector2(1152.5, 6)
 
 [node name="Lobby" type="Node2D" unique_id=465588410]
 script = ExtResource("1_7mxwi")
@@ -19,10 +19,10 @@ spawn_path = NodePath("..")
 script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1791962562]
+[node name="Floor" type="StaticBody2D" parent="." unique_id=925076192]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1126570662]
-position = Vector2(578, 658)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1126570662]
+position = Vector2(575.75, 652)
 shape = SubResource("RectangleShape2D_mq0dr")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
