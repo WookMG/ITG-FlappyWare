@@ -27,7 +27,7 @@ func _on_child_entered_tree(node: Node) -> void:
 func _physics_process(delta: float) -> void:
 	for i in playerNodes.size():
 		if playerNodes[i].global_position.y >= get_viewport().get_visible_rect().size.y && playerNodes[i].velocity.y >= 0:
-			playerNodes[i].velocity.y = - abs(abs(playerNodes[i].velocity.y) - 5)
+			playerNodes[i].velocity.y = - abs(playerNodes[i].velocity.y)
 	
 	for i in playersInWater.size():
 		playersInWater[i].velocity.y += -BUOYANCY
@@ -42,6 +42,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is MultiplayerBird:
 		for i in range(playersInWater.size()):
- 			if playersInWater[i] == body:
+			if playersInWater[i] == body:
 				playersInWater.remove_at(i)
 				body.velocity.y = body.velocity.y * WATERSLOW

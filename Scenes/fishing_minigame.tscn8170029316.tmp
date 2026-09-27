@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cx3vjercl1oyx"]
+
+[ext_resource type="Script" uid="uid://68ja0hn831fn" path="res://Scripts/fishing_minigame.gd" id="1_qrmsd"]
+[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="2_y8wf2"]
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="3_w1gml"]
+[ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="4_cgipk"]
+
+[sub_resource type="Gradient" id="Gradient_s3t03"]
+colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrmsd"]
+gradient = SubResource("Gradient_s3t03")
+fill_from = Vector2(0.99130434, 0.82608694)
+fill_to = Vector2(1, 0.20869565)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8wf2"]
+size = Vector2(63.42799, 62.82837)
+
+[node name="Fishing Minigame" type="Node2D" unique_id=346692332]
+script = ExtResource("1_qrmsd")
+
+[node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("2_y8wf2")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=65125177]
+_spawnable_scenes = PackedStringArray("uid://dto7aeti1rlbc")
+spawn_path = NodePath("..")
+script = ExtResource("3_w1gml")
+network_player = ExtResource("4_cgipk")
+
+[node name="WaterContainer" type="Node2D" parent="." unique_id=85476582]
+
+[node name="Water" type="Sprite2D" parent="WaterContainer" unique_id=349678797 groups=["Water"]]
+position = Vector2(967.0001, 898.5)
+scale = Vector2(31.468754, 6.8281245)
+texture = SubResource("GradientTexture2D_qrmsd")
+
+[node name="Area2D" type="Area2D" parent="WaterContainer/Water" unique_id=1056623076]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/Water/Area2D" unique_id=666789227]
+position = Vector2(-0.03178978, 0.2929077)
+scale = Vector2(0.99999976, 1)
+shape = SubResource("RectangleShape2D_y8wf2")
+
+[node name="UI" type="Control" parent="." unique_id=221824168]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="Control" parent="UI" unique_id=575486591]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="body_entered" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_exited"]

@@ -5,6 +5,7 @@ const PORT: int = 42069
 const MAX_PLAYERS: int = 4
 
 var peer: ENetMultiplayerPeer
+var connectedPlayerIDs: Array[String]
 
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
