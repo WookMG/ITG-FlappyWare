@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var pipe_container: Node2D = $"Pipe Container"
-@onready var collision_shape_2d: CollisionShape2D = $"Pipe Container/Floor/CollisionShape2D"
 
 const PLAYERSCALE: float = 0.5
 
@@ -43,6 +42,3 @@ func _on_child_entered_tree(node: Node) -> void:
 
 func setBirdColor(node: LobbyBird, color: Color) -> void:
 	node.find_child("Sprite2D").modulate = color
-
-func findCollisionShape(container: Node, name: String) -> CollisionShape2D:
-		return container.find_child(name).find_child("CollisionShape2D")
