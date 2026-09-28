@@ -16,6 +16,15 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("Sprite2D:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprite2D:scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Sprite2D:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
 script = ExtResource("1_4rd5n")
@@ -31,11 +40,38 @@ shape = SubResource("CapsuleShape2D_2h58u")
 
 [node name="Flap" type="AudioStreamPlayer" parent="." unique_id=470836815]
 stream = ExtResource("3_dowtu")
+volume_db = -40.0
 max_polyphony = 10
 
 [node name="LightSmack" type="AudioStreamPlayer" parent="." unique_id=1285371624]
 stream = ExtResource("4_2levc")
-volume_db = -10.0
+volume_db = -40.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1622495749]
 replication_config = SubResource("SceneReplicationConfig_sseh2")
+
+[node name="Controlls Display" type="Control" parent="." unique_id=804742982]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Controlls Display" unique_id=1396681985]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.0
+offset_top = -210.0
+offset_right = 196.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "LMB/Space = Jump
+RMB/Shift = Move"
+horizontal_alignment = 1
+vertical_alignment = 1

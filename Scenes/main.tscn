@@ -80,11 +80,12 @@ shape = SubResource("CapsuleShape2D_s7i4u")
 
 [node name="Flap" type="AudioStreamPlayer" parent="Bird" unique_id=471718666]
 stream = ExtResource("4_kry3j")
+volume_db = -40.0
 max_polyphony = 10
 
 [node name="LightSmack" type="AudioStreamPlayer" parent="Bird" unique_id=1892377525]
 stream = ExtResource("7_d1ilt")
-volume_db = -10.0
+volume_db = -40.0
 
 [node name="PipeManager" type="Node2D" parent="." unique_id=378971422]
 position = Vector2(0, -71)

@@ -6,10 +6,12 @@ const HORIZONTAL_ACCELERATION: float = 20
 const HORIZONTAL_DECCELERATION: float = -25
 const MAX_HORIZONTAL_SPEED: float = 1500
 const WALL_ABSORBTION: float = 2.5
+const UI_FADE: float = 1.0
 
 var isOnFloor = false
 var isFacingLeft = false
 var lastVelocity: Vector2
+
 
 #Multiplayer Shizzy
 func _enter_tree() -> void:
@@ -28,8 +30,10 @@ func _physics_process(delta: float) -> void:
 				jump()
 				Global.start_game.emit()
 			position.y += 5*sin(Time.get_ticks_msec()/100.0)
-				
+			show_ui_to_self()
 		Global.States.Playing:
+			fade_controlls_ui_for_self(delta)
+			
 			if !is_on_floor():
 				velocity += get_gravity() * delta
 			else:
@@ -38,11 +42,11 @@ func _physics_process(delta: float) -> void:
 			if is_on_wall():
 				if !isFacingLeft && lastVelocity.x > 0:
 					isFacingLeft = true
-					scale.x = -scale.x
+					$Sprite2D.flip_h = isFacingLeft
 					velocity.x = - lastVelocity.x / WALL_ABSORBTION
 				elif isFacingLeft && lastVelocity.x < 0:
 					isFacingLeft = false
-					scale.x = -scale.x
+					$Sprite2D.flip_h = isFacingLeft
 					velocity.x = - lastVelocity.x / WALL_ABSORBTION
 			
 			if is_on_ceiling() && velocity.y < 0:
@@ -65,7 +69,6 @@ func _physics_process(delta: float) -> void:
 		
 		Global.States.Dead:
 			position.x -= Global.bird_speed
-
 
 func jump():
 	velocity.y = JUMP_VELOCITY
@@ -102,3 +105,22 @@ func on_start_game():
 
 func on_end_game():
 	$LightSmack.play()
+
+# Server side functions
+@rpc("authority", "call_local", "reliable")
+func show_controlls() -> void:
+	$"Controlls Display".show()
+
+@rpc("authority", "call_local", "reliable")
+func fade_controlls_ui(delta: float) -> void:
+	if $"Controlls Display/RichTextLabel".modulate.a > 0:
+		$"Controlls Display/RichTextLabel".modulate.a -= UI_FADE * delta
+		if $"Controlls Display/RichTextLabel".modulate.a < 0:
+			$"Controlls Display/RichTextLabel".modulate.a = 0
+
+# Client side functions
+func show_ui_to_self() -> void:
+	show_controlls.rpc_id(name.to_int()) 
+
+func fade_controlls_ui_for_self(delta: float) -> void:
+	fade_controlls_ui.rpc_id(name.to_int(), delta)
