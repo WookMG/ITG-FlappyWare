@@ -129,4 +129,5 @@ script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_on_area_2d_body_entered"]

@@ -23,17 +23,17 @@ func _ready() -> void:
 	playerIDs.resize(HighLevelNetworkHandler.MAX_PLAYERS)
 	playerIDs.fill(-1)
 	child_exiting_tree.connect(_on_child_exiting_tree)
+	
+	if multiplayer.is_server():
+		multiplayer.peer_disconnected.connect(peer_disconnected)
+	else: 
+		multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func _on_child_exiting_tree(node: Node) -> void:
 	var i := playerNodes.find(node)
 	if i != -1:
 		playerNodes[i] = null
 		playerIDs[i] = -1
-
-func peer_disconnected(peer_id: int) -> void:
-	var bird := get_node_or_null(str(peer_id))
-	if bird:
-		bird.queue_free()
 
 func _on_child_entered_tree(node: Node) -> void:
 	var currentNumberOfPlayers: int = 0
@@ -78,18 +78,34 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is LobbyBird:
 		send_player_to_menu.call_deferred(body.name.to_int())
 
-# On the server
 func send_player_to_menu(client_id: int) -> void:
 	if client_id == multiplayer.get_unique_id():
 		load_scene()
 		return
 	var bird := get_node_or_null(str(client_id))
-	if bird == null:
-		return
-	bird.queue_free()               # spawner despawns it on the client
-	await bird.tree_exited          # wait until it's actually gone
-	rpc_id(client_id, "load_scene") # now the client can leave
+	if bird:
+		bird.queue_free()
+		await bird.tree_exited
+	rpc_id(client_id, "load_scene")
+	await get_tree().create_timer(0.3).timeout
+	multiplayer.multiplayer_peer.disconnect_peer(client_id, true)  # force = true
 
 @rpc("authority", "call_local")
 func load_scene() -> void:
+	if not multiplayer.is_server():
+		multiplayer.multiplayer_peer = null  # fully disconnect from the host
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if multiplayer.multiplayer_peer:
+			multiplayer.multiplayer_peer.close()
+
+func _on_server_disconnected() -> void:
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
+
+func peer_disconnected(peer_id: int) -> void:
+	var bird := get_node_or_null(str(peer_id))
+	if bird:
+		bird.queue_free()  # spawner despawns it on the remaining clients
