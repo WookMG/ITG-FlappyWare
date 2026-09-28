@@ -21,18 +21,19 @@ func _ready() -> void:
 	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 	playerNodes.resize(HighLevelNetworkHandler.MAX_PLAYERS)
 	playerIDs.resize(HighLevelNetworkHandler.MAX_PLAYERS)
+	playerIDs.fill(-1)
+	child_exiting_tree.connect(_on_child_exiting_tree)
 
-func peer_disconnected(peer_id: int):
-	var playerNode: LobbyBird
-	for i in playerNodes.size():
-		if playerNodes[i] != null && playerIDs[i] == peer_id:
-			playerNode = playerNodes[i]
-			playerNodes[i] = null
-			playerIDs[i] = -1
-			break
-		
-	if playerNode != null:
-		playerNode.queue_free()
+func _on_child_exiting_tree(node: Node) -> void:
+	var i := playerNodes.find(node)
+	if i != -1:
+		playerNodes[i] = null
+		playerIDs[i] = -1
+
+func peer_disconnected(peer_id: int) -> void:
+	var bird := get_node_or_null(str(peer_id))
+	if bird:
+		bird.queue_free()
 
 func _on_child_entered_tree(node: Node) -> void:
 	var currentNumberOfPlayers: int = 0
@@ -75,21 +76,20 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !multiplayer.is_server():
 		return
 	if body is LobbyBird:
-		change_scene_for_client.call_deferred(body.name.to_int())
+		send_player_to_menu.call_deferred(body.name.to_int())
 
 # On the server
-@rpc("authority", "call_local")
-func change_scene_for_client(client_id: int) -> void:
+func send_player_to_menu(client_id: int) -> void:
 	if client_id == multiplayer.get_unique_id():
 		load_scene()
-	else:
-		rpc_id(client_id, "load_scene")
-	# give the client time to leave before removing its bird on the server
-	await get_tree().create_timer(0.2).timeout
-	peer_disconnected(client_id)
+		return
+	var bird := get_node_or_null(str(client_id))
+	if bird == null:
+		return
+	bird.queue_free()               # spawner despawns it on the client
+	await bird.tree_exited          # wait until it's actually gone
+	rpc_id(client_id, "load_scene") # now the client can leave
 
-# On the client
 @rpc("authority", "call_local")
 func load_scene() -> void:
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
-	queue_free()  # Lobby lives under /root, so the scene change won't remove it
