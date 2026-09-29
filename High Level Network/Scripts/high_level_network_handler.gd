@@ -7,6 +7,10 @@ const MAX_PLAYERS: int = 4
 var peer: ENetMultiplayerPeer
 var connectedPlayerIDs: Array[String]
 
+func _ready() -> void:
+	connectedPlayerIDs.resize(MAX_PLAYERS)
+	connectedPlayerIDs.fill(null)
+
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT, MAX_PLAYERS)

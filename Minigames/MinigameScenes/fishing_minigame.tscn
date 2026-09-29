@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://b8gexl7nt0d0i"]
+[gd_scene format=3 uid="uid://dilgi6rj1vao8"]
+
+[ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
+[ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="3_w1gml"]
 
 [sub_resource type="Gradient" id="Gradient_s3t03"]
 colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
@@ -9,31 +13,35 @@ fill_from = Vector2(0.99130434, 0.82608694)
 fill_to = Vector2(1, 0.20869565)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5ibt"]
-size = Vector2(63.42799, 62.82837)
+size = Vector2(63.999996, 62.82837)
 
-[node name="FishingMinigame" type="Node2D" unique_id=2010992951]
+[node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
+script = ExtResource("1_0tu6p")
 
 [node name="WaterContainer" type="Node2D" parent="." unique_id=1287393606]
 
 [node name="Water" type="Sprite2D" parent="WaterContainer" unique_id=1958359851 groups=["Water"]]
-position = Vector2(967.0001, 898.5)
-scale = Vector2(31.468754, 6.8281245)
+position = Vector2(576, 523.5)
+scale = Vector2(18, 3.859375)
 texture = SubResource("GradientTexture2D_p5ibt")
 
 [node name="Area2D" type="Area2D" parent="WaterContainer/Water" unique_id=949205803]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/Water/Area2D" unique_id=658535785]
-position = Vector2(-0.03178978, 0.2929077)
-scale = Vector2(0.99999976, 1)
 shape = SubResource("RectangleShape2D_p5ibt")
 
-[node name="UI" type="Control" parent="." unique_id=1561526819]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Pipe Container" type="Node2D" parent="." unique_id=958072543]
 
-[node name="Score" type="Control" parent="UI" unique_id=49551147]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Left Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
+position = Vector2(0, 327.00003)
+scale = Vector2(0.605, 0.605)
+
+[node name="Right Pipe" parent="Pipe Container" unique_id=1747971379 instance=ExtResource("1_obtev")]
+position = Vector2(1152, 327)
+scale = Vector2(0.605, 0.605)
+flip_h = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=754341464]
+_spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
+spawn_path = NodePath("..")
+script = ExtResource("3_w1gml")

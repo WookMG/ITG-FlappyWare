@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://r68qg5bkurj6" path="res://Scripts/Lobby/lobby_bird.gd" id="1_4rd5n"]
 [ext_resource type="Texture2D" uid="uid://bdrst7yf0ki6x" path="res://Assets/Sprites/bird.png" id="2_yu38w"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="3_dowtu"]
-[ext_resource type="AudioStream" uid="uid://dsb3v57t021a6" path="res://Assets/Sounds/explosion-42132.mp3" id="4_2levc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2h58u"]
 radius = 11.0
@@ -25,6 +24,12 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("Sprite2D:flip_h")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Flap:pitch_scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Flap:playing")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
 script = ExtResource("1_4rd5n")
@@ -42,10 +47,6 @@ shape = SubResource("CapsuleShape2D_2h58u")
 stream = ExtResource("3_dowtu")
 volume_db = -40.0
 max_polyphony = 10
-
-[node name="LightSmack" type="AudioStreamPlayer" parent="." unique_id=1285371624]
-stream = ExtResource("4_2levc")
-volume_db = -40.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1622495749]
 replication_config = SubResource("SceneReplicationConfig_sseh2")

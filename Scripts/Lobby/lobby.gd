@@ -9,7 +9,6 @@ const PLAYERSCALE: float = 0.5
 
 var defaultPlayerY: float
 var playerNodes: Array[LobbyBird]
-var playerIDs: Array[int]
 
 #Player colors
 var p1Color: Color = Color(1.0, 1.0, 1.0, 1.0) #default color
@@ -19,9 +18,7 @@ var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
 
 func _ready() -> void:
 	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
-	playerNodes.resize(HighLevelNetworkHandler.MAX_PLAYERS)
-	playerIDs.resize(HighLevelNetworkHandler.MAX_PLAYERS)
-	playerIDs.fill(-1)
+	playerNodes.resize(HighLevelNetworkHandler.connectedPlayerIDs.size())
 	
 	if multiplayer.is_server():
 		multiplayer.peer_disconnected.connect(peer_disconnected)
@@ -32,13 +29,14 @@ func _on_child_exiting_tree(node: Node) -> void:
 	var i := playerNodes.find(node)
 	if i != -1:
 		playerNodes[i] = null
-		playerIDs[i] = -1
+		HighLevelNetworkHandler.connectedPlayerIDs[i] = null
 
 func _on_child_entered_tree(node: Node) -> void:
 	var currentNumberOfPlayers: int = 0
 	if node is LobbyBird:
 		#place player in empty slot
-		var slot = -1
+		var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(node.get_multiplayer_authority())
+		
 		for i in playerNodes.size():
 			if playerNodes[i] == null:
 				playerNodes[i] = node
@@ -46,23 +44,36 @@ func _on_child_entered_tree(node: Node) -> void:
 				slot = i
 				break
 		
-		node.scale = node.scale * PLAYERSCALE
-		setBirdLocation(node, slot)
-		#set player color, and pitch
-		if slot == 0:
-			setBirdColor(node, p1Color)
-		elif slot == 1:
-			setBirdColor(node, p2Color)
-			node.find_child("Flap").pitch_scale = 1.5
-		elif slot == 2:
-			setBirdColor(node, p3Color)
-			node.find_child("Flap").pitch_scale = 0.5
-		elif slot == 3:
-			setBirdColor(node, p4Color)
-			node.find_child("Flap").pitch_scale = 0.7
+		setBirdProperties(node, slot)
 
-func setBirdColor(node: LobbyBird, color: Color) -> void:
-	node.find_child("Sprite2D").modulate = color
+func setBirdProperties(node: LobbyBird, slot: int) -> void:
+	assert(slot >= 0 && slot <= 3, "slot \"" + str(slot) + "\"out of bounds (0,3)")
+	node.scale = node.scale * PLAYERSCALE
+	setBirdLocation(node, slot)
+	setBirdColor(node, slot)
+	setBirdPitch(node, slot)
+
+func setBirdPitch(node: LobbyBird, slot: int) -> void:
+	var sound = node.find_child("Flap")
+	if slot == 0:
+		sound.pitch_scale = 1
+	elif slot == 1:
+		sound.pitch_scale = 1.5
+	elif slot == 2:
+		sound.pitch_scale = 0.5
+	elif slot == 3:
+		sound.pitch_scale = 0.7
+
+func setBirdColor(node: LobbyBird, slot: int) -> void:
+	var sprite: Sprite2D = node.find_child("Sprite2D")
+	if slot == 0:
+		sprite.modulate = p1Color
+	elif slot == 1:
+		sprite.modulate = p2Color
+	elif slot == 2:
+		sprite.modulate = p3Color
+	elif slot == 3:
+		sprite.modulate = p4Color
 
 func setBirdLocation(node: LobbyBird, slot: int):
 	var divisionLength: float = get_viewport().get_visible_rect().size.x / 4
@@ -71,11 +82,20 @@ func setBirdLocation(node: LobbyBird, slot: int):
 	node.global_position.x = (slot * divisionLength) - divisionLength/2
 
 #Return Pipe
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _onReturnPipeEntered(body: Node2D) -> void:
 	if !multiplayer.is_server():
 		return
 	if body is LobbyBird:
 		send_player_to_menu.call_deferred(body.name.to_int())
+
+#Start Pipe
+func _onStartPipeEntered(body: Node2D) -> void:
+	if !multiplayer.is_server():
+		return
+	if body is LobbyBird:
+		send_player_to_menu.call_deferred(body.name.to_int())
+
+#func send_players_to_minigame()
 
 func send_player_to_menu(client_id: int) -> void:
 	if client_id == multiplayer.get_unique_id():
