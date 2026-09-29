@@ -8,6 +8,7 @@ const MAX_PLAYERS: int = 4
 
 var peer: ENetMultiplayerPeer
 var connectedPlayerIDs: Array[String]
+var disconnect_reason: String = ""
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -28,6 +29,15 @@ func start_client() -> void:
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(IP_ADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
+	if not multiplayer.server_disconnected.is_connected(_on_server_disconnected):
+		multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+func _on_server_disconnected() -> void:
+	if disconnect_reason == "":
+		disconnect_reason = "Lost connection to the host."
+	multiplayer.multiplayer_peer = null
+	connectedPlayerIDs.fill(str(null))
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
 func addPlayerID(id: String) -> void:
 	if !multiplayer.is_server():
@@ -56,3 +66,10 @@ func _server_update_ids() -> void:
 func sync_player_ids(ids: Array) -> void:
 	connectedPlayerIDs.assign(ids)
 	playerIDsUpdated.emit()
+
+@rpc("authority", "call_remote", "reliable")
+func server_closing() -> void:
+	disconnect_reason = "The host closed the game."
+	multiplayer.multiplayer_peer = null
+	connectedPlayerIDs.fill(str(null))
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")

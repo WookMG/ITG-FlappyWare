@@ -135,6 +135,7 @@ func _notification(what: int) -> void:
 			multiplayer.multiplayer_peer.close()
 
 func on_server_disconnected() -> void:
+	print("server_disconnected")
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dvaeefi471jp8"]
 
+[ext_resource type="Script" uid="uid://cjhq6crs75n61" path="res://Scripts/main.gd" id="1_h1bgf"]
 [ext_resource type="Script" uid="uid://cux2yrdrh6o3o" path="res://Scripts/sprite_scroll_container.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cgbrvf7aqdb44" path="res://Scripts/DeathPlane.gd" id="2_6bp64"]
 [ext_resource type="Texture2D" uid="uid://d06jombdic35a" path="res://Assets/Sprites/pngtree-grass-texture-with-simple-soil-and-stone-vector-png-image_6627616.png" id="2_bo1nx"]
@@ -28,6 +29,7 @@ height = 24.0
 size = Vector2(1930, 31)
 
 [node name="Main" type="Node2D" unique_id=1565796084]
+script = ExtResource("1_h1bgf")
 
 [node name="FloorContainer" type="Node2D" parent="." unique_id=1133145047]
 position = Vector2(0, 622)
@@ -184,5 +186,7 @@ z_index = -10
 position = Vector2(3581, 371)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_k12tt")
+
+[node name="DisconnectDialog" type="AcceptDialog" parent="." unique_id=707426210]
 
 [connection signal="timeout" from="PipeManager/SpawnPipe" to="PipeManager" method="_on_spawn_pipe_timeout"]

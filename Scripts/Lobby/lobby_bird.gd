@@ -12,6 +12,7 @@ var isOnFloor = false
 var isFacingLeft = false
 var lastVelocity: Vector2
 var idle = true
+var faded = false
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return #Multiplayer Shizzy
@@ -36,18 +37,14 @@ func _physics_process(delta: float) -> void:
 		if is_on_ceiling() && velocity.y < 0:
 			velocity.y = -velocity.y
 		
-		# Handle jump.
 		if Input.is_action_just_pressed("Jump"):
 			jump()
 		
-		## Handle movement.
-		#if Input.is_action_pressed("Alternate Action"):
-			#move()
-		#else:
-			#deccelerate()
-		
 		$Sprite2D.rotation = speed_to_rotation(velocity.y)
-		fade_controlls_ui_for_self(delta)
+		
+		if !faded:
+			fade_controlls_ui_for_self(delta)
+		
 		lastVelocity = velocity
 		move_and_slide()
 
@@ -106,6 +103,7 @@ func fade_controlls_ui(delta: float) -> void:
 		$"Controlls Display/RichTextLabel".modulate.a -= UI_FADE * delta
 		if $"Controlls Display/RichTextLabel".modulate.a < 0:
 			$"Controlls Display/RichTextLabel".modulate.a = 0
+			faded = true
 
 # Client side functions
 func show_ui_to_self() -> void:
