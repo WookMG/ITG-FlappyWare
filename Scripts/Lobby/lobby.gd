@@ -8,7 +8,6 @@ var main = preload("res://Scenes/main.tscn")
 const PLAYERSCALE: float = 0.5
 
 var defaultPlayerY: float
-var playerNodes: Array[LobbyBird]
 
 #Player colors
 var p1Color: Color = Color(1.0, 1.0, 1.0, 1.0) #default color
@@ -16,33 +15,28 @@ var p2Color: Color = Color(1.0, 0.323, 0.361, 1.0)
 var p3Color: Color = Color(0.42, 0.963, 0.444, 1.0)
 var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
 
+var playerNodes: Array[LobbyBird] # HighLevelNetworkHandler.connectedPlayerIDs are the connected player IDs
+
 func _ready() -> void:
-	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 	playerNodes.resize(HighLevelNetworkHandler.connectedPlayerIDs.size())
+	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 	
 	if multiplayer.is_server():
 		multiplayer.peer_disconnected.connect(peer_disconnected)
 	else: 
 		multiplayer.server_disconnected.connect(on_server_disconnected)
+	
+	HighLevelNetworkHandler.clientConnected.connect(_clientConnected)
 
-func _on_child_exiting_tree(node: Node) -> void:
-	var i := playerNodes.find(node)
-	if i != -1:
-		playerNodes[i] = null
-		HighLevelNetworkHandler.connectedPlayerIDs[i] = null
+func _clientConnected(client_id: int) -> void:
+	print("client connected: " + str(client_id))
 
 func _on_child_entered_tree(node: Node) -> void:
-	var currentNumberOfPlayers: int = 0
 	if node is LobbyBird:
-		#place player in empty slot
-		var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(node.get_multiplayer_authority())
+		print("get unique id: "+str(node.get_tree().get_multiplayer().multiplayer_peer.), HighLevelNetworkHandler.connectedPlayerIDs)
+		var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.get_tree().get_multiplayer().get_unique_id()))
 		
-		for i in playerNodes.size():
-			if playerNodes[i] == null:
-				playerNodes[i] = node
-				playerIDs[i] = node.get_multiplayer_authority()
-				slot = i
-				break
+		playerNodes[slot] = node
 		
 		setBirdProperties(node, slot)
 
@@ -82,11 +76,11 @@ func setBirdLocation(node: LobbyBird, slot: int):
 	node.global_position.x = (slot * divisionLength) - divisionLength/2
 
 #Return Pipe
-func _onReturnPipeEntered(body: Node2D) -> void:
+func _onReturnPipeEntered(node: Node2D) -> void:
 	if !multiplayer.is_server():
 		return
-	if body is LobbyBird:
-		send_player_to_menu.call_deferred(body.name.to_int())
+	if node is LobbyBird:
+		send_player_to_menu(multiplayer.get_unique_id())
 
 #Start Pipe
 func _onStartPipeEntered(body: Node2D) -> void:
@@ -95,7 +89,8 @@ func _onStartPipeEntered(body: Node2D) -> void:
 	if body is LobbyBird:
 		send_player_to_menu.call_deferred(body.name.to_int())
 
-#func send_players_to_minigame()
+func send_players_to_minigame() -> void:
+	pass
 
 func send_player_to_menu(client_id: int) -> void:
 	if client_id == multiplayer.get_unique_id():
@@ -126,6 +121,8 @@ func on_server_disconnected() -> void:
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
 func peer_disconnected(peer_id: int) -> void:
-	var bird := get_node_or_null(str(peer_id))
-	if bird:
-		bird.queue_free()  # spawner despawns it on the remaining clients
+	var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(peer_id)
+	var node = playerNodes[slot]
+	HighLevelNetworkHandler.connectedPlayerIDs[slot] = str(null)
+	playerNodes[slot] = null
+	node.queue_free()
