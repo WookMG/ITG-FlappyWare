@@ -32,7 +32,12 @@ shape = SubResource("RectangleShape2D_p5ibt")
 
 [node name="Pipe Container" type="Node2D" parent="." unique_id=958072543]
 
-[node name="Left Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
+[node name="Top Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
+position = Vector2(576, -53.999996)
+rotation = 1.5707964
+scale = Vector2(0.605, 2)
+
+[node name="Left Pipe" parent="Pipe Container" unique_id=271671154 instance=ExtResource("1_obtev")]
 position = Vector2(0, 327.00003)
 scale = Vector2(0.605, 0.605)
 
@@ -41,7 +46,25 @@ position = Vector2(1152, 327)
 scale = Vector2(0.605, 0.605)
 flip_h = true
 
+[node name="Start Positions" type="Node2D" parent="." unique_id=875210092]
+
+[node name="p1pos" type="Marker2D" parent="Start Positions" unique_id=11732697]
+position = Vector2(230, 200)
+
+[node name="p2pos" type="Marker2D" parent="Start Positions" unique_id=1723500164]
+position = Vector2(460, 200)
+
+[node name="p3pos" type="Marker2D" parent="Start Positions" unique_id=1644022096]
+position = Vector2(690, 200)
+
+[node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
+position = Vector2(920, 200)
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=754341464]
 _spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
 spawn_path = NodePath("..")
 script = ExtResource("3_w1gml")
+network_player = null
+
+[connection signal="body_entered" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bquswloae3qde"]
 
+[ext_resource type="Script" uid="uid://cot0h3s658qdo" path="res://Minigames/MinigameScripts/fishing_bird.gd" id="1_6bann"]
 [ext_resource type="Texture2D" uid="uid://bdrst7yf0ki6x" path="res://Assets/Sprites/bird.png" id="1_qlwxo"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="2_6bann"]
-[ext_resource type="AudioStream" uid="uid://dsb3v57t021a6" path="res://Assets/Sounds/explosion-42132.mp3" id="3_xqy6l"]
+[ext_resource type="AudioStream" uid="uid://p40x3muqta7p" path="res://Assets/Sounds/deepsplash.mp3" id="4_6bann"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p8vbe"]
 radius = 11.0
@@ -24,8 +25,18 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("Sprite2D:flip_h")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Flap:playing")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Deepsplash:playing")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Flap:pitch_scale")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Fishing Bird" type="CharacterBody2D" unique_id=1775137831]
+script = ExtResource("1_6bann")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2065362156]
 scale = Vector2(0.15, 0.15)
@@ -41,9 +52,8 @@ stream = ExtResource("2_6bann")
 volume_db = -40.0
 max_polyphony = 10
 
-[node name="LightSmack" type="AudioStreamPlayer" parent="." unique_id=375956156]
-stream = ExtResource("3_xqy6l")
-volume_db = -40.0
+[node name="Deepsplash" type="AudioStreamPlayer" parent="." unique_id=1998003083]
+stream = ExtResource("4_6bann")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1319561853]
 replication_config = SubResource("SceneReplicationConfig_bk2tg")
@@ -69,7 +79,6 @@ offset_bottom = -74.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "LMB/Space = Jump
-RMB/Shift = Move"
+text = "Space = Jump"
 horizontal_alignment = 1
 vertical_alignment = 1

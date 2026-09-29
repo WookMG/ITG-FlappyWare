@@ -1,19 +1,15 @@
 extends Node2D
 
 var main = preload("res://Scenes/main.tscn")
+var fishingMinigame = preload("res://Minigames/MinigameScenes/fishing_minigame.tscn")
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var pipe_container: Node2D = $"Pipe Container"
 
 const PLAYERSCALE: float = 0.5
-
 var defaultPlayerY: float
+var starting := false
 
-#Player colors
-var p1Color: Color = Color(1.0, 1.0, 1.0, 1.0) #default color
-var p2Color: Color = Color(1.0, 0.323, 0.361, 1.0)
-var p3Color: Color = Color(0.42, 0.963, 0.444, 1.0)
-var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
 
 var playerNodes: Array[LobbyBird] # HighLevelNetworkHandler.connectedPlayerIDs are the connected player IDs
 
@@ -23,10 +19,26 @@ func _ready() -> void:
 	
 	if multiplayer.is_server():
 		multiplayer.peer_disconnected.connect(peer_disconnected)
-	else: 
-		multiplayer.server_disconnected.connect(on_server_disconnected)
+		_spawn_returning_players()
+	else:
+		HighLevelNetworkHandler.client_loaded.rpc_id(1)
 	
 	multiplayer.connected_to_server.connect(_clientConnected)
+
+# lobby.gd
+func _spawn_returning_players() -> void:
+	var waited := 0.0
+	while waited < 10.0:
+		var all_loaded := true
+		for id in multiplayer.get_peers():
+			if !HighLevelNetworkHandler.loaded_peers.has(id):
+				all_loaded = false
+				break
+		if all_loaded:
+			break
+		await get_tree().process_frame
+		waited += get_process_delta_time()
+	multiplayer_spawner.spawn_existing_players()
 
 func _clientConnected() -> void:
 	#print("client connected")
@@ -67,13 +79,13 @@ func setBirdPitch(node: LobbyBird, slot: int) -> void:
 func setBirdColor(node: LobbyBird, slot: int) -> void:
 	var sprite: Sprite2D = node.find_child("Sprite2D")
 	if slot == 0:
-		sprite.modulate = p1Color
+		sprite.modulate = Global.p1Color
 	elif slot == 1:
-		sprite.modulate = p2Color
+		sprite.modulate = Global.p2Color
 	elif slot == 2:
-		sprite.modulate = p3Color
+		sprite.modulate = Global.p3Color
 	elif slot == 3:
-		sprite.modulate = p4Color
+		sprite.modulate = Global.p4Color
 
 func setBirdLocation(node: LobbyBird, slot: int):
 	var divisionLength: float = get_viewport().get_visible_rect().size.x / 4
@@ -93,13 +105,12 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 
 #Start Pipe
 func _onStartPipeEntered(body: Node2D) -> void:
-	if !multiplayer.is_server():
+	var i = randi_range(0,0) #change range when more games added
+	if !multiplayer.is_server() || starting:
 		return
 	if body is LobbyBird:
-		send_player_to_menu.call_deferred(body.name.to_int())
-
-func send_players_to_minigame() -> void:
-	pass
+		starting = true  # several birds can touch the pipe in the same frame
+		HighLevelNetworkHandler.start_minigame.call_deferred("res://Minigames/MinigameScenes/fishing_minigame.tscn")
 
 func send_player_to_menu(client_id: int) -> void:
 	if !multiplayer.is_server() || client_id == multiplayer.get_unique_id():
