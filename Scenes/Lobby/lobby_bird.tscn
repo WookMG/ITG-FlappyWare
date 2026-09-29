@@ -72,7 +72,6 @@ offset_bottom = -74.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "LMB/Space = Jump
-RMB/Shift = Move"
+text = "LMB/Space = Jump"
 horizontal_alignment = 1
 vertical_alignment = 1

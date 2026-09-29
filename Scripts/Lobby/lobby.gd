@@ -18,7 +18,7 @@ var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
 var playerNodes: Array[LobbyBird] # HighLevelNetworkHandler.connectedPlayerIDs are the connected player IDs
 
 func _ready() -> void:
-	playerNodes.resize(HighLevelNetworkHandler.connectedPlayerIDs.size())
+	playerNodes.resize(4)
 	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 	
 	if multiplayer.is_server():
@@ -26,19 +26,23 @@ func _ready() -> void:
 	else: 
 		multiplayer.server_disconnected.connect(on_server_disconnected)
 	
-	HighLevelNetworkHandler.clientConnected.connect(_clientConnected)
+	multiplayer.connected_to_server.connect(_clientConnected)
 
-func _clientConnected(client_id: int) -> void:
-	print("client connected: " + str(client_id))
+func _clientConnected() -> void:
+	#print("client connected")
+	pass
 
 func _on_child_entered_tree(node: Node) -> void:
-	if node is LobbyBird:
-		print("get unique id: "+str(node.get_tree().get_multiplayer().multiplayer_peer.), HighLevelNetworkHandler.connectedPlayerIDs)
-		var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.get_tree().get_multiplayer().get_unique_id()))
-		
-		playerNodes[slot] = node
-		
-		setBirdProperties(node, slot)
+	if node is not LobbyBird:
+		return
+	var slot := HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.name))
+	while slot == -1:
+		await HighLevelNetworkHandler.playerIDsUpdated
+		if not is_instance_valid(node):
+			return  # bird was freed while waiting
+		slot = HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.name))
+	playerNodes[slot] = node
+	setBirdProperties(node, slot)
 
 func setBirdProperties(node: LobbyBird, slot: int) -> void:
 	assert(slot >= 0 && slot <= 3, "slot \"" + str(slot) + "\"out of bounds (0,3)")
@@ -46,6 +50,7 @@ func setBirdProperties(node: LobbyBird, slot: int) -> void:
 	setBirdLocation(node, slot)
 	setBirdColor(node, slot)
 	setBirdPitch(node, slot)
+	#print("properties set")
 
 func setBirdPitch(node: LobbyBird, slot: int) -> void:
 	var sound = node.find_child("Flap")
@@ -57,6 +62,7 @@ func setBirdPitch(node: LobbyBird, slot: int) -> void:
 		sound.pitch_scale = 0.5
 	elif slot == 3:
 		sound.pitch_scale = 0.7
+	
 
 func setBirdColor(node: LobbyBird, slot: int) -> void:
 	var sprite: Sprite2D = node.find_child("Sprite2D")
@@ -76,11 +82,14 @@ func setBirdLocation(node: LobbyBird, slot: int):
 	node.global_position.x = (slot * divisionLength) - divisionLength/2
 
 #Return Pipe
-func _onReturnPipeEntered(node: Node2D) -> void:
+func _onReturnPipeEntered(body: Node2D) -> void:
 	if !multiplayer.is_server():
 		return
-	if node is LobbyBird:
-		send_player_to_menu(multiplayer.get_unique_id())
+	if body is LobbyBird:
+		var id := body.name.to_int()
+		if id == multiplayer.get_unique_id():
+			return  # the host never leaves the lobby
+		send_player_to_menu.call_deferred(id)
 
 #Start Pipe
 func _onStartPipeEntered(body: Node2D) -> void:
@@ -93,21 +102,30 @@ func send_players_to_minigame() -> void:
 	pass
 
 func send_player_to_menu(client_id: int) -> void:
-	if client_id == multiplayer.get_unique_id():
-		load_scene()
+	if !multiplayer.is_server() || client_id == multiplayer.get_unique_id():
 		return
+	if !multiplayer.get_peers().has(client_id):
+		return
+
+	# free the slot right away, don't wait for peer_disconnected
+	var slot := HighLevelNetworkHandler.connectedPlayerIDs.find(str(client_id))
+	if slot != -1:
+		playerNodes[slot] = null
+	HighLevelNetworkHandler.removePlayerID(str(client_id))
+
 	var player := get_node_or_null(str(client_id))
 	if player:
 		player.queue_free()
 		await player.tree_exited
-	rpc_id(client_id, "load_scene")
+	load_scene.rpc_id(client_id)
 	await get_tree().create_timer(0.3).timeout
-	multiplayer.multiplayer_peer.disconnect_peer(client_id, true)
+	if multiplayer.get_peers().has(client_id):
+		multiplayer.multiplayer_peer.disconnect_peer(client_id, true)
 
-@rpc("authority", "call_local")
+@rpc("authority", "call_remote", "reliable")
 func load_scene() -> void:
-	if !multiplayer.is_server():
-		multiplayer.multiplayer_peer = null  # fully disconnect from the host
+	HighLevelNetworkHandler.peer.close()
+	multiplayer.multiplayer_peer = null  # only ever runs on clients now
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
 # disconnect player if they clsoe their window
@@ -121,8 +139,10 @@ func on_server_disconnected() -> void:
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
 func peer_disconnected(peer_id: int) -> void:
-	var slot = HighLevelNetworkHandler.connectedPlayerIDs.find(peer_id)
-	var node = playerNodes[slot]
-	HighLevelNetworkHandler.connectedPlayerIDs[slot] = str(null)
-	playerNodes[slot] = null
-	node.queue_free()
+	var bird := get_node_or_null(str(peer_id))
+	if bird == null:
+		return
+	var idx := playerNodes.find(bird)
+	if idx != -1:
+		playerNodes[idx] = null
+	bird.queue_free()

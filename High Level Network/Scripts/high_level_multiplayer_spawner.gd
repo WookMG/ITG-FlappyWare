@@ -8,11 +8,7 @@ func _ready() -> void:
 func spawn_player(id: int) -> void:
 	if !multiplayer.is_server(): return
 	
-	for i in HighLevelNetworkHandler.connectedPlayerIDs.size():
-		if HighLevelNetworkHandler.connectedPlayerIDs[i] == str(null):
-			HighLevelNetworkHandler.connectedPlayerIDs[i] = str(id)
-			print("player id: "+ str(id))
-			break
+	HighLevelNetworkHandler.addPlayerID(str(id))
 	
 	var player: Node = network_player.instantiate()
 	player.name = str(id)

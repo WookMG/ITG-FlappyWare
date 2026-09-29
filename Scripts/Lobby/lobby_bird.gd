@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const JUMP_VELOCITY = -1000
 const HORIZONTAL_ACCELERATION: float = 20
-const HORIZONTAL_DECCELERATION: float = -25
+const HORIZONTAL_DECCELERATION: float = -50
 const MAX_HORIZONTAL_SPEED: float = 1500
 const WALL_ABSORBTION: float = 2.5
 const UI_FADE: float = 1.0
@@ -18,15 +18,17 @@ func _physics_process(delta: float) -> void:
 	
 	if idle:
 		show_ui_to_self()
-		if Input.is_action_just_pressed("Jump") || Input.is_action_just_pressed("Alternate Action"):
+		if Input.is_action_just_pressed("Jump"):
 			jump()
 			position.y += 5*sin(Time.get_ticks_msec()/100.0)
 			idle = false
 	else:
 		if !is_on_floor():
 			velocity += get_gravity() * delta
+			move()
 		else:
 			velocity.y = 0
+			deccelerate()
 		
 		if is_on_wall():
 			bouce()
@@ -38,11 +40,11 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Jump"):
 			jump()
 		
-		# Handle movement.
-		if Input.is_action_pressed("Alternate Action"):
-			move()
-		else:
-			deccelerate()
+		## Handle movement.
+		#if Input.is_action_pressed("Alternate Action"):
+			#move()
+		#else:
+			#deccelerate()
 		
 		$Sprite2D.rotation = speed_to_rotation(velocity.y)
 		fade_controlls_ui_for_self(delta)
