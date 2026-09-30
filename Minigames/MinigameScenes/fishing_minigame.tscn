@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
+[ext_resource type="PackedScene" uid="uid://bquswloae3qde" path="res://Minigames/MinigameScenes/fishing_bird.tscn" id="2_ca6xi"]
 
 [sub_resource type="Gradient" id="Gradient_s3t03"]
 colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
@@ -16,6 +17,7 @@ size = Vector2(63.999996, 62.82837)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
+player_scene = ExtResource("2_ca6xi")
 
 [node name="WaterContainer" type="Node2D" parent="." unique_id=1287393606]
 

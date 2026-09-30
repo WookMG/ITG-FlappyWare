@@ -79,12 +79,7 @@ func server_closing() -> void:
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
 func start_minigame(path: String) -> void:
-	if !multiplayer.is_server():
-		return
-	peer.refuse_new_connections = true 
-	#^ Set it back to false when you return to the lobby, or players can never join again
-	loaded_peers.clear()
-	load_minigame.rpc(path)
+	switch_minigame(path)
 
 @rpc("authority", "call_local", "reliable")
 func load_minigame(path: String) -> void:
@@ -103,3 +98,13 @@ func return_to_lobby() -> void: #
 	peer.refuse_new_connections = false
 	loaded_peers.clear()
 	load_minigame.rpc("res://Scenes/lobby.tscn")
+
+func switch_minigame(path: String) -> void:
+	if !multiplayer.is_server():
+		return
+	if !ResourceLoader.exists(path):
+		push_error("switch_minigame: no scene at " + path)
+		return
+	peer.refuse_new_connections = true
+	loaded_peers.clear()  # clients re-send client_loaded in the next scene
+	load_minigame.rpc(path)
