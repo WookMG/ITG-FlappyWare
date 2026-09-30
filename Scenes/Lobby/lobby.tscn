@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
 [ext_resource type="Script" uid="uid://g280n24vme37" path="res://Scripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
 [ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="5_dx3ka"]
+[ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="6_qr1ks"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_830bo"]
@@ -14,6 +15,9 @@ size = Vector2(278.9313, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lquo"]
 size = Vector2(278.91534, 105.64282)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
+size = Vector2(66, 493)
 
 [node name="Lobby" type="Node2D" unique_id=465588410]
 script = ExtResource("1_7mxwi")
@@ -23,15 +27,16 @@ position = Vector2(576, 324)
 texture = ExtResource("2_33c4u")
 
 [node name="Pipe Container" type="Node2D" parent="." unique_id=1255261386]
+visible = false
 
 [node name="Go Back Pipe" type="Sprite2D" parent="Pipe Container" unique_id=2059497906]
-visible = false
 position = Vector2(-185.99997, 133.00005)
 rotation = 1.5707964
 scale = Vector2(0.38004372, 0.473293)
 texture = ExtResource("5_dx3ka")
 
 [node name="Area2D" type="Area2D" parent="Pipe Container/Go Back Pipe" unique_id=1267229261]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Go Back Pipe/Area2D" unique_id=235723266]
 position = Vector2(0, -530)
@@ -80,6 +85,7 @@ scale = Vector2(0.9999998, 0.99999976)
 shape = SubResource("RectangleShape2D_2lquo")
 
 [node name="Area2D" type="Area2D" parent="Pipe Container/Start Pipe" unique_id=1761213603]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Start Pipe/Area2D" unique_id=22908956]
 position = Vector2(0, -530)
@@ -133,8 +139,31 @@ script = ExtResource("5_7sbsm")
 
 [node name="pipe_timer" type="Timer" parent="Pipe Container/Pipe Spawner" unique_id=1970392106]
 wait_time = 15.0
+autostart = true
 
 [node name="pipe_set" type="Node2D" parent="Pipe Container/Pipe Spawner" unique_id=1854488686]
+position = Vector2(1939, 299)
+
+[node name="toppipe" type="StaticBody2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=111807580]
+position = Vector2(0, 325)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipe Container/Pipe Spawner/pipe_set/toppipe" unique_id=504574211]
+texture = ExtResource("6_qr1ks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Pipe Spawner/pipe_set/toppipe" unique_id=1170137786]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_ilm2e")
+
+[node name="bottompipe" type="StaticBody2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=1484244717]
+position = Vector2(0, -325)
+rotation = 3.1415927
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipe Container/Pipe Spawner/pipe_set/bottompipe" unique_id=665392561]
+texture = ExtResource("6_qr1ks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Pipe Spawner/pipe_set/bottompipe" unique_id=1205138749]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_ilm2e")
 
 [node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("1_62igp")]
 offset_left = 9.0
@@ -142,7 +171,7 @@ offset_top = 10.0
 offset_right = 9.0
 offset_bottom = 10.0
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
+[node name="MultiplayerPlayers" type="MultiplayerSpawner" parent="." unique_id=121295150]
 _spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
 spawn_path = NodePath("..")
 script = ExtResource("2_7mxwi")

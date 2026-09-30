@@ -3,7 +3,7 @@ extends Node2D
 var main = preload("res://Scenes/main.tscn")
 var fishingMinigame = preload("res://Minigames/MinigameScenes/fishing_minigame.tscn")
 
-@onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
+@onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerPlayers
 @onready var pipe_container: Node2D = $"Pipe Container"
 
 const PLAYERSCALE: float = 0.5
