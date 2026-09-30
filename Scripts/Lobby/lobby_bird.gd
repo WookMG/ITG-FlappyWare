@@ -86,7 +86,6 @@ func speed_to_rotation(speed):
 	var rot = deg_to_rad(speed/22)
 	if rot > 1.50:
 			rot = 1.50
-	print(rot)
 	return rot if !isFacingLeft else rot * -1
 
 #Multiplayer Shizzy

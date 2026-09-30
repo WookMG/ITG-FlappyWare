@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
 [ext_resource type="PackedScene" uid="uid://bquswloae3qde" path="res://Minigames/MinigameScenes/fishing_bird.tscn" id="2_ca6xi"]
+[ext_resource type="Texture2D" uid="uid://bm3p5227cxnmm" path="res://Assets/Sprites/sunspeed.png" id="4_smypx"]
+[ext_resource type="Texture2D" uid="uid://cnk76v06pmv8b" path="res://Assets/Sprites/sunrays.png" id="5_2gqw6"]
+[ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="6_2gqw6"]
 
 [sub_resource type="Gradient" id="Gradient_s3t03"]
 colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
@@ -13,39 +16,48 @@ fill_from = Vector2(0.99130434, 0.82608694)
 fill_to = Vector2(1, 0.20869565)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5ibt"]
-size = Vector2(63.999996, 62.82837)
+size = Vector2(57.444443, 63.673286)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
 player_scene = ExtResource("2_ca6xi")
 
+[node name="Background" type="Sprite2D" parent="." unique_id=549917755]
+position = Vector2(576, 324)
+texture = ExtResource("6_2gqw6")
+
 [node name="WaterContainer" type="Node2D" parent="." unique_id=1287393606]
 
 [node name="Water" type="Sprite2D" parent="WaterContainer" unique_id=1958359851 groups=["Water"]]
-position = Vector2(576, 523.5)
-scale = Vector2(18, 3.859375)
+position = Vector2(576, 523)
+scale = Vector2(16.15625, 3.8749995)
 texture = SubResource("GradientTexture2D_p5ibt")
 
-[node name="Area2D" type="Area2D" parent="WaterContainer/Water" unique_id=949205803]
+[node name="Area2D" type="Area2D" parent="WaterContainer" unique_id=949205803]
+position = Vector2(576, 523.5)
+scale = Vector2(18, 3.859375)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/Water/Area2D" unique_id=658535785]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/Area2D" unique_id=658535785]
+position = Vector2(0, -0.42245483)
 shape = SubResource("RectangleShape2D_p5ibt")
 
 [node name="Pipe Container" type="Node2D" parent="." unique_id=958072543]
 
 [node name="Top Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
+visible = false
 position = Vector2(576, -53.999996)
 rotation = 1.5707964
 scale = Vector2(0.605, 2)
 
 [node name="Left Pipe" parent="Pipe Container" unique_id=271671154 instance=ExtResource("1_obtev")]
+visible = false
 position = Vector2(0, 327.00003)
 scale = Vector2(0.605, 0.605)
 
 [node name="Right Pipe" parent="Pipe Container" unique_id=1747971379 instance=ExtResource("1_obtev")]
+visible = false
 position = Vector2(1152, 327)
 scale = Vector2(0.605, 0.605)
-flip_h = true
 
 [node name="Start Positions" type="Node2D" parent="." unique_id=875210092]
 
@@ -64,5 +76,24 @@ position = Vector2(920, 200)
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=911495604]
 spawn_path = NodePath("..")
 
-[connection signal="body_entered" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="Sun Container" type="Node2D" parent="." unique_id=1649224060]
+
+[node name="Start Position" type="Marker2D" parent="Sun Container" unique_id=30010527]
+position = Vector2(959, 159)
+
+[node name="Rays1" type="Sprite2D" parent="Sun Container" unique_id=605971670]
+position = Vector2(2.9999974, -8.000002)
+scale = Vector2(0.965, 0.965)
+texture = ExtResource("5_2gqw6")
+
+[node name="Rays2" type="Sprite2D" parent="Sun Container" unique_id=1115986163]
+position = Vector2(1.8949962, -11.720003)
+rotation = 0.7853982
+scale = Vector2(0.93122494, 0.93122494)
+texture = ExtResource("5_2gqw6")
+
+[node name="Sun" type="Sprite2D" parent="Sun Container" unique_id=279710865]
+texture = ExtResource("4_smypx")
+
+[connection signal="body_entered" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_exited"]
