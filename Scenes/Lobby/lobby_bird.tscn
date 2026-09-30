@@ -29,7 +29,7 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 properties/6/path = NodePath("Flap:playing")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 
 [node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
 script = ExtResource("1_4rd5n")

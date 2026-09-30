@@ -2,9 +2,9 @@ class_name LobbyBird
 extends CharacterBody2D
 
 const JUMP_VELOCITY = -1000
-const HORIZONTAL_ACCELERATION: float = 20
-const HORIZONTAL_DECCELERATION: float = -50
-const MAX_HORIZONTAL_SPEED: float = 1500
+const HORIZONTAL_ACCELERATION: float = 10
+const HORIZONTAL_DECCELERATION: float = -25
+const MAX_HORIZONTAL_SPEED: float = 500
 const WALL_ABSORBTION: float = 2.5
 const UI_FADE: float = 1.0
 
@@ -30,13 +30,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.y = 0
 			deccelerate()
-		
+			
 		if is_on_wall():
 			bouce()
-		
+			
 		if is_on_ceiling() && velocity.y < 0:
 			velocity.y = -velocity.y
-		
+			
 		if Input.is_action_just_pressed("Jump"):
 			jump()
 		
@@ -86,7 +86,8 @@ func speed_to_rotation(speed):
 	var rot = deg_to_rad(speed/22)
 	if rot > 1.50:
 			rot = 1.50
-	return rot
+	print(rot)
+	return rot if !isFacingLeft else rot * -1
 
 #Multiplayer Shizzy
 func _enter_tree() -> void:
