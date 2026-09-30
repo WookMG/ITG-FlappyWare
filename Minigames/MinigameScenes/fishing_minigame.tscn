@@ -28,6 +28,7 @@ size = Vector2(57.444443, 63.673286)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
+minWait = 1.5
 player_scene = ExtResource("2_ca6xi")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=549917755]
@@ -70,16 +71,16 @@ scale = Vector2(0.605, 0.605)
 [node name="Start Positions" type="Node2D" parent="." unique_id=875210092]
 
 [node name="p1pos" type="Marker2D" parent="Start Positions" unique_id=11732697]
-position = Vector2(230, 200)
+position = Vector2(230, 385)
 
 [node name="p2pos" type="Marker2D" parent="Start Positions" unique_id=1723500164]
-position = Vector2(460, 200)
+position = Vector2(460, 385)
 
 [node name="p3pos" type="Marker2D" parent="Start Positions" unique_id=1644022096]
-position = Vector2(690, 200)
+position = Vector2(690, 385)
 
 [node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
-position = Vector2(920, 200)
+position = Vector2(920, 385)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=911495604]
 spawn_path = NodePath("..")
@@ -301,9 +302,16 @@ shape = SubResource("CircleShape2D_j8fmd")
 [node name="Start Position" type="Marker2D" parent="Fish Container/P4 Fish" unique_id=38156207]
 position = Vector2(920, 700)
 
+[node name="Time Before Fish" type="Timer" parent="." unique_id=749612453]
+one_shot = true
+
+[node name="Game Switch Time" type="Timer" parent="Time Before Fish" unique_id=607595390]
+
 [connection signal="body_entered" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Fish Container/P1 Fish/Area2D" to="." method="_p1FishTouched"]
 [connection signal="body_entered" from="Fish Container/P2 Fish/Area2D" to="." method="_p2FishTouched"]
 [connection signal="body_entered" from="Fish Container/P3 Fish/Area2D" to="." method="_p3FishTouched"]
 [connection signal="body_entered" from="Fish Container/P4 Fish/Area2D" to="." method="_p4FishTouched"]
+[connection signal="timeout" from="Time Before Fish" to="." method="_catchTimerExpire"]
+[connection signal="timeout" from="Time Before Fish/Game Switch Time" to="." method="_gameSwitchTimerExpire"]

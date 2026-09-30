@@ -60,6 +60,8 @@ func _spawn_when_ready() -> void:
 		if id != HighLevelNetworkHandler.EMPTY_SLOT and multiplayer.get_peers().has(id.to_int()):
 			spawner.spawn({"id": id.to_int(), "slot": slot})
 
+	_on_all_players_loaded()
+
 
 # Runs on every peer with the same data, so every peer builds identical players.
 func _spawn_player(data: Dictionary) -> Node:
@@ -124,4 +126,10 @@ func _on_player_created(_player: Node2D, _data: Dictionary) -> void:
 
 ## Runs on the server after a player's node is freed.
 func _on_player_left(_peer_id: int) -> void:
+	pass
+
+## Runs on the server once every client has loaded the scene (or the timeout
+## hit) and spawning has been requested. Safe point to start server-driven
+## things that RPC to clients.
+func _on_all_players_loaded() -> void:
 	pass

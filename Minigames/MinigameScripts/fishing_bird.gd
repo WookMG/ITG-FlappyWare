@@ -7,7 +7,7 @@ const BUOYANCY: float = 90
 const AERODYNAMICS: float = 0.6
 
 var isOnFloor = false
-var idle = true
+#var idle = true
 var faded = false
 var inWater = false
 
@@ -18,12 +18,12 @@ func _enter_tree() -> void:
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return #Multiplayer Shizzy
 	
-	if idle:
-		show_ui_to_self()
-		if Input.is_action_just_pressed("Jump"):
-			jump()
-			position.y += 5*sin(Time.get_ticks_msec()/100.0)
-			idle = false
+	#if idle:
+		#show_ui_to_self()
+		#if Input.is_action_just_pressed("Jump"):
+			#jump()
+			#position.y += 5*sin(Time.get_ticks_msec()/100.0)
+			#idle = false
 	else:
 		if !is_on_floor():
 			velocity += get_gravity() * delta

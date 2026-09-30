@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dulubunvwfmi6"]
+
+[ext_resource type="Texture2D" uid="uid://b6csbo8r6nrqn" path="res://Assets/Sprites/Mystery Box/blue.png" id="1_q4mxm"]
+[ext_resource type="Script" uid="uid://d1bs1l1u87dq" path="res://Scripts/mystery_box.gd" id="1_rxf3s"]
+[ext_resource type="Texture2D" uid="uid://w4ndxlhcplei" path="res://Assets/Sprites/Mystery Box/yellow.png" id="2_rxf3s"]
+[ext_resource type="Texture2D" uid="uid://bdpo6rnnakykr" path="res://Assets/Sprites/Mystery Box/pink.png" id="3_7nr3w"]
+[ext_resource type="Texture2D" uid="uid://b4qnvr5bp8axk" path="res://Assets/Sprites/Mystery Box/question mark.png" id="4_ft6ap"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wf30p"]
+load_path = "res://.godot/imported/green.png-29588c4c140bf84ba9eb464d9bbaa4fc.ctex"
+
+[sub_resource type="Curve2D" id="Curve2D_rxf3s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Mystery Box" type="Node2D" unique_id=1100434740]
+script = ExtResource("1_rxf3s")
+blueSpeed = -1.0
+yellowSpeed = 1.205
+yellowFlipSpeed = 0.02
+greenSpeed = 0.46
+pinkSpeed = 0.88
+pinkFlipSpeed = 0.005
+rotationSpeedConstant = 0.02
+
+[node name="Blue" type="Sprite2D" parent="." unique_id=1740609349]
+modulate = Color(1, 1, 1, 0.50980395)
+self_modulate = Color(1, 1, 1, 0.50980395)
+rotation = -0.41015238
+texture = ExtResource("1_q4mxm")
+
+[node name="Yellow" type="Sprite2D" parent="." unique_id=1400581789]
+modulate = Color(1, 1, 1, 0.50980395)
+self_modulate = Color(1, 1, 1, 0.50980395)
+rotation = -0.07853982
+texture = ExtResource("2_rxf3s")
+
+[node name="Green" type="Sprite2D" parent="." unique_id=1797157182]
+modulate = Color(1, 1, 1, 0.50980395)
+self_modulate = Color(1, 1, 1, 0.50980395)
+rotation = 1.4782939
+texture = SubResource("CompressedTexture2D_wf30p")
+
+[node name="Pink" type="Sprite2D" parent="." unique_id=1059158342]
+modulate = Color(1, 1, 1, 0.8392157)
+self_modulate = Color(1, 1, 1, 0.8862745)
+position = Vector2(-0.16332597, 0.98657215)
+rotation = 0.16406095
+texture = ExtResource("3_7nr3w")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=912253206]
+curve = SubResource("Curve2D_rxf3s")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1026007104]
+rotation = -1.5707964
+rotates = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D" unique_id=644418013]
+rotation = 1.5707964
+texture = ExtResource("4_ft6ap")

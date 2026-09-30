@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0nik1t6f7r3a" path="res://Scripts/pipe_set.gd" id="1_5bmai"]
 [ext_resource type="Script" uid="uid://cgbrvf7aqdb44" path="res://Scripts/DeathPlane.gd" id="2_s7i4u"]
-[ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="3_uwn2t"]
+[ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="3_s7i4u"]
 [ext_resource type="Script" uid="uid://bpwo6fjndt615" path="res://Scripts/score_zone.gd" id="4_s7i4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_344ge"]
@@ -26,8 +26,8 @@ metadata/_custom_type_script = "uid://cgbrvf7aqdb44"
 [node name="Sprite2D" type="Sprite2D" parent="Pipe1" unique_id=170491877]
 z_index = -1
 position = Vector2(0, 149)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_uwn2t")
+scale = Vector2(1.5, 1.76)
+texture = ExtResource("3_s7i4u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe1" unique_id=373006058]
 position = Vector2(-1, 234)
@@ -42,8 +42,8 @@ metadata/_custom_type_script = "uid://cgbrvf7aqdb44"
 [node name="Sprite2D" type="Sprite2D" parent="Pipe2" unique_id=621693357]
 z_index = -1
 position = Vector2(7.4207783e-06, -85)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_uwn2t")
+scale = Vector2(1.5, 1.76)
+texture = ExtResource("3_s7i4u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe2" unique_id=1004428622]
 position = Vector2(-0.5, 2.5)

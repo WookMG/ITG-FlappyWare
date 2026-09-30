@@ -16,6 +16,7 @@ func spawn_player(id: int) -> void:
 	spawn_bird(id)
 
 func spawn_bird(id: int) -> void:
+	print("here")
 	if !multiplayer.is_server(): return
 	var container := get_node(spawn_path)
 	if container.has_node(str(id)):

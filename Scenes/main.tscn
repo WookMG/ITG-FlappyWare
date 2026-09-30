@@ -72,7 +72,7 @@ position = Vector2(960, 503)
 script = ExtResource("3_21xkr")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bird" unique_id=1807966160]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(1.86, 1.86)
 texture = ExtResource("3_jjvhh")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Bird" unique_id=1604503234]
