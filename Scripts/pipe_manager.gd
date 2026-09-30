@@ -13,7 +13,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_spawn_pipe_timeout() -> void:
 	if Global.current_state == Global.States.Playing:
 		var pipe_set_instance = pipe_set.instantiate()

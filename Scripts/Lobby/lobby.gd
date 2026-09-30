@@ -155,3 +155,9 @@ func peer_disconnected(peer_id: int) -> void:
 	if idx != -1:
 		playerNodes[idx] = null
 	bird.queue_free()
+	
+func _on_bird_collide(body: Node2D) -> void:
+	if body is LobbyBird:
+		body.hit_pipe()
+		setBirdLocation(body, HighLevelNetworkHandler.connectedPlayerIDs.find(str(body.name)))
+		

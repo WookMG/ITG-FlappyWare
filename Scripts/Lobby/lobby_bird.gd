@@ -18,11 +18,12 @@ func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return #Multiplayer Shizzy
 	
 	if idle:
+		position.y += 0.5 * sin(Time.get_ticks_msec()/500.0)
 		show_ui_to_self()
 		if Input.is_action_just_pressed("Jump"):
 			jump()
-			position.y += 5*sin(Time.get_ticks_msec()/100.0)
 			idle = false
+			set_collision_layer_value(2, true)
 	else:
 		if !is_on_floor():
 			velocity += get_gravity() * delta
@@ -72,6 +73,11 @@ func bouce() -> void:
 		isFacingLeft = false
 		$Sprite2D.flip_h = isFacingLeft
 		velocity.x = - lastVelocity.x / WALL_ABSORBTION
+
+func hit_pipe() -> void:
+	idle = true
+	set_collision_layer_value(2, false)
+	$Sprite2D.rotation = 0
 
 func deccelerate() -> void:
 	if sign(velocity.x) == 1:

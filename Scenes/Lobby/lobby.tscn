@@ -27,9 +27,9 @@ position = Vector2(576, 324)
 texture = ExtResource("2_33c4u")
 
 [node name="Pipe Container" type="Node2D" parent="." unique_id=1255261386]
-visible = false
 
 [node name="Go Back Pipe" type="Sprite2D" parent="Pipe Container" unique_id=2059497906]
+visible = false
 position = Vector2(-185.99997, 133.00005)
 rotation = 1.5707964
 scale = Vector2(0.38004372, 0.473293)
@@ -112,28 +112,6 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Left Wall" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("6_s46go")]
-visible = false
-position = Vector2(-43, 300)
-scale = Vector2(0.5, 0.6999999)
-
-[node name="Right Wall" parent="Pipe Container" unique_id=985348563 instance=ExtResource("6_s46go")]
-visible = false
-position = Vector2(1193, 300)
-scale = Vector2(0.5, 0.6999999)
-
-[node name="Floor" parent="Pipe Container" unique_id=629353476 instance=ExtResource("6_s46go")]
-visible = false
-position = Vector2(535.02625, 691)
-rotation = -1.5707964
-scale = Vector2(0.5, 1.5485)
-
-[node name="Roof" parent="Pipe Container" unique_id=467948618 instance=ExtResource("6_s46go")]
-visible = false
-position = Vector2(535.026, -42)
-rotation = -1.5707964
-scale = Vector2(0.5, 1.5485)
-
 [node name="Pipe Spawner" type="Node2D" parent="Pipe Container" unique_id=1629044440]
 script = ExtResource("5_7sbsm")
 
@@ -144,8 +122,9 @@ autostart = true
 [node name="pipe_set" type="Node2D" parent="Pipe Container/Pipe Spawner" unique_id=1854488686]
 position = Vector2(1939, 299)
 
-[node name="toppipe" type="StaticBody2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=111807580]
+[node name="toppipe" type="Area2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=285159721 groups=["Pipe"]]
 position = Vector2(0, 325)
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Pipe Container/Pipe Spawner/pipe_set/toppipe" unique_id=504574211]
 texture = ExtResource("6_qr1ks")
@@ -154,9 +133,10 @@ texture = ExtResource("6_qr1ks")
 position = Vector2(0, 77.5)
 shape = SubResource("RectangleShape2D_ilm2e")
 
-[node name="bottompipe" type="StaticBody2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=1484244717]
+[node name="bottompipe" type="Area2D" parent="Pipe Container/Pipe Spawner/pipe_set" unique_id=395388567 groups=["Pipe"]]
 position = Vector2(0, -325)
 rotation = 3.1415927
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Pipe Container/Pipe Spawner/pipe_set/bottompipe" unique_id=665392561]
 texture = ExtResource("6_qr1ks")
@@ -164,6 +144,30 @@ texture = ExtResource("6_qr1ks")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/Pipe Spawner/pipe_set/bottompipe" unique_id=1205138749]
 position = Vector2(0, 77.5)
 shape = SubResource("RectangleShape2D_ilm2e")
+
+[node name="walls" type="Node2D" parent="Pipe Container" unique_id=1967235318]
+
+[node name="Left Wall" parent="Pipe Container/walls" unique_id=1407374869 instance=ExtResource("6_s46go")]
+visible = false
+position = Vector2(-43, 300)
+scale = Vector2(0.5, 0.6999999)
+
+[node name="Right Wall" parent="Pipe Container/walls" unique_id=985348563 instance=ExtResource("6_s46go")]
+visible = false
+position = Vector2(1193, 300)
+scale = Vector2(0.5, 0.6999999)
+
+[node name="Floor" parent="Pipe Container/walls" unique_id=629353476 instance=ExtResource("6_s46go")]
+visible = false
+position = Vector2(535.02625, 691)
+rotation = -1.5707964
+scale = Vector2(0.5, 1.5485)
+
+[node name="Roof" parent="Pipe Container/walls" unique_id=467948618 instance=ExtResource("6_s46go")]
+visible = false
+position = Vector2(535.026, -42)
+rotation = -1.5707964
+scale = Vector2(0.5, 1.5485)
 
 [node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("1_62igp")]
 offset_left = 9.0
@@ -181,3 +185,5 @@ network_player = ExtResource("3_dx3ka")
 [connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_onReturnPipeEntered"]
 [connection signal="body_entered" from="Pipe Container/Start Pipe/Area2D" to="." method="_onStartPipeEntered"]
 [connection signal="timeout" from="Pipe Container/Pipe Spawner/pipe_timer" to="Pipe Container/Pipe Spawner" method="_on_spawn_pipe_timeout"]
+[connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/toppipe" to="." method="_on_bird_collide"]
+[connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/bottompipe" to="." method="_on_bird_collide"]
