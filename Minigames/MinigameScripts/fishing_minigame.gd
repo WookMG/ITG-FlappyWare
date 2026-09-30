@@ -42,6 +42,7 @@ func _spawn_player(data: Dictionary) -> Node:
 	var p := PLAYER_SCENE.instantiate()
 	p.name = str(data.id)
 	p.position = spawn_points[data.slot]
+	setBirdProperties(p, data.slot)
 	return p
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -59,14 +60,14 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	body.velocity.y = body.velocity.y * body.AERODYNAMICS
 
 
-func setBirdProperties(node: LobbyBird, slot: int) -> void:
+func setBirdProperties(node: FishingBird, slot: int) -> void:
 	assert(slot >= 0 && slot <= 3, "slot \"" + str(slot) + "\"out of bounds (0,3)")
 	node.scale = node.scale * PLAYERSCALE
 	setBirdColor(node, slot)
 	setBirdPitch(node, slot)
 	#print("properties set")
 
-func setBirdPitch(node: LobbyBird, slot: int) -> void:
+func setBirdPitch(node: FishingBird, slot: int) -> void:
 	var sound = node.find_child("Flap")
 	if slot == 0:
 		sound.pitch_scale = 1
@@ -78,7 +79,7 @@ func setBirdPitch(node: LobbyBird, slot: int) -> void:
 		sound.pitch_scale = 0.7
 	
 
-func setBirdColor(node: LobbyBird, slot: int) -> void:
+func setBirdColor(node: FishingBird, slot: int) -> void:
 	var sprite: Sprite2D = node.find_child("Sprite2D")
 	if slot == 0:
 		sprite.modulate = Global.p1Color

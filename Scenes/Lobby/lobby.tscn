@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3fwcg8jityrv" path="res://Scripts/Lobby/lobby.gd" id="1_7mxwi"]
 [ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="1_62igp"]
 [ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="2_7mxwi"]
+[ext_resource type="Texture2D" uid="uid://ck0wmg6wisysf" path="res://Assets/Backgrounds/image.png" id="2_33c4u"]
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
 [ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="5_dx3ka"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
@@ -16,10 +17,15 @@ size = Vector2(278.91534, 105.64282)
 [node name="Lobby" type="Node2D" unique_id=465588410]
 script = ExtResource("1_7mxwi")
 
+[node name="Background" type="Sprite2D" parent="." unique_id=1022677885]
+position = Vector2(576, 324)
+texture = ExtResource("2_33c4u")
+
 [node name="Pipe Container" type="Node2D" parent="." unique_id=1255261386]
 
 [node name="Go Back Pipe" type="Sprite2D" parent="Pipe Container" unique_id=2059497906]
-position = Vector2(-188.99998, 128.00003)
+visible = false
+position = Vector2(-185.99997, 133.00005)
 rotation = 1.5707964
 scale = Vector2(0.38004372, 0.473293)
 texture = ExtResource("5_dx3ka")
@@ -59,7 +65,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Start Pipe" type="Sprite2D" parent="Pipe Container" unique_id=627719797]
-position = Vector2(1339.0001, 128)
+visible = false
+position = Vector2(1340, 136.00002)
 rotation = -1.5707964
 scale = Vector2(0.38, 0.473)
 texture = ExtResource("5_dx3ka")
@@ -99,19 +106,23 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Left Wall" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("6_s46go")]
+visible = false
 position = Vector2(-43, 300)
 scale = Vector2(0.5, 0.6999999)
 
 [node name="Right Wall" parent="Pipe Container" unique_id=985348563 instance=ExtResource("6_s46go")]
+visible = false
 position = Vector2(1193, 300)
 scale = Vector2(0.5, 0.6999999)
 
 [node name="Floor" parent="Pipe Container" unique_id=629353476 instance=ExtResource("6_s46go")]
+visible = false
 position = Vector2(535.02625, 691)
 rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
 
 [node name="Roof" parent="Pipe Container" unique_id=467948618 instance=ExtResource("6_s46go")]
+visible = false
 position = Vector2(535.026, -42)
 rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
