@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="2_7mxwi"]
 [ext_resource type="Texture2D" uid="uid://ck0wmg6wisysf" path="res://Assets/Backgrounds/image.png" id="2_33c4u"]
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
-[ext_resource type="Script" uid="uid://g280n24vme37" path="res://Scripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
 [ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="5_dx3ka"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
 
@@ -128,14 +127,6 @@ position = Vector2(535.026, -42)
 rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
 
-[node name="Pipe Spawner" type="Node2D" parent="Pipe Container" unique_id=1629044440]
-script = ExtResource("5_7sbsm")
-
-[node name="pipe_timer" type="Timer" parent="Pipe Container/Pipe Spawner" unique_id=1970392106]
-wait_time = 15.0
-
-[node name="pipe_set" type="Node2D" parent="Pipe Container/Pipe Spawner" unique_id=1854488686]
-
 [node name="HighLevelUI - TEMP" parent="." unique_id=1056797833 instance=ExtResource("1_62igp")]
 offset_left = 9.0
 offset_top = 10.0
@@ -151,4 +142,3 @@ network_player = ExtResource("3_dx3ka")
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_onReturnPipeEntered"]
 [connection signal="body_entered" from="Pipe Container/Start Pipe/Area2D" to="." method="_onStartPipeEntered"]
-[connection signal="timeout" from="Pipe Container/Pipe Spawner/pipe_timer" to="Pipe Container/Pipe Spawner" method="_on_spawn_pipe_timeout"]

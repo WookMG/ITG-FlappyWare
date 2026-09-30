@@ -8,9 +8,7 @@ var fishingMinigame = preload("res://Minigames/MinigameScenes/fishing_minigame.t
 
 const PLAYERSCALE: float = 0.5
 var defaultPlayerY: float
-var starting := false
-
-
+var starting: bool = false
 var playerNodes: Array[LobbyBird] # HighLevelNetworkHandler.connectedPlayerIDs are the connected player IDs
 
 func _ready() -> void:
@@ -25,7 +23,6 @@ func _ready() -> void:
 	
 	multiplayer.connected_to_server.connect(_clientConnected)
 
-# lobby.gd
 func _spawn_returning_players() -> void:
 	var waited := 0.0
 	while waited < 10.0:
