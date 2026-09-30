@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dgh4l1fb050o3"]
+
+[ext_resource type="Texture2D" uid="uid://e1l84afxsqo" path="res://Assets/Sprites/Fish/Discord Fish.png" id="1_1wrc0"]
+[ext_resource type="Texture2D" uid="uid://uwvfv6uf712c" path="res://Assets/Sprites/Fish/Gaped Fish.png" id="2_xcpoa"]
+[ext_resource type="Texture2D" uid="uid://c18c82eojdg2e" path="res://Assets/Sprites/Fish/Pog Fish.png" id="3_prkvp"]
+[ext_resource type="Texture2D" uid="uid://drgcb2rebtoce" path="res://Assets/Sprites/Fish/Shark.png" id="4_wmahm"]
+[ext_resource type="Texture2D" uid="uid://cpdd6iaypmt8k" path="res://Assets/Sprites/Fish/Shrimp.png" id="5_xk4yv"]
+[ext_resource type="Texture2D" uid="uid://c1rqb332o4diq" path="res://Assets/Sprites/Fish/Yellow Fish.png" id="6_iklqk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mq0dr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1wrc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xcpoa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_prkvp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wmahm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xk4yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_iklqk")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p3wno"]
+
+[node name="Random Fish" type="Node2D" unique_id=1515255557]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2107595870]
+sprite_frames = SubResource("SpriteFrames_mq0dr")
+frame = 3
+frame_progress = 0.7448482
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1845445576]
+scale = Vector2(2.5, 2.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=931432748]
+shape = SubResource("CircleShape2D_p3wno")
