@@ -7,43 +7,46 @@
 [ext_resource type="Texture2D" uid="uid://cpdd6iaypmt8k" path="res://Assets/Sprites/Fish/Shrimp.png" id="5_xk4yv"]
 [ext_resource type="Texture2D" uid="uid://c1rqb332o4diq" path="res://Assets/Sprites/Fish/Yellow Fish.png" id="6_iklqk"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_mq0dr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_1wrc0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_xcpoa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_prkvp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_wmahm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_xk4yv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_iklqk")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_p3wno"]
 
 [node name="Random Fish" type="Node2D" unique_id=1515255557]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2107595870]
-sprite_frames = SubResource("SpriteFrames_mq0dr")
-frame = 3
-frame_progress = 0.7448482
+[node name="Sprites Container" type="Node2D" parent="." unique_id=1139852133]
+
+[node name="Shrimp" type="Sprite2D" parent="Sprites Container" unique_id=647231650]
+visible = false
+position = Vector2(-0.9999995, -0.99999976)
+scale = Vector2(0.89, 0.89)
+texture = ExtResource("5_xk4yv")
+
+[node name="Yellow Fish" type="Sprite2D" parent="Sprites Container" unique_id=1512196409]
+visible = false
+position = Vector2(-4, 0.9999999)
+rotation = 1.5707964
+scale = Vector2(0.765, 0.765)
+texture = ExtResource("6_iklqk")
+
+[node name="Shark" type="Sprite2D" parent="Sprites Container" unique_id=964224734]
+visible = false
+scale = Vector2(0.645, 0.645)
+texture = ExtResource("4_wmahm")
+
+[node name="Pog Fish" type="Sprite2D" parent="Sprites Container" unique_id=168938592]
+visible = false
+rotation = 1.5707964
+scale = Vector2(0.685, 0.685)
+texture = ExtResource("3_prkvp")
+
+[node name="Gaped Fish" type="Sprite2D" parent="Sprites Container" unique_id=167281112]
+visible = false
+position = Vector2(-1, 3)
+rotation = 1.5707964
+texture = ExtResource("2_xcpoa")
+
+[node name="Discord Fish" type="Sprite2D" parent="Sprites Container" unique_id=361896842]
+rotation = 1.5707964
+scale = Vector2(0.945, 0.945)
+texture = ExtResource("1_1wrc0")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1845445576]
 scale = Vector2(2.5, 2.5)

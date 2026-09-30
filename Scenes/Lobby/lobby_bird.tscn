@@ -30,9 +30,12 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath("Flap:playing")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+properties/7/path = NodePath(".:collision_layer")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Lobby Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
-collision_layer = 2
+collision_layer = 0
 script = ExtResource("1_4rd5n")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=896503774]

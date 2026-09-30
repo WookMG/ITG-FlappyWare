@@ -175,7 +175,7 @@ offset_top = 10.0
 offset_right = 9.0
 offset_bottom = 10.0
 
-[node name="MultiplayerPlayers" type="MultiplayerSpawner" parent="." unique_id=121295150]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
 _spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
 spawn_path = NodePath("..")
 script = ExtResource("2_7mxwi")
