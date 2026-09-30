@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
-[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="3_w1gml"]
 
 [sub_resource type="Gradient" id="Gradient_s3t03"]
 colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
@@ -60,11 +59,7 @@ position = Vector2(690, 200)
 [node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
 position = Vector2(920, 200)
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=754341464]
-_spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
-spawn_path = NodePath("..")
-script = ExtResource("3_w1gml")
-network_player = null
+[node name="MultiplayerSpawner" type="Node" parent="." unique_id=459917520]
 
 [connection signal="body_entered" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_exited"]

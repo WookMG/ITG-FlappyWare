@@ -1,4 +1,5 @@
 # high_level_multiplayer_spawner.gd
+class_name HighLevelMultiplayerSpawner
 extends MultiplayerSpawner
 
 @export var network_player: PackedScene
@@ -6,9 +7,12 @@ extends MultiplayerSpawner
 func _ready() -> void:
 	multiplayer.peer_connected.connect(spawn_player)
 
+# spawner
 func spawn_player(id: int) -> void:
 	if !multiplayer.is_server(): return
-	HighLevelNetworkHandler.addPlayerID(str(id))
+	if !HighLevelNetworkHandler.addPlayerID(str(id)):
+		multiplayer.multiplayer_peer.disconnect_peer(id)  # lobby full
+		return
 	spawn_bird(id)
 
 func spawn_bird(id: int) -> void:

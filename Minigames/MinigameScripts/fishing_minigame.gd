@@ -33,7 +33,7 @@ func _spawn_when_ready() -> void:
 		waited += get_process_delta_time()
 	for slot in HighLevelNetworkHandler.connectedPlayerIDs.size():
 		var id := HighLevelNetworkHandler.connectedPlayerIDs[slot]
-		if id != HighLevelNetworkHandler.EMPTY_SLOT and (id.to_int() == 1 or multiplayer.get_peers().has(id.to_int())):
+		if id != HighLevelNetworkHandler.EMPTY_SLOT and multiplayer.get_peers().has(id.to_int()):
 			spawner.spawn({"id": id.to_int(), "slot": slot})
 
 const PLAYER_SCENE := preload("res://Minigames/MinigameScenes/fishing_bird.tscn")
@@ -45,14 +45,14 @@ func _spawn_player(data: Dictionary) -> Node:
 	return p
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is not FishingBird:
+	if body is not FishingBird or !body.is_multiplayer_authority():
 		return
 	
 	body.inWater = true
 	body.velocity.y = body.velocity.y * body.AERODYNAMICS
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body is not FishingBird:
+	if body is not FishingBird or !body.is_multiplayer_authority():
 		return
 	
 	body.inWater = false

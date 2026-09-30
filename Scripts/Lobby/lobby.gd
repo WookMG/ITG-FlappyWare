@@ -3,7 +3,7 @@ extends Node2D
 var main = preload("res://Scenes/main.tscn")
 var fishingMinigame = preload("res://Minigames/MinigameScenes/fishing_minigame.tscn")
 
-@onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
+@onready var multiplayer_spawner: HighLevelMultiplayerSpawner = $MultiplayerSpawner
 @onready var pipe_container: Node2D = $"Pipe Container"
 
 const PLAYERSCALE: float = 0.5
@@ -99,8 +99,8 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 		return
 	if body is LobbyBird:
 		var id := body.name.to_int()
-		if id == multiplayer.get_unique_id():
-			return  # the host never leaves the lobby
+		#if id == multiplayer.get_unique_id():
+			#return  # the host never leaves the lobby
 		send_player_to_menu.call_deferred(id)
 
 #Start Pipe

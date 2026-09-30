@@ -41,14 +41,16 @@ func _on_server_disconnected() -> void:
 	connectedPlayerIDs.fill(EMPTY_SLOT)
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
-func addPlayerID(id: String) -> void:
+# high_level_network_handler.gd
+func addPlayerID(id: String) -> bool:
 	if !multiplayer.is_server():
-		return
+		return false
 	var i := connectedPlayerIDs.find(EMPTY_SLOT)
 	if i == -1:
-		return  # lobby full
+		return false
 	connectedPlayerIDs[i] = id
 	_server_update_ids()
+	return true
 
 func removePlayerID(id: String) -> void:
 	#print("removePlayerID: ", id)
