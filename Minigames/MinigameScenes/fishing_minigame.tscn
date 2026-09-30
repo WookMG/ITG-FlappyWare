@@ -59,7 +59,8 @@ position = Vector2(690, 200)
 [node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
 position = Vector2(920, 200)
 
-[node name="MultiplayerSpawner" type="Node" parent="." unique_id=459917520]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=911495604]
+spawn_path = NodePath("..")
 
 [connection signal="body_entered" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="WaterContainer/Water/Area2D" to="." method="_on_area_2d_body_exited"]
