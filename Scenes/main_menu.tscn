@@ -202,4 +202,5 @@ autoplay = &"wiggle"
 
 [connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

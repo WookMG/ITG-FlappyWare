@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
-[ext_resource type="PackedScene" uid="uid://bquswloae3qde" path="res://Minigames/MinigameScenes/fishing_bird.tscn" id="2_ca6xi"]
 [ext_resource type="Texture2D" uid="uid://bm3p5227cxnmm" path="res://Assets/Sprites/sunspeed.png" id="4_smypx"]
 [ext_resource type="Texture2D" uid="uid://cnk76v06pmv8b" path="res://Assets/Sprites/sunrays.png" id="5_2gqw6"]
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="6_2gqw6"]
@@ -29,7 +28,6 @@ size = Vector2(57.444443, 63.673286)
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
 minWait = 1.5
-player_scene = ExtResource("2_ca6xi")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=549917755]
 position = Vector2(576, 324)
@@ -81,9 +79,6 @@ position = Vector2(690, 385)
 
 [node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
 position = Vector2(920, 385)
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=911495604]
-spawn_path = NodePath("..")
 
 [node name="Sun Container" type="Node2D" parent="." unique_id=1649224060]
 

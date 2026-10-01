@@ -1,9 +1,8 @@
 # fishing_minigame.gd
-extends MinigameBase
+extends Lobby
 
 @onready var sun: Node2D = $"Sun Container"
 @onready var fish_container: Node2D = $"Fish Container"
-var fishActive := false
 
 var sunRot: float = 0
 const CYCLE_TIME: float = 80
@@ -37,8 +36,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	body.velocity.y = body.velocity.y * body.AERODYNAMICS
 
 func _ready() -> void:
-	super._ready()
-	
 	sun.global_position = $"Sun Container/Start Position".global_position
 	timer.wait_time = CYCLE_TIME
 	timer.one_shot = false
@@ -51,38 +48,15 @@ func _ready() -> void:
 	fishRot = maxWiggleAngle
 
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
-	_refresh_fish_visibility()
-	fishActive = true
 	timeBeforeFish.wait_time = randf_range(minWait, maxWait)
 	timeBeforeFish.start()
 
-func _refresh_fish_visibility() -> void:  # server only
-	var flags := PackedByteArray()
-	var kids := fish_container.get_children(false)
-	for slot in kids.size():
-		var id := HighLevelNetworkHandler.connectedPlayerIDs[slot]
-		var present: bool = id != HighLevelNetworkHandler.EMPTY_SLOT \
-				and multiplayer.get_peers().has(id.to_int())
-		flags.append(1 if present else 0)
-	apply_fish_visibility(flags)           # server
-	sync_fish_visibility.rpc(flags)        # clients
-
-@rpc("authority", "call_remote", "reliable")
-func sync_fish_visibility(flags: PackedByteArray) -> void:
-	apply_fish_visibility(flags)
-
-func apply_fish_visibility(flags: PackedByteArray) -> void:
-	var kids := fish_container.get_children(false)
-	for i in mini(kids.size(), flags.size()):
-		kids[i].visible = flags[i] == 1
-
 func _physics_process(_delta: float) -> void:
-	rotateSun($"Sun Container/Rays1")
-	if !multiplayer.is_server() or !fishActive:
+	rotateSun()
+	if !multiplayer.is_server():
 		return
 	moveFish(fish_container)
 	wiggleFish(fish_container)
-	sync_fish_state.rpc(fish_container.global_position, fishDisplayRot)
 
 func _catchTimerExpire() -> void:
 	fishJump()
@@ -93,50 +67,10 @@ func _gameSwitchTimerExpire() -> void:
 	# HighLevelNetworkHandler.switch_minigame() <- put random minigame here
 	pass
 
-func _p1FishTouched(body: Node2D) -> void:
-	
-	pass # Replace with function body.
-
-
-func _p2FishTouched(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _p3FishTouched(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _p4FishTouched(body: Node2D) -> void:
-	pass # Replace with function body.
-
-# --- sprites: server picks, everyone applies ---
 func showRandomFish(node: Node) -> void:  # server only
-	var indices := PackedInt32Array()
 	for child in node.get_children(false):
 		var count: int = child.find_child("Sprites Container").get_child_count()
-		indices.append(randi_range(0, count - 1))
-	apply_fish_sprites(indices)
-	sync_fish_sprites.rpc(indices)
-
-
-func apply_fish_sprites(indices: PackedInt32Array) -> void:
-	var kids := fish_container.get_children(false)
-	for i in kids.size():
-		var sprites := kids[i].find_child("Sprites Container")
-		for s in sprites.get_children():
-			s.hide()
-		sprites.get_child(indices[i]).show()
-
-@rpc("authority", "call_remote", "reliable")
-func sync_fish_sprites(indices: PackedInt32Array) -> void:
-	apply_fish_sprites(indices)
-
-# --- movement: server simulates, clients copy ---
-@rpc("authority", "call_remote", "unreliable")
-func sync_fish_state(pos: Vector2, rot: float) -> void:
-	fish_container.global_position = pos
-	for child in fish_container.get_children(false):
-		child.rotation = rot
+		child.get_child(randi_range(0, count)).show()
 
 func setFishPositions(node: Node) -> void:
 	for child in node.get_children(false):
@@ -145,9 +79,9 @@ func setFishPositions(node: Node) -> void:
 			child.global_position = marker.global_position
 			marker.queue_free()
 
-func rotateSun(node: Node) -> void:
-	node.rotation = sunRot
-	node.rotation = -sunRot + 45
+func rotateSun() -> void:
+	$"Sun Container/Rays1".rotation = sunRot
+	$"Sun Container/Rays2".rotation = -sunRot + 45
 	var numerator = CYCLE_TIME - timer.time_left
 	sunRot = (numerator/CYCLE_TIME) * (180/PI)
 
@@ -161,7 +95,6 @@ func moveFish(node: Node) -> void:
 		node.global_position.y = 0
 
 func fishJump() -> void:
-	
 	showRandomFish(fish_container)
 	allFishVelocity.y = ALL_FISH_INITIAL_VELOCITY
 

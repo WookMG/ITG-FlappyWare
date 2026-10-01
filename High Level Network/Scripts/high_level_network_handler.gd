@@ -41,7 +41,6 @@ func _on_server_disconnected() -> void:
 	connectedPlayerIDs.fill(EMPTY_SLOT)
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
 
-# high_level_network_handler.gd
 func addPlayerID(id: String) -> bool:
 	if !multiplayer.is_server():
 		return false
@@ -87,7 +86,7 @@ func load_minigame(path: String) -> void:
 
 # each client calls this from the minigame's _ready
 @rpc("any_peer", "call_remote", "reliable")
-func client_loaded() -> void:
+func newPlayerJoined() -> void:
 	loaded_peers.append(multiplayer.get_remote_sender_id())
 
 #Call return_to_lobby() from the server when the round ends, 
@@ -96,7 +95,6 @@ func return_to_lobby() -> void: #
 	if !multiplayer.is_server():
 		return
 	peer.refuse_new_connections = false
-	loaded_peers.clear()
 	load_minigame.rpc("res://Scenes/lobby.tscn")
 
 func switch_minigame(path: String) -> void:
@@ -106,5 +104,4 @@ func switch_minigame(path: String) -> void:
 		push_error("switch_minigame: no scene at " + path)
 		return
 	peer.refuse_new_connections = true
-	loaded_peers.clear()  # clients re-send client_loaded in the next scene
 	load_minigame.rpc(path)

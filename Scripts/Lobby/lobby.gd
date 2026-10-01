@@ -1,3 +1,4 @@
+class_name Lobby
 extends Node2D
 
 var main = preload("res://Scenes/main.tscn")
@@ -12,44 +13,28 @@ var starting: bool = false
 var playerNodes: Array[LobbyBird] # HighLevelNetworkHandler.connectedPlayerIDs are the connected player IDs
 
 func _ready() -> void:
-	playerNodes.resize(4)
-	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
-	
 	if multiplayer.is_server():
 		multiplayer.peer_disconnected.connect(peer_disconnected)
-		_spawn_returning_players()
 	else:
-		HighLevelNetworkHandler.client_loaded.rpc_id(1)
+		HighLevelNetworkHandler.newPlayerJoined.rpc_id(1)
 	
-	multiplayer.connected_to_server.connect(_clientConnected)
+	playerNodes.resize(4)
+	defaultPlayerY = get_viewport().get_visible_rect().size.y / 2
 
-func _spawn_returning_players() -> void:
-	var waited := 0.0
-	while waited < 10.0:
-		var all_loaded := true
-		for id in multiplayer.get_peers():
-			if !HighLevelNetworkHandler.loaded_peers.has(id):
-				all_loaded = false
-				break
-		if all_loaded:
-			break
-		await get_tree().process_frame
-		waited += get_process_delta_time()
-	multiplayer_spawner.spawn_existing_players()
 
-func _clientConnected() -> void:
-	#print("client connected")
-	pass
-
-func _on_child_entered_tree(node: Node) -> void:
+func _onPlayerNodeAdded(node: Node) -> void:
 	if node is not LobbyBird:
 		return
+	
 	var slot := HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.name))
+	
+	# Wait for player to join
 	while slot == -1:
 		await HighLevelNetworkHandler.playerIDsUpdated
 		if not is_instance_valid(node):
 			return  # bird was freed while waiting
 		slot = HighLevelNetworkHandler.connectedPlayerIDs.find(str(node.name))
+	
 	playerNodes[slot] = node
 	setBirdProperties(node, slot)
 
@@ -107,7 +92,7 @@ func _onStartPipeEntered(body: Node2D) -> void:
 		return
 	if body is LobbyBird:
 		starting = true  # several birds can touch the pipe in the same frame
-		HighLevelNetworkHandler.start_minigame.call_deferred("res://Minigames/MinigameScenes/fishing_minigame.tscn")
+		print("WORKING ON THIS")
 
 func send_player_to_menu(client_id: int) -> void:
 	if !multiplayer.is_server() || client_id == multiplayer.get_unique_id():
@@ -160,4 +145,6 @@ func _on_bird_collide(body: Node2D) -> void:
 	if body is LobbyBird:
 		body.hit_pipe()
 		setBirdLocation(body, HighLevelNetworkHandler.connectedPlayerIDs.find(str(body.name)))
-		
+
+func getPlayerNodes() -> Array:
+	return playerNodes
