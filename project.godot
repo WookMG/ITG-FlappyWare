@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Flappy Bird ITG"
-run/main_scene="uid://dvaeefi471jp8"
+run/main_scene="uid://vxlj6cuch30x"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://Assets/Sprites/icon.svg"
 
