@@ -1,6 +1,16 @@
-[gd_scene format=3 uid="uid://cgryu1knqykgk"]
+[gd_scene format=3 uid="uid://b311qj23m7jsa"]
 
-[ext_resource type="Script" uid="uid://b6gummjor5im2" path="res://High Level Network/Scripts/high_level_ui.gd" id="1_vot3s"]
+[sub_resource type="GDScript" id="GDScript_nx3ge"]
+script/source = "extends Control
+
+func _on_server_pressed() -> void:
+	HighLevelNetworkHandler.start_server()
+	hide()
+
+func _on_client_pressed() -> void:
+	HighLevelNetworkHandler.start_client()
+	hide()
+"
 
 [node name="HighLevelUI" type="Control" unique_id=1056797833]
 layout_mode = 3
@@ -9,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vot3s")
+script = SubResource("GDScript_nx3ge")
 
 [node name="BoxContainer" type="BoxContainer" parent="." unique_id=1739732161]
 layout_mode = 0

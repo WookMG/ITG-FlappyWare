@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dtivmpl0lcno"]
 
-[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="1_5h1is"]
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://Network/Scripts/high_level_multiplayer_spawner.gd" id="1_5h1is"]
 [ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="1_68e0m"]
 [ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="2_rbtvy"]
-[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://High Level Network/Scenes/high_level_ui.tscn" id="4_5ushq"]
+[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://Network/Scenes/high_level_ui.tscn" id="4_5ushq"]
 
 [sub_resource type="Gradient" id="Gradient_5h1is"]
 colors = PackedColorArray(0.6039216, 0, 0, 1, 0.99820966, 0.37082726, 0.29429373, 1)

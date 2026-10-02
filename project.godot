@@ -19,7 +19,8 @@ config/icon="res://Assets/Sprites/icon.svg"
 
 Global="*uid://b5xiykkv723mt"
 BlackScreen="*uid://dai7nsioabiq2"
-HighLevelNetworkHandler="*uid://dm5derfk1qx7l"
+NetworkHandler="*uid://dm5derfk1qx7l"
+SceneManager="*uid://dq1qk5jk4slxe"
 
 [display]
 

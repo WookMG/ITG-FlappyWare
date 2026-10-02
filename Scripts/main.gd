@@ -4,8 +4,8 @@ extends Node2D
 
 func _ready() -> void:
 	#Tells the player the reason they disconnected
-	if HighLevelNetworkHandler.disconnect_reason != "":
+	if NetworkHandler.disconnect_reason != "":
 		disconnect_dialog.title = "Disconnected"
-		disconnect_dialog.dialog_text = HighLevelNetworkHandler.disconnect_reason
+		disconnect_dialog.dialog_text = NetworkHandler.disconnect_reason
 		disconnect_dialog.popup_centered()
-		HighLevelNetworkHandler.disconnect_reason = ""  # show it only once
+		NetworkHandler.disconnect_reason = ""  # show it only once

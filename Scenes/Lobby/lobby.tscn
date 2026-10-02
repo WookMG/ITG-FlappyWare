@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ba0rv2ceiwgwd"]
 
 [ext_resource type="Script" uid="uid://b3fwcg8jityrv" path="res://Scripts/Lobby/lobby.gd" id="1_7mxwi"]
-[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://High Level Network/Scripts/high_level_multiplayer_spawner.gd" id="2_7mxwi"]
+[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://Network/Scripts/high_level_multiplayer_spawner.gd" id="2_7mxwi"]
 [ext_resource type="Texture2D" uid="uid://ck0wmg6wisysf" path="res://Assets/Backgrounds/image.png" id="2_33c4u"]
 [ext_resource type="PackedScene" uid="uid://osx0pp5u4jam" path="res://Scenes/Lobby/lobby_bird.tscn" id="3_dx3ka"]
 [ext_resource type="Script" uid="uid://g280n24vme37" path="res://Scripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
@@ -174,22 +174,10 @@ spawn_path = NodePath("../Players")
 script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
 
-[node name="Players" type="Node2D" parent="." unique_id=292026206]
-
-[node name="0" type="Node" parent="Players" unique_id=1355645849]
-
-[node name="1" type="Node" parent="Players" unique_id=2047810889]
-
-[node name="2" type="Node" parent="Players" unique_id=2074922642]
-
-[node name="3" type="Node" parent="Players" unique_id=584162113]
+[node name="Players" type="Node" parent="." unique_id=500720015]
 
 [connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_onReturnPipeEntered"]
 [connection signal="body_entered" from="Pipe Container/Start Pipe/Area2D" to="." method="_onStartPipeEntered"]
 [connection signal="timeout" from="Pipe Container/Pipe Spawner/pipe_timer" to="Pipe Container/Pipe Spawner" method="_on_spawn_pipe_timeout"]
 [connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/toppipe" to="." method="_on_bird_collide"]
 [connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/bottompipe" to="." method="_on_bird_collide"]
-[connection signal="child_entered_tree" from="Players/0" to="." method="_on_slot_0_child_entered_tree"]
-[connection signal="child_entered_tree" from="Players/1" to="." method="_on_slot_1_child_entered_tree"]
-[connection signal="child_entered_tree" from="Players/2" to="." method="_on_slot_2_child_entered_tree"]
-[connection signal="child_entered_tree" from="Players/3" to="." method="_on_slot_3_child_entered_tree"]

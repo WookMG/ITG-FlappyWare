@@ -1,21 +1,27 @@
 extends Control
 
-var lobby = preload("res://Scenes/Lobby/lobby.tscn")
-var flappyBird = preload("res://Scenes/main.tscn")
-
-func _on_quit_pressed() -> void:
-	get_tree().quit()
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_host_pressed() -> void:
-	get_tree().change_scene_to_packed(lobby)
-	HighLevelNetworkHandler.start_server()
+	var error = NetworkHandler.start_server()
+	if error == OK:
+		SceneManager.lobby()
 
 func _on_join_pressed() -> void:
-	get_tree().change_scene_to_packed(lobby)
-	HighLevelNetworkHandler.start_client()
-
+	# address pop up
+	var address = null
+	if address:
+		NetworkHandler.start_client(address)
+	else:
+		NetworkHandler.start_client()
+	SceneManager.lobby()
+	
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_packed(flappyBird)
+	SceneManager.copyright()
 
 func _on_settings_pressed() -> void:
 	pass # Replace with function body.
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

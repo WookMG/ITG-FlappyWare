@@ -2,17 +2,18 @@
 class_name HighLevelMultiplayerSpawner
 extends MultiplayerSpawner
 
-@onready var players: Node2D = $"../Players"
+@onready var players: Node = $"../Players"
 @export var network_player: PackedScene
 
 func _ready() -> void:
-	if multiplayer.is_server():
-		spawn_player(1)
-	multiplayer.peer_connected.connect(spawn_player)
+	if NetworkHandler.is_server:
+		pass
+		#spawn_player(1)
+	#multiplayer.peer_connected.connect(spawn_player)
 
 func spawn_player(id: int) -> void:
 	if multiplayer.get_peers().size() == 4: # lobby full
-		HighLevelNetworkHandler.disconnect_reason = "Lobby Full"
+		NetworkHandler.disconnect_reason = "Lobby Full"
 		multiplayer.multiplayer_peer.disconnect_peer(id)
 		return
 	
