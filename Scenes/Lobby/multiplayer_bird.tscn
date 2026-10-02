@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Worm/body1.png" id="6_736pw"]
 [ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Snail/body1.png" id="8_vhgxe"]
 [ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Snail/body2.png" id="9_rdeab"]
-[ext_resource type="Script" uid="uid://brdvu1bqmliv6" path="res://Scripts/Default Player Models/2_segment_logic.gd" id="10_2rvbr"]
 [ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Maggot/body.png" id="11_8ccao"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nr3w"]
@@ -141,8 +140,11 @@ texture = ExtResource("9_rdeab")
 
 [node name="Maggot" type="Node2D" parent="Head" unique_id=1301607599]
 visible = false
-script = ExtResource("10_2rvbr")
+script = ExtResource("4_lwton")
 
 [node name="Body1" type="Sprite2D" parent="Head/Maggot" unique_id=1434150637]
 position = Vector2(0, 7.999999)
 texture = ExtResource("11_8ccao")
+
+[node name="Body2" type="Sprite2D" parent="Head/Maggot" unique_id=1660150473]
+position = Vector2(0, 7.999999)
