@@ -11,9 +11,6 @@ const maggot = preload("res://Assets/Sprites/Maggot/head.png")
 func _ready() -> void:
 	$Worm.hide() #hide default model
 
-func _physics_process(delta: float) -> void:
-	$".".global_position.x += 3
-
 func _pick_model_received(slot: int) -> void:
 	if slot == 0:
 		$Worm.show()

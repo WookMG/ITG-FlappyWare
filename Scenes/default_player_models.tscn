@@ -11,12 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Snail/body2.png" id="9_rjo0g"]
 
 [node name="Default Player Models" type="Sprite2D" unique_id=67253850]
+z_index = 1
 scale = Vector2(5.5, 5.5)
 script = ExtResource("1_xadlu")
 
 [node name="Worm" type="Node2D" parent="." unique_id=925834026]
 visible = false
+z_index = -1
 script = ExtResource("2_55t61")
+waitFrames = 3
 
 [node name="Body2" type="Sprite2D" parent="Worm" unique_id=759539168]
 position = Vector2(5.9604645e-08, 2.9999998)
@@ -28,7 +31,9 @@ texture = ExtResource("4_t20st")
 
 [node name="Caterpillar" type="Node2D" parent="." unique_id=1577713069]
 visible = false
+z_index = -1
 script = ExtResource("2_55t61")
+waitFrames = 3
 
 [node name="Body2" type="Sprite2D" parent="Caterpillar" unique_id=80497436]
 position = Vector2(0, 2.9999998)
@@ -40,7 +45,9 @@ texture = ExtResource("3_sg00h")
 
 [node name="Snail" type="Node2D" parent="." unique_id=694329721]
 visible = false
+z_index = -1
 script = ExtResource("2_55t61")
+waitFrames = 3
 
 [node name="Body2" type="Sprite2D" parent="Snail" unique_id=1531423546]
 position = Vector2(0, 2.9999998)
@@ -52,6 +59,7 @@ texture = ExtResource("9_rjo0g")
 
 [node name="Maggot" type="Node2D" parent="." unique_id=1301607599]
 visible = false
+z_index = -1
 script = ExtResource("5_pod83")
 
 [node name="Body1" type="Sprite2D" parent="Maggot" unique_id=1434150637]

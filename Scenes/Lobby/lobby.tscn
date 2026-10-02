@@ -44,6 +44,7 @@ position = Vector2(576, 324)
 texture = ExtResource("2_33c4u")
 
 [node name="Pipe Container" type="Node2D" parent="." unique_id=1255261386]
+z_index = 2
 
 [node name="Go Back Pipe" type="Sprite2D" parent="Pipe Container" unique_id=2059497906]
 visible = false

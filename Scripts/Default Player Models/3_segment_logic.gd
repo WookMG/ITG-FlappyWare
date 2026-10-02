@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var waitFrames: int = 20
+@export var waitFrames: int = 2
 var bufferPositions1: Array[Vector2]
 var bufferPositions2: Array[Vector2]
 var headLastFrame: Vector2
