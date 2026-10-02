@@ -1,7 +1,13 @@
 extends Control
 
+@onready var textAnimations: AnimationPlayer = $Title/AnimationPlayer
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	var aniList = textAnimations.get_animation_list()
+	textAnimations.current_animation = aniList[randi_range(0, aniList.size() - 1)]
+	if textAnimations.current_animation == "huh?":
+		$"Splash Art/Eye Container".show()
 
 func _on_host_pressed() -> void:
 	var error = NetworkHandler.start_server()
