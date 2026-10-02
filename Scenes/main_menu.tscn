@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://iakgr4escjck" path="res://Scenes/animated_button.tscn" id="2_48xlc"]
 [ext_resource type="Texture2D" uid="uid://0i8nuhwcw7jx" path="res://Assets/Backgrounds/Splash Screen.png" id="3_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://drwqg5v6shsd7" path="res://Assets/Sprites/eyes.png" id="4_n45e2"]
+[ext_resource type="Shader" uid="uid://c3gfqid00bfi1" path="res://Assets/gifs/skeleton_gif_shader.gdshader" id="6_cp0ys"]
+[ext_resource type="VideoStream" uid="uid://by7n0ij4gjeef" path="res://Assets/gifs/Timeline 1.ogv" id="6_opfnp"]
 
 [sub_resource type="Animation" id="Animation_ce3w2"]
 length = 0.001
@@ -43,6 +45,11 @@ _data = {
 &"RESET": SubResource("Animation_ce3w2"),
 &"scroll": SubResource("Animation_n45e2")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mq0dr"]
+shader = ExtResource("6_cp0ys")
+shader_parameter/black_threshold = 0.08
+shader_parameter/edge_softness = 0.03
 
 [sub_resource type="Animation" id="Animation_cp0ys"]
 resource_name = "Flip"
@@ -263,9 +270,9 @@ tracks/0/path = NodePath(".:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(1, 1, 2, 1),
+"handle_modes": PackedInt32Array(1, 0, 0, 1),
 "points": PackedFloat32Array(-600, 0, 0, 0, 0, -600, 0, 0, 0, 0, 2000, -0.01111112, -3.209879, 1.488889, 430.12347, 2000, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 1, 1.0666667, 10)
+"times": PackedFloat32Array(0, 2, 2.5666666, 10)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -274,9 +281,9 @@ tracks/1/path = NodePath(".:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 2, 2),
+"handle_modes": PackedInt32Array(0, 0, 2),
 "points": PackedFloat32Array(32, -0.25, 0, 0.25, 0, 32, -0.16666667, 0, 1.5, 0, 32, -1.6666667, 0, 0, 0),
-"times": PackedFloat32Array(0, 1, 10)
+"times": PackedFloat32Array(0, 2, 10)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ce3w2"]
@@ -314,6 +321,20 @@ autoplay = &"scroll"
 
 [node name="Eye Container" type="Node2D" parent="Splash Art" unique_id=72591169]
 visible = false
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Splash Art/Eye Container" unique_id=163184921]
+top_level = true
+z_as_relative = false
+material = SubResource("ShaderMaterial_mq0dr")
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("6_opfnp")
+speed_scale = 4.0
+
+[node name="Timer" type="Timer" parent="Splash Art/Eye Container/VideoStreamPlayer" unique_id=764791491]
+one_shot = true
+autostart = true
 
 [node name="Eyes2" type="Node2D" parent="Splash Art/Eye Container" unique_id=1954451193]
 position = Vector2(504, -307.5)
@@ -483,7 +504,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 304.0
 offset_top = 32.0
-offset_right = -304.0017
+offset_right = -304.0022
 offset_bottom = -461.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -504,6 +525,7 @@ vertical_alignment = 2
 libraries/ = SubResource("AnimationLibrary_ce3w2")
 autoplay = &"Flip"
 
+[connection signal="timeout" from="Splash Art/Eye Container/VideoStreamPlayer/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Play" to="." method="_on_play_pressed"]
