@@ -70,10 +70,10 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
 
 @rpc("any_peer", "call_local", "reliable")
-func set_bird_properties(slot: int) -> void:
-	self.slot = slot
+func set_bird_properties(player_slot: int) -> void:
+	slot = player_slot
 	$Head.slot = slot
-	$Head._pick_model_received(slot)
+	$Head._pick_model_received.rpc(slot)
 	scale = Vector2.ONE * PLAYERSCALE
 	set_bird_pitch(slot)
 	set_bird_location(slot)

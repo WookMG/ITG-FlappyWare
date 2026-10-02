@@ -11,6 +11,7 @@ const maggot = preload("res://Assets/Sprites/Maggot/head.png")
 func _ready() -> void:
 	$Worm.hide() #hide default model
 
+@rpc ("authority", "call_local", "reliable")
 func _pick_model_received(slot: int) -> void:
 	if slot == 0:
 		$Worm.show()
