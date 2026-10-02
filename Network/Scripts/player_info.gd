@@ -8,8 +8,8 @@ var is_ready: bool = false
 var ping_ms: int = 0
 var slot: int 
 
-func _init(id: String, name: String, host: bool = false) -> void:
-	peer_id = int(id)
+func _init(id: int, name: String, host: bool = false) -> void:
+	peer_id = id
 	player_name = name
 	is_host = host
 

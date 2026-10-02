@@ -8,7 +8,6 @@ signal connection_failed
 const DEFAULT_IP_ADDRESS: String = "localhost"
 const DEFAULT_PORT: int = 42069
 const MAX_PLAYERS: int = 4
-const EMPTY_SLOT := "<null>"
 
 var peer: ENetMultiplayerPeer
 var is_server: bool = false
@@ -36,8 +35,8 @@ func start_server(port: int = DEFAULT_PORT) -> Error:
 	multiplayer.multiplayer_peer = peer
 	is_server = true
 	
-	connected_players[1] = PlayerInfo.new("1", "Default", true)
-	connected_players[1].slot = 1
+	connected_players['1'] = PlayerInfo.new(1, "Default", true)
+	connected_players['1'].slot = 1
 	print("Server started on port %d" % port)
 	return OK
 
@@ -81,8 +80,8 @@ func disconnect_game() -> void:
 
 func _on_peer_connected(id: int) -> void:
 	print("Peer connected: %d" % id)
-	connected_players[id] = PlayerInfo.new(str(id), "Player_%d" % id)
-	connected_players[id].assign_slot()
+	connected_players[str(id)] = PlayerInfo.new(id, "Player_%d" % id)
+	connected_players[str(id)].assign_slot()
 	player_connected.emit(id)
 
 func _on_peer_disconnected(id: int) -> void:
