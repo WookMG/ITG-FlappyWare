@@ -322,20 +322,6 @@ autoplay = &"scroll"
 [node name="Eye Container" type="Node2D" parent="Splash Art" unique_id=72591169]
 visible = false
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Splash Art/Eye Container" unique_id=163184921]
-top_level = true
-z_as_relative = false
-material = SubResource("ShaderMaterial_mq0dr")
-offset_right = 1920.0
-offset_bottom = 1080.0
-scale = Vector2(0.6, 0.6)
-stream = ExtResource("6_opfnp")
-speed_scale = 4.0
-
-[node name="Timer" type="Timer" parent="Splash Art/Eye Container/VideoStreamPlayer" unique_id=764791491]
-one_shot = true
-autostart = true
-
 [node name="Eyes2" type="Node2D" parent="Splash Art/Eye Container" unique_id=1954451193]
 position = Vector2(504, -307.5)
 scale = Vector2(1.2, 1.2)
@@ -454,6 +440,20 @@ position = Vector2(1901.1667, 211.25003)
 scale = Vector2(0.100722276, 0.07840502)
 texture = ExtResource("4_n45e2")
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=163184921]
+z_as_relative = false
+material = SubResource("ShaderMaterial_mq0dr")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("6_opfnp")
+speed_scale = 4.0
+
+[node name="Timer" type="Timer" parent="VideoStreamPlayer" unique_id=764791491]
+one_shot = true
+autostart = true
+
 [node name="Panel" type="Panel" parent="." unique_id=901096388]
 layout_mode = 1
 anchors_preset = 7
@@ -525,7 +525,7 @@ vertical_alignment = 2
 libraries/ = SubResource("AnimationLibrary_ce3w2")
 autoplay = &"Flip"
 
-[connection signal="timeout" from="Splash Art/Eye Container/VideoStreamPlayer/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="VideoStreamPlayer/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Play" to="." method="_on_play_pressed"]

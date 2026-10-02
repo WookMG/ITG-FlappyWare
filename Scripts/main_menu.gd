@@ -8,7 +8,7 @@ func _ready() -> void:
 	textAnimations.current_animation = aniList[randi_range(0, aniList.size() - 1)]
 	if textAnimations.current_animation == "huh?":
 		$"Splash Art/Eye Container".show()
-		$"Splash Art/Eye Container/VideoStreamPlayer/Timer".start()
+		$VideoStreamPlayer/Timer.start()
 
 func _on_host_pressed() -> void:
 	var error = NetworkHandler.start_server()
@@ -35,6 +35,6 @@ func _on_quit_pressed() -> void:
 
 
 func _on_timer_timeout() -> void:
-	$"Splash Art/Eye Container/VideoStreamPlayer".play()
-	$"Splash Art/Eye Container/VideoStreamPlayer/Timer".wait_time = 10
-	$"Splash Art/Eye Container/VideoStreamPlayer/Timer".start()
+	$VideoStreamPlayer.play()
+	$VideoStreamPlayer/Timer.wait_time = 10
+	$VideoStreamPlayer/Timer.start()
