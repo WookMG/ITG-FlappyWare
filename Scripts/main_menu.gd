@@ -7,8 +7,9 @@ func _ready() -> void:
 	var aniList = textAnimations.get_animation_list()
 	textAnimations.current_animation = aniList[randi_range(0, aniList.size() - 1)]
 	if textAnimations.current_animation == "huh?":
-		$"Splash Art/Eye Container".show()
 		$VideoStreamPlayer/Timer.start()
+		await get_tree().create_timer(2.15).timeout
+		$"Splash Art/Eye Container".show()
 
 func _on_host_pressed() -> void:
 	var error = NetworkHandler.start_server()
