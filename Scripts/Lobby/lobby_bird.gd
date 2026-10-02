@@ -17,6 +17,9 @@ var faded = false
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return #Multiplayer Shizzy
 	
+	rpc("follow", ["$Model/Body2", "$Model/Body1"])
+	#follow($Model/Body1, $Model/Head)
+	
 	if idle:
 		position.y += 0.5 * sin(Time.get_ticks_msec()/500.0)
 		show_ui_to_self()
@@ -41,7 +44,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Jump"):
 			jump()
 		
-		$Sprite2D.rotation = speed_to_rotation(velocity.y)
+		$Model/Head.rotation = speed_to_rotation(velocity.y)
 		
 		if !faded:
 			fade_controlls_ui_for_self(delta)
@@ -67,17 +70,17 @@ func move() -> void:
 func bouce() -> void:
 	if !isFacingLeft && lastVelocity.x > 0:
 		isFacingLeft = true
-		$Sprite2D.flip_h = isFacingLeft
+		$Model/Head.flip_h = isFacingLeft
 		velocity.x = - lastVelocity.x / WALL_ABSORBTION
 	elif isFacingLeft && lastVelocity.x < 0:
 		isFacingLeft = false
-		$Sprite2D.flip_h = isFacingLeft
+		$Model/Head.flip_h = isFacingLeft
 		velocity.x = - lastVelocity.x / WALL_ABSORBTION
 
 func hit_pipe() -> void:
 	idle = true
 	set_collision_layer_value(2, false)
-	$Sprite2D.rotation = 0
+	$Model/Head.rotation = 0
 
 func deccelerate() -> void:
 	if sign(velocity.x) == 1:
@@ -117,3 +120,9 @@ func show_ui_to_self() -> void:
 
 func fade_controlls_ui_for_self(delta: float) -> void:
 	fade_controlls_ui.rpc_id(name.to_int(), delta)
+
+@rpc("authority", "call_local", "unreliable")
+func follow(follower: Sprite2D, lead: Sprite2D) -> void:
+	var towardDirection: Vector2 = (lead.global_position - follower.global_position) / (lead.global_position - follower.global_position).length()
+	var distance: float = (lead.global_position - follower.global_position).length()
+	print(distance)

@@ -45,7 +45,6 @@ func _physics_process(delta: float) -> void:
 	shiftSize(pink, pinkFlipped, pinkFlipSpeed)
 	
 	path_follow_2d.progress += 10 * delta
-	print(path_follow_2d.progress)
 
 func shiftSize(node: Node, flipped: Array, speed: float) -> void:
 	if !flipped[0]:

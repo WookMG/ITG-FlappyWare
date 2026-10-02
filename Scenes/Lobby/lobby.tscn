@@ -170,15 +170,26 @@ scale = Vector2(0.5, 1.5485)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
 _spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
-spawn_path = NodePath("../Connected Players")
+spawn_path = NodePath("../Players")
 script = ExtResource("2_7mxwi")
 network_player = ExtResource("3_dx3ka")
 
-[node name="Connected Players" type="Node2D" parent="." unique_id=292026206]
+[node name="Players" type="Node2D" parent="." unique_id=292026206]
+
+[node name="0" type="Node" parent="Players" unique_id=1355645849]
+
+[node name="1" type="Node" parent="Players" unique_id=2047810889]
+
+[node name="2" type="Node" parent="Players" unique_id=2074922642]
+
+[node name="3" type="Node" parent="Players" unique_id=584162113]
 
 [connection signal="body_entered" from="Pipe Container/Go Back Pipe/Area2D" to="." method="_onReturnPipeEntered"]
 [connection signal="body_entered" from="Pipe Container/Start Pipe/Area2D" to="." method="_onStartPipeEntered"]
 [connection signal="timeout" from="Pipe Container/Pipe Spawner/pipe_timer" to="Pipe Container/Pipe Spawner" method="_on_spawn_pipe_timeout"]
 [connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/toppipe" to="." method="_on_bird_collide"]
 [connection signal="body_entered" from="Pipe Container/Pipe Spawner/pipe_set/bottompipe" to="." method="_on_bird_collide"]
-[connection signal="child_entered_tree" from="Connected Players" to="." method="_onPlayerNodeAdded"]
+[connection signal="child_entered_tree" from="Players/0" to="." method="_on_slot_0_child_entered_tree"]
+[connection signal="child_entered_tree" from="Players/1" to="." method="_on_slot_1_child_entered_tree"]
+[connection signal="child_entered_tree" from="Players/2" to="." method="_on_slot_2_child_entered_tree"]
+[connection signal="child_entered_tree" from="Players/3" to="." method="_on_slot_3_child_entered_tree"]

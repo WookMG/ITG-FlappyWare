@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://osx0pp5u4jam"]
 
 [ext_resource type="Script" uid="uid://r68qg5bkurj6" path="res://Scripts/Lobby/lobby_bird.gd" id="1_4rd5n"]
-[ext_resource type="Texture2D" uid="uid://bdrst7yf0ki6x" path="res://Assets/Sprites/bird.png" id="2_yu38w"]
+[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Caterpillar/head.png" id="2_8sgld"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="3_dowtu"]
+[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Caterpillar/body.png" id="3_yu38w"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2h58u"]
-radius = 11.0
-height = 31.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nr3w"]
+height = 24.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sseh2"]
 properties/0/path = NodePath(".:position")
@@ -38,14 +38,10 @@ properties/7/replication_mode = 1
 collision_layer = 0
 script = ExtResource("1_4rd5n")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=896503774]
-scale = Vector2(2.3, 2.3)
-texture = ExtResource("2_yu38w")
-
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=924959964]
 rotation = 1.5707964
 scale = Vector2(4, 4)
-shape = SubResource("CapsuleShape2D_2h58u")
+shape = SubResource("CapsuleShape2D_7nr3w")
 
 [node name="Flap" type="AudioStreamPlayer" parent="." unique_id=470836815]
 stream = ExtResource("3_dowtu")
@@ -79,3 +75,18 @@ theme_override_font_sizes/normal_font_size = 40
 text = "Space = Jump"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Model" type="Node2D" parent="." unique_id=1610808350]
+
+[node name="Body2" type="Sprite2D" parent="Model" unique_id=20174525]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("3_yu38w")
+
+[node name="Body1" type="Sprite2D" parent="Model" unique_id=78745469]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("3_yu38w")
+
+[node name="Head" type="Sprite2D" parent="Model" unique_id=896503774]
+position = Vector2(0, 7.999999)
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("2_8sgld")

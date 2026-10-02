@@ -28,6 +28,8 @@ size = Vector2(57.444443, 63.673286)
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
 minWait = 1.5
+maxWait = null
+maxWiggleAngle = null
 
 [node name="Background" type="Sprite2D" parent="." unique_id=549917755]
 position = Vector2(576, 324)

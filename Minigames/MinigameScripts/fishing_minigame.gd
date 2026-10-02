@@ -42,7 +42,7 @@ func _ready() -> void:
 	sun.add_child(timer)
 	timer.start()
 	
-	setFishPositions(fish_container)
+	#setFishPositions(playerNodes)
 	maxWiggleAngle = maxWiggleAngle * (PI/180)
 	minWiggleAngle = -maxWiggleAngle
 	fishRot = maxWiggleAngle
@@ -72,12 +72,12 @@ func showRandomFish(node: Node) -> void:  # server only
 		var count: int = child.find_child("Sprites Container").get_child_count()
 		child.get_child(randi_range(0, count)).show()
 
-func setFishPositions(node: Node) -> void:
-	for child in node.get_children(false):
-		var marker := child.find_child("Start Position")
-		if marker:
-			child.global_position = marker.global_position
-			marker.queue_free()
+#func setFishPositions(node: Node) -> void:
+	#for i in fish_container.size():
+		#var marker := fish_container.find_child("Start Position")
+		#if marker:
+			#child.global_position = marker.global_position
+			#marker.queue_free()
 
 func rotateSun() -> void:
 	$"Sun Container/Rays1".rotation = sunRot
