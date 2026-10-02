@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 					elif jump_input:
 						jump()
 					lastVelocity = velocity
-					$Model/Head.rotation = speed_to_rotation(velocity.y)
+					$Head.rotation = speed_to_rotation(velocity.y)
 		move_and_slide()
 
 func jump():
@@ -72,7 +72,8 @@ func _enter_tree() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func set_bird_properties(slot: int) -> void:
 	self.slot = slot
-	
+	$Head.slot = slot
+	$Head._pick_model_received(slot)
 	scale = Vector2.ONE * PLAYERSCALE
 	set_bird_pitch(slot)
 	set_bird_location(slot)
@@ -114,16 +115,16 @@ func deccelerate() -> void:
 func bouce() -> void:
 	if !isFacingLeft && lastVelocity.x > 0:
 		isFacingLeft = true
-		$Model/Head.flip_h = isFacingLeft
+		$Head.flip_h = isFacingLeft
 		velocity.x = - lastVelocity.x / WALL_ABSORBTION
 	elif isFacingLeft && lastVelocity.x < 0:
 		isFacingLeft = false
-		$Model/Head.flip_h = isFacingLeft
+		$Head.flip_h = isFacingLeft
 		velocity.x = - lastVelocity.x / WALL_ABSORBTION
 
 @rpc("any_peer", "call_local", "reliable")
 func hit_pipe() -> void:
 	idle = true
 	set_collision_layer_value(2, false)
-	$Model/Head.rotation = 0
+	$Head.rotation = 0
 	velocity = Vector2.ZERO

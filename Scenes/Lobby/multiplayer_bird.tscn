@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://r68qg5bkurj6" path="res://Scripts/Lobby/multiplayer_bird.gd" id="1_w7rdn"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="2_qkn8w"]
-[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Caterpillar/body.png" id="3_bfcpk"]
-[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Caterpillar/head.png" id="4_4nhhe"]
+[ext_resource type="PackedScene" uid="uid://dgnaxfmecsc1a" path="res://Scenes/default_player_models.tscn" id="3_nnnn8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nr3w"]
-height = 24.0
+radius = 8.75
+height = 20.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sseh2"]
 properties/0/path = NodePath(".:position")
@@ -18,16 +18,16 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:scale")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Flap:pitch_scale")
+properties/3/path = NodePath(".:collision_layer")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("Flap:playing")
+properties/4/path = NodePath("Flap:pitch_scale")
 properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath("Model/Head:flip_h")
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Flap:autoplay")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath(".:collision_layer")
+properties/6/path = NodePath("Default Player Models:flip_h")
 properties/6/spawn = true
 properties/6/replication_mode = 1
 
@@ -36,6 +36,7 @@ collision_layer = 0
 script = ExtResource("1_w7rdn")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=924959964]
+position = Vector2(0, 3)
 rotation = 1.5707964
 scale = Vector2(4, 4)
 shape = SubResource("CapsuleShape2D_7nr3w")
@@ -73,17 +74,4 @@ text = "Space = Jump"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Model" type="Node2D" parent="." unique_id=1610808350]
-
-[node name="Body2" type="Sprite2D" parent="Model" unique_id=20174525]
-scale = Vector2(5.5, 5.5)
-texture = ExtResource("3_bfcpk")
-
-[node name="Body1" type="Sprite2D" parent="Model" unique_id=78745469]
-scale = Vector2(5.5, 5.5)
-texture = ExtResource("3_bfcpk")
-
-[node name="Head" type="Sprite2D" parent="Model" unique_id=896503774]
-position = Vector2(0, 7.999999)
-scale = Vector2(5.5, 5.5)
-texture = ExtResource("4_4nhhe")
+[node name="Head" parent="." unique_id=1940780203 instance=ExtResource("3_nnnn8")]
