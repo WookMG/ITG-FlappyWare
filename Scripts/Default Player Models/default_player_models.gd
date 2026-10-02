@@ -1,27 +1,26 @@
 class_name DefaultPlayerModels
 extends Sprite2D
 
-var slot: int
 
-const worm = preload("res://Assets/Sprites/Worm/head.png")
-const mf_with_1_million_toes = preload("res://Assets/Sprites/Caterpillar/head.png")
-const snail = preload("res://Assets/Sprites/Snail/head.png")
-const maggot = preload("res://Assets/Sprites/Maggot/head.png")
+var body: Node2D
+@export var slot: int = 0
+@export var texture_list: Array[Texture2D] = [
+	preload("res://Assets/Sprites/Worm/head.png"),
+	preload("res://Assets/Sprites/Caterpillar/head.png"),
+	preload("res://Assets/Sprites/Snail/head.png"),
+	preload("res://Assets/Sprites/Maggot/head.png")]
+	
+@export var body_list: Array[Node2D] = []
 
 func _ready() -> void:
-	$Worm.hide() #hide default model
+	apply_model()
 
-@rpc ("authority", "call_local", "reliable")
-func _pick_model_received(slot: int) -> void:
-	if slot == 0:
-		$Worm.show()
-		texture = worm
-	elif slot == 1:
-		$Caterpillar.show()
-		texture = mf_with_1_million_toes
-	elif slot == 2:
-		$Snail.show()
-		texture = snail
-	elif slot == 3:
-		$Maggot.show()
-		texture = maggot
+func apply_model() -> void:
+	if slot < 1 or slot > texture_list.size():
+		return
+
+	texture = texture_list[slot - 1]
+
+	if slot <= body_list.size():
+		body = body_list[slot - 1]
+		body.show()

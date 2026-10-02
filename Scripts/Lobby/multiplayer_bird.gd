@@ -25,6 +25,7 @@ var idle = true
 
 func _ready() -> void:
 	set_physics_process(is_multiplayer_authority())
+	set_bird_properties()
 
 func _physics_process(delta: float) -> void:
 	var jump_input = Input.is_action_just_pressed("Jump")
@@ -66,23 +67,20 @@ func speed_to_rotation(speed):
 			rot = 1.50
 	return rot if !isFacingLeft else rot * -1
 
-func _enter_tree() -> void:
-	set_multiplayer_authority(int(name))
-
-@rpc("any_peer", "call_local", "reliable")
-func set_bird_properties(player_slot: int) -> void:
-	slot = player_slot
-	$Head.slot = slot
-	$Head._pick_model_received.rpc(slot)
+func set_bird_properties() -> void:
 	scale = Vector2.ONE * PLAYERSCALE
-	set_bird_pitch(slot)
-	set_bird_location(slot)
+	
+	$Head.slot = slot
+	$Head.apply_model()
+	
+	set_bird_pitch()
+	set_bird_location()
 
-func set_bird_pitch(slot: int) -> void:
+func set_bird_pitch() -> void:
 	var sound = $Flap
 	sound.pitch_scale = 0.50 + (0.25 * slot)
 
-func set_bird_location(slot: int) -> void:
+func set_bird_location() -> void:
 	var spawns = get_parent().get_node("Spawns")
 	var spawn_pos = spawns.get_node_or_null(str(slot))
 
@@ -126,5 +124,6 @@ func bouce() -> void:
 func hit_pipe() -> void:
 	idle = true
 	set_collision_layer_value(2, false)
+	set_bird_properties()
 	$Head.rotation = 0
 	velocity = Vector2.ZERO

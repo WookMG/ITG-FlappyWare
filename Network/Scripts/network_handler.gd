@@ -86,7 +86,7 @@ func _on_peer_connected(id: int) -> void:
 
 func _on_peer_disconnected(id: int) -> void:
 	print("Peer disconnected: %d" % id)
-	connected_players.erase(id)
+	connected_players.erase(str(id))
 	player_disconnected.emit(id)
 
 func _on_connected_to_server() -> void:

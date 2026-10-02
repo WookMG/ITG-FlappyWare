@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://r68qg5bkurj6" path="res://Scripts/Lobby/multiplayer_bird.gd" id="1_w7rdn"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="2_qkn8w"]
 [ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Caterpillar/body.png" id="3_bfcpk"]
-[ext_resource type="Texture2D" uid="uid://drwqg5v6shsd7" path="res://Assets/Sprites/eyes.png" id="3_lwton"]
 [ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="3_vp5f7"]
 [ext_resource type="Script" uid="uid://cypxbbx6tj3n4" path="res://Scripts/Default Player Models/3_segment_logic.gd" id="4_lwton"]
 [ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Worm/body2.png" id="5_6bl16"]
@@ -53,6 +52,9 @@ properties/10/replication_mode = 1
 properties/11/path = NodePath("Head/Maggot:visible")
 properties/11/spawn = true
 properties/11/replication_mode = 1
+properties/12/path = NodePath("Head:slot")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [node name="Multiplayer Bird" type="CharacterBody2D" unique_id=638549041 groups=["Player"]]
 collision_layer = 0
@@ -97,13 +99,14 @@ text = "Space = Jump"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Head" type="Sprite2D" parent="." unique_id=1940780203]
+[node name="Head" type="Sprite2D" parent="." unique_id=1940780203 node_paths=PackedStringArray("body_list")]
 scale = Vector2(5.5, 5.5)
-texture = ExtResource("3_lwton")
 script = ExtResource("3_vp5f7")
+body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodePath("Maggot")]
 
 [node name="Worm" type="Node2D" parent="Head" unique_id=925834026]
 visible = false
+z_index = -1
 script = ExtResource("4_lwton")
 
 [node name="Body2" type="Sprite2D" parent="Head/Worm" unique_id=759539168]
@@ -116,6 +119,7 @@ texture = ExtResource("6_736pw")
 
 [node name="Caterpillar" type="Node2D" parent="Head" unique_id=1577713069]
 visible = false
+z_index = -1
 script = ExtResource("4_lwton")
 
 [node name="Body2" type="Sprite2D" parent="Head/Caterpillar" unique_id=80497436]
@@ -128,6 +132,7 @@ texture = ExtResource("3_bfcpk")
 
 [node name="Snail" type="Node2D" parent="Head" unique_id=694329721]
 visible = false
+z_index = -1
 script = ExtResource("4_lwton")
 
 [node name="Body2" type="Sprite2D" parent="Head/Snail" unique_id=1531423546]
@@ -140,6 +145,7 @@ texture = ExtResource("9_rdeab")
 
 [node name="Maggot" type="Node2D" parent="Head" unique_id=1301607599]
 visible = false
+z_index = -1
 script = ExtResource("4_lwton")
 
 [node name="Body1" type="Sprite2D" parent="Head/Maggot" unique_id=1434150637]
@@ -147,4 +153,60 @@ position = Vector2(0, 7.999999)
 texture = ExtResource("11_8ccao")
 
 [node name="Body2" type="Sprite2D" parent="Head/Maggot" unique_id=1660150473]
+position = Vector2(0, 7.999999)
+
+[node name="Head2" type="Sprite2D" parent="." unique_id=549211241 node_paths=PackedStringArray("body_list")]
+scale = Vector2(5.5, 5.5)
+script = ExtResource("3_vp5f7")
+body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodePath("Maggot")]
+
+[node name="Worm" type="Node2D" parent="Head2" unique_id=139198356]
+visible = false
+z_index = -1
+script = ExtResource("4_lwton")
+
+[node name="Body2" type="Sprite2D" parent="Head2/Worm" unique_id=675015366]
+position = Vector2(5.9604645e-08, 2.9999998)
+texture = ExtResource("5_6bl16")
+
+[node name="Body1" type="Sprite2D" parent="Head2/Worm" unique_id=1116181693]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("6_736pw")
+
+[node name="Caterpillar" type="Node2D" parent="Head2" unique_id=158323530]
+visible = false
+z_index = -1
+script = ExtResource("4_lwton")
+
+[node name="Body2" type="Sprite2D" parent="Head2/Caterpillar" unique_id=1205354605]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("3_bfcpk")
+
+[node name="Body1" type="Sprite2D" parent="Head2/Caterpillar" unique_id=760292816]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("3_bfcpk")
+
+[node name="Snail" type="Node2D" parent="Head2" unique_id=759239171]
+visible = false
+z_index = -1
+script = ExtResource("4_lwton")
+
+[node name="Body2" type="Sprite2D" parent="Head2/Snail" unique_id=725816310]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("8_vhgxe")
+
+[node name="Body1" type="Sprite2D" parent="Head2/Snail" unique_id=1935626295]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("9_rdeab")
+
+[node name="Maggot" type="Node2D" parent="Head2" unique_id=610448176]
+visible = false
+z_index = -1
+script = ExtResource("4_lwton")
+
+[node name="Body1" type="Sprite2D" parent="Head2/Maggot" unique_id=390081260]
+position = Vector2(0, 7.999999)
+texture = ExtResource("11_8ccao")
+
+[node name="Body2" type="Sprite2D" parent="Head2/Maggot" unique_id=838834936]
 position = Vector2(0, 7.999999)

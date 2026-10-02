@@ -5,22 +5,27 @@ extends Node2D
 @onready var players_container: Node = $Players
 
 func _ready() -> void:
+	multiplayer_spawner.spawn_function = _spawn_player_with_data
+	
 	if !NetworkHandler.is_server: return
 	for id in NetworkHandler.connected_players:
-		print("THIS IS THE ID BEING ADDED: %s" % id)
 		_spawn_player(int(id))
 	
 	NetworkHandler.player_connected.connect(_spawn_player)
 	NetworkHandler.player_disconnected.connect(_despawn_player)
 
 func _spawn_player(id: int) -> void:
+	multiplayer_spawner.spawn({"id": id, "slot": NetworkHandler.connected_players[str(id)].slot})
+
+func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
-	var player = player_scene.instantiate()
+	var player: MultiplayerBird = player_scene.instantiate()
 	
-	player.name = str(id)
-	players_container.add_child(player, true)
+	player.name = str(data["id"])
+	player.slot = data["slot"]
+	player.set_multiplayer_authority(data["id"])
 	
-	player.set_bird_properties.rpc(NetworkHandler.connected_players[str(id)].slot)
+	return player
 
 func _despawn_player(id: int) -> void:
 	var player = players_container.get_node_or_null(str(id))
@@ -60,4 +65,3 @@ func _on_bird_collide(body: Node2D) -> void:
 	if !NetworkHandler.is_server: return
 	if body is MultiplayerBird:
 		body.hit_pipe.rpc_id(int(body.name))
-		body.set_bird_properties.rpc(NetworkHandler.connected_players[body.name].slot)

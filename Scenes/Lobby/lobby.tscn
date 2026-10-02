@@ -17,6 +17,8 @@ size = Vector2(278.91534, 105.64282)
 size = Vector2(66, 493)
 
 [node name="Lobby" type="Node2D" unique_id=465588410]
+z_index = -1
+z_as_relative = false
 script = ExtResource("1_7mxwi")
 
 [node name="Players" type="Node" parent="." unique_id=500720015]
