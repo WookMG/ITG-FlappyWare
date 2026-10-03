@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbmnerbjummaf"
-path="res://.godot/imported/body.png-fc91fd60010667d3a127aa341b7fb71e.ctex"
+uid="uid://pq0ra47kte43"
+path="res://.godot/imported/shead.png-cf4ca405fe58db652a749475c8f8539e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Caterpillar/body.png"
-dest_files=["res://.godot/imported/body.png-fc91fd60010667d3a127aa341b7fb71e.ctex"]
+source_file="res://Assets/Sprites/Players/shead.png"
+dest_files=["res://.godot/imported/shead.png-cf4ca405fe58db652a749475c8f8539e.ctex"]
 
 [params]
 

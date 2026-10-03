@@ -12,7 +12,7 @@ func _ready() -> void:
 	toppipe.set_multiplayer_authority(1)
 	bottompipe.set_multiplayer_authority(1)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !multiplayer.is_server(): return
 	pipe_set.position.x -= Global.bird_speed
 	rpc("sync_pipe_position", pipe_set.position)

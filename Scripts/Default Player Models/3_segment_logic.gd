@@ -15,7 +15,7 @@ func _ready() -> void:
 	bufferPositions2.resize(waitFrames)
 	bufferPositions2.fill(head.global_position)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	follow()
 
 func follow() -> void:

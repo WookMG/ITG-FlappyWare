@@ -12,6 +12,7 @@ const MAX_PLAYERS: int = 4
 var peer: ENetMultiplayerPeer
 var is_server: bool = false
 var connected_players: Dictionary = {}
+var loaded_players: Array[int] = []
 
 var disconnect_reason: String = ""
 
@@ -24,7 +25,7 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-func start_server(port: int = DEFAULT_PORT) -> Error:
+func start_server(player_name: String, port: int = DEFAULT_PORT) -> Error:
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, MAX_PLAYERS)
 	
@@ -35,12 +36,13 @@ func start_server(port: int = DEFAULT_PORT) -> Error:
 	multiplayer.multiplayer_peer = peer
 	is_server = true
 	
-	connected_players['1'] = PlayerInfo.new(1, "Default", true)
+	if player_name == "": player_name = "Host"
+	connected_players['1'] = PlayerInfo.new(1, player_name, true)
 	connected_players['1'].slot = 1
 	print("Server started on port %d" % port)
 	return OK
 
-func start_client(address: String = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT) -> Error:
+func start_client(player_name: String, address: String = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT) -> Error:
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(address, port)
 	
@@ -51,7 +53,20 @@ func start_client(address: String = DEFAULT_IP_ADDRESS, port: int = DEFAULT_PORT
 	multiplayer.multiplayer_peer = peer
 	is_server = false
 	
+	await multiplayer.connected_to_server
+	submit_player_name.rpc_id(1, player_name)
+	
 	return OK
+
+@rpc("any_peer", "reliable")
+func submit_player_name(player_name: String) -> void:
+	if !is_server: return
+	
+	var id = multiplayer.get_remote_sender_id()
+	if connected_players.has(str(id)):
+		if player_name == "": player_name = "player_" + str(id)
+		connected_players[str(id)].set_player_name(player_name)
+		player_connected.emit(id)
 
 func leave_game() -> void:
 	if peer:
@@ -82,7 +97,6 @@ func _on_peer_connected(id: int) -> void:
 	print("Peer connected: %d" % id)
 	connected_players[str(id)] = PlayerInfo.new(id, "Player_%d" % id)
 	connected_players[str(id)].assign_slot()
-	player_connected.emit(id)
 
 func _on_peer_disconnected(id: int) -> void:
 	print("Peer disconnected: %d" % id)
@@ -107,3 +121,8 @@ func server_closing() -> void:
 	disconnect_reason = "The host closed the game."
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
+
+@rpc("any_peer", "call_local", "reliable")
+func client_loaded(id: int) -> void:
+	if id not in loaded_players:
+		loaded_players.append(id)

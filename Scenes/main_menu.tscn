@@ -51,6 +51,16 @@ shader = ExtResource("6_cp0ys")
 shader_parameter/black_threshold = 0.08
 shader_parameter/edge_softness = 0.03
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp0ys"]
+bg_color = Color(0.99607843, 0.78039217, 0.3647059, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vw2u"]
+bg_color = Color(6.497651e-07, 0.35851797, 0.3558298, 0.58431375)
+
 [sub_resource type="Animation" id="Animation_cp0ys"]
 resource_name = "Flip"
 length = 2.0
@@ -496,6 +506,84 @@ text = "Settings"
 [node name="Quit" parent="Panel/VBoxContainer" unique_id=1315869629 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Quit"
+
+[node name="InputTextPanel" type="Panel" parent="." unique_id=1516987994]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 351.0
+offset_top = 211.0
+offset_right = 801.0
+offset_bottom = 611.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cp0ys")
+
+[node name="IP" type="LineEdit" parent="InputTextPanel" unique_id=1670711476]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -75.0
+offset_right = 125.0
+offset_bottom = -40.00006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
+placeholder_text = "localhost"
+
+[node name="Username" type="LineEdit" parent="InputTextPanel" unique_id=2019447200]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -75.0
+offset_right = 125.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
+placeholder_text = "MartinyWeenie"
+
+[node name="IPText" type="RichTextLabel" parent="InputTextPanel" unique_id=1032748816]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 75.0
+offset_right = 131.0
+offset_bottom = 114.999985
+grow_horizontal = 2
+theme_override_constants/outline_size = 7
+text = "Please Enter the Host's IP address"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="UsernameText" type="RichTextLabel" parent="InputTextPanel" unique_id=1189414635]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -85.5
+offset_top = 75.0
+offset_right = 85.5
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 7
+text = "Enter Your Username!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Title" type="Label" parent="." unique_id=1629719040]
 layout_mode = 1

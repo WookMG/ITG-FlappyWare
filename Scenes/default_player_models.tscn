@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="1_xadlu"]
 [ext_resource type="Script" uid="uid://cypxbbx6tj3n4" path="res://Scripts/Default Player Models/3_segment_logic.gd" id="2_55t61"]
-[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Worm/body2.png" id="3_hf1ll"]
-[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Caterpillar/body.png" id="3_sg00h"]
-[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Worm/body1.png" id="4_t20st"]
-[ext_resource type="Script" uid="uid://brdvu1bqmliv6" path="res://Scripts/Default Player Models/2_segment_logic.gd" id="5_pod83"]
-[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Maggot/body.png" id="6_ypk5f"]
-[ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Snail/body1.png" id="8_j3lkq"]
-[ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Snail/body2.png" id="9_rjo0g"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="3_hf1ll"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="3_sg00h"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="4_t20st"]
+[ext_resource type="Script" path="res://Scripts/Default Player Models/2_segment_logic.gd" id="5_pod83"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="6_ypk5f"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="8_j3lkq"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="9_rjo0g"]
 
 [node name="Default Player Models" type="Sprite2D" unique_id=67253850]
 z_index = 1

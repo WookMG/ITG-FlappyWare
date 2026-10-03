@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbkeu68jb86m1"
-path="res://.godot/imported/body.png-151f2eaed692ef7c18765092b0929cac.ctex"
+uid="uid://c73cmqlxl5hyg"
+path="res://.godot/imported/wdead.png-3ee2ad86f1592096173a227c51de4d38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Maggot/body.png"
-dest_files=["res://.godot/imported/body.png-151f2eaed692ef7c18765092b0929cac.ctex"]
+source_file="res://Assets/Sprites/Players/wdead.png"
+dest_files=["res://.godot/imported/wdead.png-3ee2ad86f1592096173a227c51de4d38.ctex"]
 
 [params]
 

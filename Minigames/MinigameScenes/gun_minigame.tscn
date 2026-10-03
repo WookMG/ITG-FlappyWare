@@ -1,113 +1,87 @@
 [gd_scene format=3 uid="uid://dtivmpl0lcno"]
 
-[ext_resource type="Script" uid="uid://f3vlpxpu4bp" path="res://Network/Scripts/high_level_multiplayer_spawner.gd" id="1_5h1is"]
-[ext_resource type="Texture2D" uid="uid://bygtouogdl1f0" path="res://Assets/Sprites/pipe.webp" id="1_68e0m"]
-[ext_resource type="PackedScene" uid="uid://dto7aeti1rlbc" path="res://Scenes/MultiplayerBird.tscn" id="2_rbtvy"]
-[ext_resource type="PackedScene" uid="uid://cgryu1knqykgk" path="res://Network/Scenes/high_level_ui.tscn" id="4_5ushq"]
+[ext_resource type="Script" uid="uid://blitjv0800rq8" path="res://Minigames/MinigameScripts/gun_minigame.gd" id="1_68e0m"]
+[ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="2_5h1is"]
+[ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/gun_spikes.gd" id="3_rbtvy"]
 
-[sub_resource type="Gradient" id="Gradient_5h1is"]
-colors = PackedColorArray(0.6039216, 0, 0, 1, 0.99820966, 0.37082726, 0.29429373, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
+size = Vector2(32, 1215)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ilm2e"]
-gradient = SubResource("Gradient_5h1is")
-fill_from = Vector2(1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5ibt"]
-size = Vector2(70.20307, 58.700684)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8l3ms"]
-size = Vector2(111.595, 1028.5264)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkidb"]
+size = Vector2(1176, 20)
 
 [node name="GunMinigame" type="Node2D" unique_id=2082737476]
+script = ExtResource("1_68e0m")
 
-[node name="MultiplayerContainer" type="Node2D" parent="." unique_id=1733335150]
+[node name="Players" type="Node" parent="." unique_id=1261120073]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MultiplayerContainer" unique_id=1740861918]
+[node name="Spawns" type="Node2D" parent="Players" unique_id=178646751]
+position = Vector2(0, 82)
+
+[node name="1" type="Marker2D" parent="Players/Spawns" unique_id=1104574520]
+position = Vector2(-375, -250)
+
+[node name="2" type="Marker2D" parent="Players/Spawns" unique_id=104142036]
+position = Vector2(-125, -300)
+
+[node name="3" type="Marker2D" parent="Players/Spawns" unique_id=825416816]
+position = Vector2(375, -250)
+
+[node name="4" type="Marker2D" parent="Players/Spawns" unique_id=1323563032]
+position = Vector2(125, -200)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1740861918]
+_spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
 spawn_path = NodePath("../Players")
-script = ExtResource("1_5h1is")
-network_player = ExtResource("2_rbtvy")
 
-[node name="Players" type="Node2D" parent="MultiplayerContainer" unique_id=1356843281]
+[node name="BG" type="Sprite2D" parent="." unique_id=1508333926]
+texture = ExtResource("2_5h1is")
 
-[node name="SpawnPoints" type="Node2D" parent="MultiplayerContainer/Players" unique_id=1363422]
+[node name="walls" type="Node2D" parent="BG" unique_id=676468670]
 
-[node name="Player1" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=254756183]
-position = Vector2(400, 300)
-gizmo_extents = 0.0
+[node name="left" type="StaticBody2D" parent="BG/walls" unique_id=848665181]
+position = Vector2(-583, -1)
+collision_layer = 5
 
-[node name="Player2" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=2025147632]
-position = Vector2(400, 750)
-gizmo_extents = 0.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/left" unique_id=352363285]
+position = Vector2(-5, -17.5)
+shape = SubResource("RectangleShape2D_ilm2e")
 
-[node name="Player3" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=1530129175]
-position = Vector2(1400, 300)
-gizmo_extents = 0.0
+[node name="right" type="StaticBody2D" parent="BG/walls" unique_id=311776013]
+position = Vector2(596, 22)
+collision_layer = 5
 
-[node name="Player4" type="Marker2D" parent="MultiplayerContainer/Players/SpawnPoints" unique_id=1871301156]
-position = Vector2(1400, 750)
-gizmo_extents = 0.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/right" unique_id=228493548]
+position = Vector2(-5, -17.5)
+shape = SubResource("RectangleShape2D_ilm2e")
 
-[node name="FloorContainer" type="Node2D" parent="." unique_id=1998773563 groups=["Floor"]]
+[node name="roof" type="StaticBody2D" parent="BG/walls" unique_id=2065163583]
+position = Vector2(23, -320)
 
-[node name="Spikes" type="Sprite2D" parent="FloorContainer" unique_id=1349123704]
-position = Vector2(963, 1082)
-scale = Vector2(30.46875, 1.2265614)
-texture = SubResource("GradientTexture2D_ilm2e")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/roof" unique_id=1259462055]
+position = Vector2(-30.5, -17.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_ilm2e")
 
-[node name="Area2D" type="Area2D" parent="FloorContainer/Spikes" unique_id=1543422884]
+[node name="floor" type="StaticBody2D" parent="BG/walls" unique_id=2024538951]
+position = Vector2(23, 347)
+collision_layer = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorContainer/Spikes/Area2D" unique_id=223408229]
-position = Vector2(-0.11485672, 8.96814)
-scale = Vector2(1.0000005, 1)
-shape = SubResource("RectangleShape2D_p5ibt")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/floor" unique_id=1865227114]
+position = Vector2(-30.5, -17.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_ilm2e")
 
-[node name="WallContainer" type="Node2D" parent="." unique_id=1005311966 groups=["Wall"]]
+[node name="spikes" type="Area2D" parent="BG/walls" unique_id=1626588539]
+position = Vector2(1, 309)
+collision_mask = 2
+monitoring = false
+script = ExtResource("3_rbtvy")
 
-[node name="LeftWall" type="Sprite2D" parent="WallContainer" unique_id=887815448]
-position = Vector2(-52.595, 556.5)
-scale = Vector2(1, 1.049074)
-texture = ExtResource("1_68e0m")
-
-[node name="Area2D" type="Area2D" parent="WallContainer/LeftWall" unique_id=565661157]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallContainer/LeftWall/Area2D" unique_id=346730649]
-position = Vector2(62.595, -7.149145)
-shape = SubResource("RectangleShape2D_8l3ms")
-
-[node name="RightWall" type="Sprite2D" parent="WallContainer" unique_id=1120449482]
-position = Vector2(1980, 556.5)
-scale = Vector2(-1, 1.049)
-texture = ExtResource("1_68e0m")
-
-[node name="Area2D" type="Area2D" parent="WallContainer/RightWall" unique_id=1143976113]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallContainer/RightWall/Area2D" unique_id=2094609229]
-position = Vector2(62.595, -7.149145)
-shape = SubResource("RectangleShape2D_8l3ms")
-
-[node name="UI" type="Control" parent="." unique_id=1797731085]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Timer" type="Control" parent="UI" unique_id=282251227]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Nametags" type="Control" parent="UI" unique_id=318555788]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_use_anchors_ = true
-
-[node name="HighLevelUI" parent="UI" unique_id=1056797833 instance=ExtResource("4_5ushq")]
-layout_mode = 1
-metadata/_edit_use_anchors_ = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/spikes" unique_id=1529046204]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_rkidb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982888657]
-position = Vector2(964, 552)
-zoom = Vector2(0.6, 0.6)
+
+[connection signal="body_entered" from="BG/walls/spikes" to="BG/walls/spikes" method="_on_body_entered"]

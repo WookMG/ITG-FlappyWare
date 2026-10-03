@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c73rc2h538wtb"
-path="res://.godot/imported/head.png-e514203545e2d76293d45ec5f0fef2a0.ctex"
+uid="uid://2q2ydulbhvf2"
+path="res://.godot/imported/bullet1.png-7c4eaa5c4094d0a781a1a0bf2d5b55f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Caterpillar/head.png"
-dest_files=["res://.godot/imported/head.png-e514203545e2d76293d45ec5f0fef2a0.ctex"]
+source_file="res://Assets/Sprites/Guns/bullet1.png"
+dest_files=["res://.godot/imported/bullet1.png-7c4eaa5c4094d0a781a1a0bf2d5b55f5.ctex"]
 
 [params]
 

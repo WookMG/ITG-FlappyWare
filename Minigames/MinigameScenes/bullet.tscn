@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bkqy6qikx2hky"]
+
+[ext_resource type="Script" uid="uid://cpk0chcbv6xsy" path="res://Minigames/MinigameScripts/bullet.gd" id="1_py3cq"]
+[ext_resource type="Texture2D" uid="uid://2q2ydulbhvf2" path="res://Assets/Sprites/Guns/bullet1.png" id="1_xbbwb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ilm2e"]
+radius = 2.0
+height = 8.0
+
+[node name="Bullet" type="RigidBody2D" unique_id=812101282]
+script = ExtResource("1_py3cq")
+init_vel = 1500
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2028519839]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=262556969]
+rotation = 1.5707964
+scale = Vector2(3, 3)
+shape = SubResource("CapsuleShape2D_ilm2e")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=363330534]
+scale = Vector2(3, 3)
+texture = ExtResource("1_xbbwb")
+offset = Vector2(0, 0.5)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -15,17 +15,21 @@ func _ready() -> void:
 	NetworkHandler.player_disconnected.connect(_despawn_player)
 
 func _spawn_player(id: int) -> void:
-	multiplayer_spawner.spawn({"id": id, "slot": NetworkHandler.connected_players[str(id)].slot})
+		multiplayer_spawner.spawn({"id": id,
+							"slot": NetworkHandler.connected_players[str(id)].slot,
+							"name": NetworkHandler.connected_players[str(id)].player_name})
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
-	var player: MultiplayerBird = player_scene.instantiate()
+	var player_root: Node2D = player_scene.instantiate()
+	var player : MultiplayerBird = player_root.get_node("Multiplayer Bird")
 	
 	player.name = str(data["id"])
 	player.slot = data["slot"]
+	player.player_name = data["name"]
 	player.set_multiplayer_authority(data["id"])
 	
-	return player
+	return player_root
 
 func _despawn_player(id: int) -> void:
 	var player = players_container.get_node_or_null(str(id))
@@ -46,10 +50,10 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 
 #Start Pipe
 func _onStartPipeEntered(body: Node2D) -> void:
-	var i = randi_range(0,0) #change range when more games added
+	#var i = randi_range(0,0) #change range when more games added
 	if !NetworkHandler.is_server: return
 	if body is MultiplayerBird:
-		print("WORKING ON THIS")
+		SceneManager.start_minigame("res://Minigames/MinigameScenes/gun_minigame.tscn")
 
 @rpc("authority", "reliable")
 func leave_lobby() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d35t4imdknuk1"
-path="res://.godot/imported/body2.png-f1cf48c7656df7ae9d3eaba985b66a5c.ctex"
+uid="uid://cbmnerbjummaf"
+path="res://.godot/imported/cbody.png-8c0b86119c1d115ef8df815873b760d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Snail/body2.png"
-dest_files=["res://.godot/imported/body2.png-f1cf48c7656df7ae9d3eaba985b66a5c.ctex"]
+source_file="res://Assets/Sprites/Players/cbody.png"
+dest_files=["res://.godot/imported/cbody.png-8c0b86119c1d115ef8df815873b760d4.ctex"]
 
 [params]
 

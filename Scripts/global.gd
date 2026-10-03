@@ -2,7 +2,6 @@ extends Node
 
 #Some signals that fire based on certain events. Other functions are called when these fire.
 signal start_game
-signal scored
 signal end_game
 signal restart_game
 

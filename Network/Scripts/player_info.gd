@@ -13,6 +13,9 @@ func _init(id: int, name: String, host: bool = false) -> void:
 	player_name = name
 	is_host = host
 
+func set_player_name(name: String):
+	player_name = name
+
 func assign_slot() -> void:
 	var i = 1
 	for id in NetworkHandler.connected_players:

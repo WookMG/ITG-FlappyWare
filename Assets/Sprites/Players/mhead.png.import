@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6jnog2u0y4kn"
-path="res://.godot/imported/body1.png-3cd01a0e1ae33fd17767899850a4f9ae.ctex"
+uid="uid://b0cgaod1anax7"
+path="res://.godot/imported/mhead.png-7f43ebb95e73c671f53c935cee8e831f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Worm/body1.png"
-dest_files=["res://.godot/imported/body1.png-3cd01a0e1ae33fd17767899850a4f9ae.ctex"]
+source_file="res://Assets/Sprites/Players/mhead.png"
+dest_files=["res://.godot/imported/mhead.png-7f43ebb95e73c671f53c935cee8e831f.ctex"]
 
 [params]
 

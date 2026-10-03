@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pq0ra47kte43"
-path="res://.godot/imported/head.png-3d2ff236ded92a9428e4bae85ca4deaa.ctex"
+uid="uid://3v3i3t5c5dqc"
+path="res://.godot/imported/gun2.png-ff9f3ac434b2e1a85039e06c6c5fedbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Snail/head.png"
-dest_files=["res://.godot/imported/head.png-3d2ff236ded92a9428e4bae85ca4deaa.ctex"]
+source_file="res://Assets/Sprites/Guns/gun2.png"
+dest_files=["res://.godot/imported/gun2.png-ff9f3ac434b2e1a85039e06c6c5fedbb.ctex"]
 
 [params]
 

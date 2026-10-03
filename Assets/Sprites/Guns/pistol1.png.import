@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caxjj3btg3q3j"
-path="res://.godot/imported/head.png-78b6caa36a1742d90d902ebb5927e537.ctex"
+uid="uid://ciu4j4g2ftf0e"
+path="res://.godot/imported/pistol1.png-24380c4af954f8d28e436fb0fa243ef3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Worm/head.png"
-dest_files=["res://.godot/imported/head.png-78b6caa36a1742d90d902ebb5927e537.ctex"]
+source_file="res://Assets/Sprites/Guns/pistol1.png"
+dest_files=["res://.godot/imported/pistol1.png-24380c4af954f8d28e436fb0fa243ef3.ctex"]
 
 [params]
 
