@@ -16,7 +16,7 @@ func _init(id: int, name: String, host: bool = false) -> void:
 func set_player_name(name: String):
 	player_name = name
 
-func assign_slot() -> void:
+func set_slot() -> void:
 	var i = 1
 	for id in NetworkHandler.connected_players:
 		if peer_id == int(id):

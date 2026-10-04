@@ -2,27 +2,52 @@
 
 [ext_resource type="PackedScene" uid="uid://4byfgs81g37b" path="res://Minigames/MinigameScenes/hand.tscn" id="1_c1y88"]
 [ext_resource type="Script" uid="uid://dr423anylxjuv" path="res://Minigames/MinigameScripts/minigame_end.gd" id="1_kvd4s"]
+[ext_resource type="AudioStream" uid="uid://hiuviwx5fuce" path="res://Assets/Sounds/hand/start_drum_roll.wav" id="3_2vek6"]
+[ext_resource type="AudioStream" uid="uid://bcb12tj5qcxq8" path="res://Assets/Sounds/hand/loop_drum_roll.wav" id="4_d4cna"]
+[ext_resource type="AudioStream" uid="uid://bgqbp4elieue4" path="res://Assets/Sounds/hand/end_symbol.wav" id="5_hgesf"]
 
 [node name="MinigameEnd" type="Node2D" unique_id=2031588565]
+position = Vector2(0, 200)
 script = ExtResource("1_kvd4s")
 
 [node name="HandContainer" type="Node2D" parent="." unique_id=124764748]
 
 [node name="Hand1" parent="HandContainer" unique_id=127354916 instance=ExtResource("1_c1y88")]
-visible = false
-position = Vector2(-300, 0)
+position = Vector2(-375, -100)
 
 [node name="Hand2" parent="HandContainer" unique_id=1695262504 instance=ExtResource("1_c1y88")]
-visible = false
-position = Vector2(-100, 0)
+position = Vector2(-250, -115)
 
 [node name="Hand3" parent="HandContainer" unique_id=1380661318 instance=ExtResource("1_c1y88")]
-visible = false
-position = Vector2(100, 0)
+position = Vector2(-130, -80)
 
 [node name="Hand4" parent="HandContainer" unique_id=247293271 instance=ExtResource("1_c1y88")]
-visible = false
-position = Vector2(300, 0)
+position = Vector2(0, -100)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=115562817]
-position = Vector2(0, -134)
+[node name="LoserContainer" type="Node2D" parent="." unique_id=1426964851]
+
+[node name="1" type="Marker2D" parent="LoserContainer" unique_id=205356289]
+position = Vector2(154, -87)
+
+[node name="2" type="Marker2D" parent="LoserContainer" unique_id=860238253]
+position = Vector2(232, -40)
+
+[node name="3" type="Marker2D" parent="LoserContainer" unique_id=1090405823]
+position = Vector2(276, -123)
+
+[node name="4" type="Marker2D" parent="LoserContainer" unique_id=1892998632]
+position = Vector2(354, -76)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1588877128]
+
+[node name="start" type="AudioStreamPlayer" parent="." unique_id=601879862]
+stream = ExtResource("3_2vek6")
+volume_db = -40.0
+
+[node name="loop" type="AudioStreamPlayer" parent="." unique_id=161623154]
+stream = ExtResource("4_d4cna")
+volume_db = -40.0
+
+[node name="end" type="AudioStreamPlayer" parent="." unique_id=1214254385]
+stream = ExtResource("5_hgesf")
+volume_db = -40.0

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c52mf657h20yj" path="res://Assets/Sprites/Hand/hand5.png" id="5_0woka"]
 [ext_resource type="Texture2D" uid="uid://ds6takp57optf" path="res://Assets/Sprites/Hand/hand6.png" id="6_1rtrv"]
 [ext_resource type="Texture2D" uid="uid://bdatr8ro80fhc" path="res://Assets/Sprites/Hand/spotlight.png" id="7_i1eli"]
+[ext_resource type="AudioStream" uid="uid://dm22nsqvennga" path="res://Assets/Sounds/hand/spotlight.wav" id="9_62nh5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ilm2e"]
 animations = [{
@@ -39,12 +40,18 @@ animations = [{
 script = ExtResource("1_62nh5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=565066409]
-position = Vector2(-31, -140)
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-15, -70)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ilm2e")
 animation = &"open"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1086515510]
 visible = false
-position = Vector2(0, -43.999992)
-scale = Vector2(4.6428146, 5.5520625)
+position = Vector2(0, -40)
+scale = Vector2(2.5, 3)
 texture = ExtResource("7_i1eli")
+
+[node name="spotlight" type="AudioStreamPlayer" parent="." unique_id=1539309388]
+stream = ExtResource("9_62nh5")
+volume_db = -30.0

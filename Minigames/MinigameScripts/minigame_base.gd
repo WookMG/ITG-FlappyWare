@@ -18,7 +18,7 @@ signal start_minigame()
 
 const MAX_SLOTS := 4
 
-var _switching := false
+var players: Array[MultiplayerBird] = []
 
 func _ready() -> void:
 	# Must be ready on EVERY peer before any spawn happens.
@@ -52,9 +52,10 @@ func _spawn_when_ready() -> void:
 
 # Runs on every peer with the same data, so every peer builds identical players.
 func _spawn_player(id: int) -> void:
-	multiplayer_spawner.spawn({"id": id,
+		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
+		players.append(player_root.get_node("Multiplayer Bird"))
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
@@ -81,19 +82,12 @@ func _despawn_player(id: int) -> void:
 
 # ------------------------------------------------------- switching games
 
-## Server only. Moves everyone to another minigame. Slots, colors and pitch
-## carry over because connectedPlayerIDs lives in the autoload and the next
-## minigame re-applies them at spawn.
-func change_minigame(player_win_info: Dictionary) -> void:
-	if !NetworkHandler.is_server or _switching: return
-	_switching = true
-	SceneManager.end_minigame(player_win_info)
-
-## Server only. Sends everyone back to the lobby.
-func return_to_lobby() -> void:
-	if !NetworkHandler.is_server or _switching: return
-	_switching = true
-	SceneManager.start_minigame.call_deferred("res://Scenes/Lobby/lobby.tscn")
+func _end_minigame():
+	if !NetworkHandler.is_server: return
+	minigame_timer.stop()
+	var player_win_info: Dictionary = {}
+	
+	#TODO send this info to scene manager to play win animations etc.
 
 # ------------------------------------------------- hooks for subclasses
 

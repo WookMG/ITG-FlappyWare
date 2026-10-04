@@ -96,7 +96,7 @@ func disconnect_game() -> void:
 func _on_peer_connected(id: int) -> void:
 	print("Peer connected: %d" % id)
 	connected_players[str(id)] = PlayerInfo.new(id, "Player_%d" % id)
-	connected_players[str(id)].assign_slot()
+	connected_players[str(id)].set_slot()
 
 func _on_peer_disconnected(id: int) -> void:
 	print("Peer disconnected: %d" % id)

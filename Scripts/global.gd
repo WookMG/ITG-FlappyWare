@@ -2,6 +2,7 @@ extends Node
 
 #Some signals that fire based on certain events. Other functions are called when these fire.
 signal start_game
+signal scored
 signal end_game
 signal restart_game
 
@@ -25,15 +26,8 @@ enum States{
 }
 var current_state : States = States.Idle
 
-#player colors
-var p1Color: Color = Color(1.0, 1.0, 1.0, 1.0) #default color
-var p2Color: Color = Color(1.0, 0.323, 0.361, 1.0)
-var p3Color: Color = Color(0.42, 0.963, 0.444, 1.0)
-var p4Color: Color = Color(0.084, 0.321, 0.655, 1.0)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	end_game.connect(on_end_game)
 	restart_game.connect(on_restart_game)
 	start_game.connect(on_start_game)

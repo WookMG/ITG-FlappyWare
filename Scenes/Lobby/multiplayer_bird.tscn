@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Players/cbody.png" id="13_8ccao"]
 [ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="14_3nk1w"]
 [ext_resource type="AudioStream" uid="uid://7jsoxmji8lyd" path="res://Assets/Sounds/shotgun_reload.wav" id="14_ukoa1"]
-[ext_resource type="AudioStream" uid="uid://dc3pwmq45lios" path="res://Assets/Sounds/shotgun_shoot.wav" id="15_8j8m5"]
 [ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="15_d13pl"]
 [ext_resource type="AudioStream" uid="uid://fcdygwnbnt6u" path="res://Assets/Sounds/shotgun_shoot2.wav" id="16_blgmh"]
 [ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="16_xs42d"]
@@ -43,6 +42,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath("Flap:pitch_scale")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nr3w"]
 radius = 8.75
@@ -272,15 +274,12 @@ libraries/ = SubResource("AnimationLibrary_rdeab")
 
 [node name="Reload" type="AudioStreamPlayer" parent="Multiplayer Bird/Head/GunContainer" unique_id=1395875438]
 stream = ExtResource("14_ukoa1")
+volume_db = -20.0
 pitch_scale = 1.5
 
-[node name="Shoot1" type="AudioStreamPlayer" parent="Multiplayer Bird/Head/GunContainer" unique_id=1646911346]
-stream = ExtResource("15_8j8m5")
-volume_db = -10.0
-
-[node name="Shoot2" type="AudioStreamPlayer" parent="Multiplayer Bird/Head/GunContainer" unique_id=1393991731]
+[node name="Shoot" type="AudioStreamPlayer" parent="Multiplayer Bird/Head/GunContainer" unique_id=1393991731]
 stream = ExtResource("16_blgmh")
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="Worm" type="Node2D" parent="Multiplayer Bird/Head" unique_id=925834026]
 visible = false

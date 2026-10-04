@@ -16,6 +16,7 @@ const WALL_ABSORBTION: float = 2.5
 const PLAYERSCALE: float = 0.5
 
 enum Gamemode {
+	END,
 	LOBBY,
 	FLAPPYBIRD,
 	GUNGAME,
@@ -38,8 +39,7 @@ signal died(id: int)
 @onready var gun_anim: AnimationPlayer = $Head/GunContainer/Gun/GunAnimator
 
 @onready var reload_sound: AudioStreamPlayer = $Head/GunContainer/Reload
-@onready var shoot_1_sound: AudioStreamPlayer = $Head/GunContainer/Shoot1
-@onready var shoot_2_sound: AudioStreamPlayer = $Head/GunContainer/Shoot2
+@onready var shoot_sound: AudioStreamPlayer = $Head/GunContainer/Shoot
 
 @export var reload_time: float = 1.0
 
@@ -68,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		# GIANT IF STATEMENT WALL YAYAYAYAY
 		match game_mode:
+			Gamemode.END: return
 			Gamemode.LOBBY:
 				if idle:
 					position.y += 0.5 * sin(Time.get_ticks_msec()/500.0)
@@ -199,13 +200,8 @@ func shoot() -> void:
 		reload = reload_time
 		gun_anim.play(current_gun_anim)
 		
-		var new_pitch = randf_range(0.5, 2.0)
-		if randf() > 0.5:
-			shoot_1_sound.pitch_scale = new_pitch
-			shoot_1_sound.play()
-		else:
-			shoot_2_sound.pitch_scale = new_pitch
-			shoot_2_sound.play()
+		shoot_sound.pitch_scale = randf_range(0.5, 2.0)
+		shoot_sound.play()
 		bullet_spawner.spawn()
 
 func _spawn_bullet(_data = null) -> Node:

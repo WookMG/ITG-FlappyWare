@@ -11,9 +11,9 @@ signal start_minigame()
 
 const MAX_SLOTS := 4
 
+var players: Array[NodePath] = []
 var alive_players: Array[int] = []
 var dead_players: Array[int] = []
-var _switching := false
 
 func _ready() -> void:
 	# Must be ready on EVERY peer before any spawn happens.
@@ -51,9 +51,11 @@ func _spawn_when_ready() -> void:
 
 # Runs on every peer with the same data, so every peer builds identical players.
 func _spawn_player(id: int) -> void:
-		multiplayer_spawner.spawn({"id": id,
+		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
+		players.append(player_root.get_node(str(id)).get_path())
+		print("ADDED PLAYER ", players)
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
@@ -79,29 +81,24 @@ func _despawn_player(id: int) -> void:
 		player.queue_free()
 	_on_player_left(id)
 
-# ------------------------------------------------------- switching games
+# ----------------------------------------- -------------- switching games
 
-## Server only. Moves everyone to another minigame. Slots, colors and pitch
-## carry over because connectedPlayerIDs lives in the autoload and the next
-## minigame re-applies them at spawn.
-func change_minigame(player_win_info: Dictionary) -> void:
-	if !NetworkHandler.is_server or _switching: return
-	_switching = true
-	SceneManager.end_minigame(player_win_info)
-
-## Server only. Sends everyone back to the lobby.
-func return_to_lobby() -> void:
-	if !NetworkHandler.is_server or _switching: return
-	_switching = true
-	SceneManager.start_minigame.call_deferred("res://Scenes/Lobby/lobby.tscn")
+func _end_minigame():
+	if !NetworkHandler.is_server: return
+	print("END MINIGAME")
+	minigame_timer.stop()
+	var player_win_info: Dictionary = {}
+	for id in alive_players:
+		player_win_info[str(id)] = true
+	for id in dead_players:
+		player_win_info[str(id)] = false
+	SceneManager.end_minigame.rpc(players, player_win_info)
 
 # ------------------------------------------------- hooks for subclasses
 
 ## Runs on the server after a player's node is freed.
 func _on_player_left(id: int) -> void:
 	pass
-
-# ------------------------------------------------- minigame base functions
 
 ## Runs on the server once every client has loaded the scene (or the timeout
 ## hit) and spawning has been requested. Safe point to start server-driven
@@ -118,10 +115,12 @@ func _on_all_players_loaded() -> void:
 	
 	start.rpc()
 	minigame_timer.start()
-
+	
 @rpc("authority", "call_local", "reliable")
 func start():
 	start_minigame.emit()
+
+# ------------------------------------------------- minigame functions
 
 func _player_died(id: int):
 	if !NetworkHandler.is_server: return
@@ -130,14 +129,3 @@ func _player_died(id: int):
 	dead_players.append(id)
 	
 	if alive_players.size() <= 0: _end_minigame()
-
-func _end_minigame():
-	if !NetworkHandler.is_server: return
-	minigame_timer.stop()
-	var player_win_info: Dictionary = {}
-	for id in alive_players:
-		player_win_info[str(id)] = true
-	for id in dead_players:
-		player_win_info[str(id)] = false
-	return_to_lobby()
-	#TODO send this info to scene manager to play win animations etc.
