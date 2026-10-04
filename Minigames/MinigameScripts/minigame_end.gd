@@ -9,6 +9,7 @@ extends Node2D
 @onready var l3: Marker2D = $"LoserContainer/3"
 @onready var l4: Marker2D = $"LoserContainer/4"
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
+@onready var loser_light: PointLight2D = $LoserContainer/PointLight2D
 
 @onready var start: AudioStreamPlayer = $start
 @onready var loop: AudioStreamPlayer = $loop
@@ -30,6 +31,7 @@ func _ready() -> void:
 		player.game_mode = player.Gamemode.END
 		player.head.rotation = 0
 		player.hide()
+		player.hide_body()
 		
 	var i = 0
 	for hand in hands:
@@ -56,7 +58,7 @@ func play_end() -> void:
 	start.play()
 	
 	var tween = create_tween()
-	tween.tween_property(canvas_modulate, "color", Color.hex(0x676767ff), 1.5)
+	tween.tween_property(canvas_modulate, "color", Color.hex(0x888888ff), 1.5)
 	hand_1.fade_in()
 	hand_2.fade_in()
 	hand_3.fade_in()
@@ -68,6 +70,7 @@ func play_end() -> void:
 	await get_tree().create_timer(.5).timeout
 	for player in players:
 		player.show()
+	loser_light.show()
 	loop.stop()
 	end.play()
 

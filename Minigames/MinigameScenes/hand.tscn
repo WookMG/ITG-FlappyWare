@@ -50,6 +50,7 @@ animation = &"open"
 visible = false
 position = Vector2(0, -40)
 scale = Vector2(2.5, 3)
+energy = 0.5
 texture = ExtResource("7_i1eli")
 
 [node name="spotlight" type="AudioStreamPlayer" parent="." unique_id=1539309388]

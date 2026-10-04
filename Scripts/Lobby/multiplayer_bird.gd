@@ -61,6 +61,7 @@ func _ready() -> void:
 			set_collision_layer_value(2, true)
 			set_collision_layer_value(3, true)
 	set_bird_properties()
+	hide_body()
 
 func _physics_process(delta: float) -> void:
 	var jump_input = Input.is_action_just_pressed("Jump")
@@ -76,6 +77,7 @@ func _physics_process(delta: float) -> void:
 						jump()
 						idle = false
 						set_collision_layer_value(2, true)
+						show_body()
 				else:
 					if !is_on_floor():
 						velocity += get_gravity() * delta
@@ -148,6 +150,12 @@ func set_bird_location() -> void:
 		return
 	global_position = spawn_pos.global_position
 
+func show_body() -> void:
+	head.show_body()
+	
+func hide_body() -> void:
+	head.hide_body()
+
 func move() -> void:
 	# move horizontally and account for direction
 	if !isFacingLeft:
@@ -193,6 +201,7 @@ func hit_pipe() -> void:
 
 func _start_gun_minigame() -> void:
 	idle = false
+	show_body()
 
 func shoot() -> void:
 	if can_fire:

@@ -55,7 +55,6 @@ func _spawn_player(id: int) -> void:
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		players.append(player_root.get_node(str(id)).get_path())
-		print("ADDED PLAYER ", players)
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
@@ -85,7 +84,6 @@ func _despawn_player(id: int) -> void:
 
 func _end_minigame():
 	if !NetworkHandler.is_server: return
-	print("END MINIGAME")
 	minigame_timer.stop()
 	var player_win_info: Dictionary = {}
 	for id in alive_players:

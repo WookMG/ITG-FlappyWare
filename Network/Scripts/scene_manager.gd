@@ -13,6 +13,7 @@ func copyright() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func start_minigame(path: String) -> void:
+	if !NetworkHandler.is_server: return
 	if !ResourceLoader.exists(path):
 		push_error("switch_minigame: no scene at " + path)
 		return
@@ -39,4 +40,4 @@ func end_minigame(players: Array, player_win_info: Dictionary) -> void:
 	
 @rpc("authority", "call_local", "reliable")
 func sync_minigame(path: String) -> void:
-	get_tree().change_scene_to_file.call_deferred(path)
+	get_tree().change_scene_to_file(path)

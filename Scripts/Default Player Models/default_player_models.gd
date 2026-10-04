@@ -12,13 +12,19 @@ func _ready() -> void:
 	apply_model()
 
 func apply_model() -> void:
-	if slot < 1 or slot > texture_list.size() and slot > body_list.size(): return
+	if slot < 1 or slot > texture_list.size() or slot > body_list.size(): return
 	
 	if alive: texture = texture_list[slot - 1] #Alive sprites
 	else: texture = texture_list[slot + 3] #Dead sprites
 	
 	body = body_list[slot - 1]
-	body.show()
+	show_body()
 	
 	if slot == 2: offset = Vector2(1.25, 1.5)
 	if slot == 3: offset = Vector2(1.5, -1.5)
+
+func show_body() -> void:
+	body.show()
+	
+func hide_body() -> void:
+	body.hide()

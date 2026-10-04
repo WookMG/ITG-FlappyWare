@@ -18,7 +18,7 @@ signal start_minigame()
 
 const MAX_SLOTS := 4
 
-var players: Array[MultiplayerBird] = []
+var players: Array[NodePath] = []
 
 func _ready() -> void:
 	# Must be ready on EVERY peer before any spawn happens.
@@ -55,7 +55,7 @@ func _spawn_player(id: int) -> void:
 		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
-		players.append(player_root.get_node("Multiplayer Bird"))
+		players.append(player_root.get_node(str(id)).get_path())
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
@@ -108,7 +108,3 @@ func _on_all_players_loaded() -> void:
 @rpc("authority", "call_local", "reliable")
 func start():
 	start_minigame.emit()
-
-func _end_minigame():
-	if !NetworkHandler.is_server: return
-	minigame_timer.stop()
