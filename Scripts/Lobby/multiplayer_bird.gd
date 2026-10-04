@@ -1,8 +1,6 @@
 class_name MultiplayerBird
 extends CharacterBody2D
 
-signal died(id: int)
-
 @onready var body_sync: MultiplayerSynchronizer = $BodySync
 @onready var head_sync: MultiplayerSynchronizer = $Head/HeadSync
 @onready var gun_sync: MultiplayerSynchronizer = $Head/GunContainer/GunSync
@@ -31,12 +29,20 @@ var player_name: String
 #-------- LOBBY VARS --------#
 var idle = true
 #-------- GUNGAME VARS --------#
+
+signal died(id: int)
+
 @onready var bullet_scene: PackedScene = preload("res://Minigames/MinigameScenes/bullet.tscn")
 @onready var bullet_spawner: MultiplayerSpawner = $Head/GunContainer/BulletSpawner
 @onready var gun_container: Node2D = $Head/GunContainer
 @onready var gun_anim: AnimationPlayer = $Head/GunContainer/Gun/GunAnimator
 
+@onready var reload_sound: AudioStreamPlayer = $Head/GunContainer/Reload
+@onready var shoot_1_sound: AudioStreamPlayer = $Head/GunContainer/Shoot1
+@onready var shoot_2_sound: AudioStreamPlayer = $Head/GunContainer/Shoot2
+
 @export var reload_time: float = 1.0
+
 
 var is_alive: bool = true
 var can_fire: bool = true
@@ -77,7 +83,7 @@ func _physics_process(delta: float) -> void:
 						velocity.y = 0
 						deccelerate()
 
-					if is_on_wall(): bouce()
+					if is_on_wall(): bounce()
 					if is_on_ceiling() and velocity.y < 0: velocity.y = -velocity.y
 					elif jump_input: jump()
 			Gamemode.GUNGAME:
@@ -90,14 +96,14 @@ func _physics_process(delta: float) -> void:
 					deccelerate()
 				
 				if is_alive:
-					if reload > 0:
-						if reload - delta <= 0:
+					if !can_fire:
+						if reload <= 0:
+							reload_sound.play()
 							can_fire = true
-							#TODO reload sound
 						else:
 							reload -= delta
 							can_fire = false
-					if is_on_wall(): bouce()
+					if is_on_wall(): bounce()
 					if is_on_ceiling() and velocity.y < 0: velocity.y = -velocity.y
 					elif jump_input: jump()
 					if action_input: shoot()
@@ -122,6 +128,9 @@ func set_bird_properties() -> void:
 	head.slot = slot
 	head.apply_model()
 	
+	if isFacingLeft:
+		gun_container.get_node("Gun").scale.x *= -1
+		head.flip_h = true
 	set_bird_pitch()
 	set_bird_location()
 
@@ -158,7 +167,7 @@ func deccelerate() -> void:
 	if abs(velocity.x) <= abs(HORIZONTAL_DECCELERATION):
 		velocity.x = 0
 
-func bouce() -> void:
+func bounce() -> void:
 	gun_container.get_node("Gun").scale.x *= -1
 	if !isFacingLeft and lastVelocity.x > 0:
 		isFacingLeft = true
@@ -186,9 +195,17 @@ func _start_gun_minigame() -> void:
 
 func shoot() -> void:
 	if can_fire:
+		can_fire = false
 		reload = reload_time
 		gun_anim.play(current_gun_anim)
-		#TODO shoot sound
+		
+		var new_pitch = randf_range(0.5, 2.0)
+		if randf() > 0.5:
+			shoot_1_sound.pitch_scale = new_pitch
+			shoot_1_sound.play()
+		else:
+			shoot_2_sound.pitch_scale = new_pitch
+			shoot_2_sound.play()
 		bullet_spawner.spawn()
 
 func _spawn_bullet(_data = null) -> Node:
@@ -203,7 +220,7 @@ func _spawn_bullet(_data = null) -> Node:
 
 @rpc("any_peer", "call_local", "reliable")
 func die():
-	if is_alive: died.emit(int(get_parent().name))
+	if is_alive: died.emit(int(name))
 	is_alive = false
 	head.alive = false
 	head.apply_model()

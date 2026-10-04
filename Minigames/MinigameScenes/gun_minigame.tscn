@@ -75,7 +75,6 @@ shape = SubResource("RectangleShape2D_ilm2e")
 [node name="spikes" type="Area2D" parent="BG/walls" unique_id=1626588539]
 position = Vector2(1, 309)
 collision_mask = 2
-monitoring = false
 script = ExtResource("3_rbtvy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/spikes" unique_id=1529046204]
@@ -84,4 +83,9 @@ shape = SubResource("RectangleShape2D_rkidb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982888657]
 
+[node name="MinigameTimer" type="Timer" parent="." unique_id=1071770246]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="BG/walls/spikes" to="BG/walls/spikes" method="_on_body_entered"]
+[connection signal="timeout" from="MinigameTimer" to="." method="_end_minigame"]

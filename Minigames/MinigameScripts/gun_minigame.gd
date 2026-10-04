@@ -7,9 +7,12 @@ signal start_minigame()
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var players_container: Node = $Players
+@onready var minigame_timer: Timer = $MinigameTimer
 
 const MAX_SLOTS := 4
 
+var alive_players: Array[int] = []
+var dead_players: Array[int] = []
 var _switching := false
 
 func _ready() -> void:
@@ -17,7 +20,7 @@ func _ready() -> void:
 	multiplayer_spawner.spawn_function = _spawn_player_with_data
 	
 	if !NetworkHandler.is_server:
-		print("LOADED PLAYER: ", multiplayer.get_unique_id())
+		print("LOADED PLAYER WITH ID: ", multiplayer.get_unique_id())
 		NetworkHandler.client_loaded.rpc_id(1, multiplayer.get_unique_id())
 		return
 	
@@ -41,7 +44,7 @@ func _spawn_when_ready() -> void:
 		waited += get_process_delta_time()
 
 	for id in NetworkHandler.loaded_players:
-		print(id)
+		alive_players.append(id)
 		_spawn_player(id)
 
 	_on_all_players_loaded()
@@ -61,9 +64,11 @@ func _spawn_player_with_data(data: Dictionary) -> Node:
 	player.slot = data["slot"]
 	player.player_name = data["name"]
 	player.game_mode = player.Gamemode.GUNGAME
+	player.isFacingLeft = randf() > 0.5
 	player.set_multiplayer_authority(data["id"])
 	
 	start_minigame.connect(player._start_gun_minigame)
+	player.died.connect(_player_died)
 	return player_root
 
 # ----------------------------------------------------------- disconnects
@@ -79,16 +84,16 @@ func _despawn_player(id: int) -> void:
 ## Server only. Moves everyone to another minigame. Slots, colors and pitch
 ## carry over because connectedPlayerIDs lives in the autoload and the next
 ## minigame re-applies them at spawn.
-func change_minigame(path: String) -> void:
+func change_minigame(player_win_info: Dictionary) -> void:
 	if !NetworkHandler.is_server or _switching: return
 	_switching = true
-	SceneManager.start_minigame.call_deferred(path)
+	SceneManager.end_minigame(player_win_info)
 
 ## Server only. Sends everyone back to the lobby.
 func return_to_lobby() -> void:
 	if !NetworkHandler.is_server or _switching: return
 	_switching = true
-	SceneManager.end_minigame.call_deferred()
+	SceneManager.start_minigame.call_deferred("res://Scenes/Lobby/lobby.tscn")
 
 # ------------------------------------------------- hooks for subclasses
 
@@ -96,11 +101,13 @@ func return_to_lobby() -> void:
 func _on_player_left(id: int) -> void:
 	pass
 
+# ------------------------------------------------- minigame base functions
+
 ## Runs on the server once every client has loaded the scene (or the timeout
 ## hit) and spawning has been requested. Safe point to start server-driven
 ## things that RPC to clients.
 func _on_all_players_loaded() -> void:
-	await get_tree().create_timer(.5).timeout
+	await get_tree().create_timer(1.5).timeout
 	print("3...")
 	await get_tree().create_timer(.5).timeout
 	print("2...")
@@ -108,8 +115,29 @@ func _on_all_players_loaded() -> void:
 	print("1...")
 	await get_tree().create_timer(.5).timeout
 	print("Go!")
+	
 	start.rpc()
+	minigame_timer.start()
 
 @rpc("authority", "call_local", "reliable")
 func start():
 	start_minigame.emit()
+
+func _player_died(id: int):
+	if !NetworkHandler.is_server: return
+	print("Player ", id, " has died")
+	alive_players.erase(id)
+	dead_players.append(id)
+	
+	if alive_players.size() <= 0: _end_minigame()
+
+func _end_minigame():
+	if !NetworkHandler.is_server: return
+	minigame_timer.stop()
+	var player_win_info: Dictionary = {}
+	for id in alive_players:
+		player_win_info[str(id)] = true
+	for id in dead_players:
+		player_win_info[str(id)] = false
+	return_to_lobby()
+	#TODO send this info to scene manager to play win animations etc.

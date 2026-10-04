@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://4byfgs81g37b"]
+
+[ext_resource type="Script" uid="uid://ily8c6mn8hx7" path="res://Minigames/MinigameScripts/hand.gd" id="1_62nh5"]
+[ext_resource type="Texture2D" uid="uid://dl37m8wdxaat5" path="res://Assets/Sprites/Hand/hand1.png" id="1_se678"]
+[ext_resource type="Texture2D" uid="uid://ci2o0hrtb5bg2" path="res://Assets/Sprites/Hand/hand2.png" id="2_i1eli"]
+[ext_resource type="Texture2D" uid="uid://cu846hq1vahp3" path="res://Assets/Sprites/Hand/hand3.png" id="3_f0qjt"]
+[ext_resource type="Texture2D" uid="uid://dcxyvkmb40lb6" path="res://Assets/Sprites/Hand/hand4.png" id="4_62nh5"]
+[ext_resource type="Texture2D" uid="uid://c52mf657h20yj" path="res://Assets/Sprites/Hand/hand5.png" id="5_0woka"]
+[ext_resource type="Texture2D" uid="uid://ds6takp57optf" path="res://Assets/Sprites/Hand/hand6.png" id="6_1rtrv"]
+[ext_resource type="Texture2D" uid="uid://bdatr8ro80fhc" path="res://Assets/Sprites/Hand/spotlight.png" id="7_i1eli"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilm2e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_se678")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i1eli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f0qjt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_62nh5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0woka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1rtrv")
+}],
+"loop": 0,
+"name": &"open",
+"speed": 12.0
+}]
+
+[node name="Hand" type="Node2D" unique_id=127354916]
+script = ExtResource("1_62nh5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=565066409]
+position = Vector2(-31, -140)
+sprite_frames = SubResource("SpriteFrames_ilm2e")
+animation = &"open"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1086515510]
+visible = false
+position = Vector2(0, -43.999992)
+scale = Vector2(4.6428146, 5.5520625)
+texture = ExtResource("7_i1eli")

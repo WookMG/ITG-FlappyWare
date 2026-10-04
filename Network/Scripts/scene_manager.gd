@@ -17,7 +17,8 @@ func start_minigame(path: String) -> void:
 	#peer.refuse_new_connections = true
 	sync_minigame.rpc(path)
 
-func end_minigame() -> void:
+# This function will show who won that round etc.
+func end_minigame(player_win_info: Dictionary) -> void:
 	pass
 	
 @rpc("authority", "call_local", "reliable")

@@ -16,11 +16,11 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=262556969]
 rotation = 1.5707964
-scale = Vector2(3, 3)
+scale = Vector2(5, 5)
 shape = SubResource("CapsuleShape2D_ilm2e")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=363330534]
-scale = Vector2(3, 3)
+scale = Vector2(5, 5)
 texture = ExtResource("1_xbbwb")
 offset = Vector2(0, 0.5)
 

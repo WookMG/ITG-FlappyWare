@@ -6,6 +6,7 @@ extends Node2D
 ##     empty Auto Spawn List, Spawn Path set to where players should be added)
 ##   - a Node2D named "Spawns" with one Marker2D child per slot (p1..p4) inside of the
 ##     players node
+##   - a Timer named "MinigameTimer" that we will use to know when minigames are done
 
 signal start_minigame()
 
@@ -13,6 +14,7 @@ signal start_minigame()
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var players_container: Node = $Players
+@onready var minigame_timer: Timer = $MinigameTimer
 
 const MAX_SLOTS := 4
 
@@ -82,16 +84,16 @@ func _despawn_player(id: int) -> void:
 ## Server only. Moves everyone to another minigame. Slots, colors and pitch
 ## carry over because connectedPlayerIDs lives in the autoload and the next
 ## minigame re-applies them at spawn.
-func change_minigame(path: String) -> void:
+func change_minigame(player_win_info: Dictionary) -> void:
 	if !NetworkHandler.is_server or _switching: return
 	_switching = true
-	SceneManager.start_minigame.call_deferred(path)
+	SceneManager.end_minigame(player_win_info)
 
 ## Server only. Sends everyone back to the lobby.
 func return_to_lobby() -> void:
 	if !NetworkHandler.is_server or _switching: return
 	_switching = true
-	SceneManager.end_minigame.call_deferred()
+	SceneManager.start_minigame.call_deferred("res://Scenes/Lobby/lobby.tscn")
 
 # ------------------------------------------------- hooks for subclasses
 
@@ -112,3 +114,7 @@ func _on_all_players_loaded() -> void:
 @rpc("authority", "call_local", "reliable")
 func start():
 	start_minigame.emit()
+
+func _end_minigame():
+	if !NetworkHandler.is_server: return
+	minigame_timer.stop()

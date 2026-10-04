@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dy0mg2jfw1ku3"]
+
+[ext_resource type="PackedScene" uid="uid://4byfgs81g37b" path="res://Minigames/MinigameScenes/hand.tscn" id="1_c1y88"]
+[ext_resource type="Script" uid="uid://dr423anylxjuv" path="res://Minigames/MinigameScripts/minigame_end.gd" id="1_kvd4s"]
+
+[node name="MinigameEnd" type="Node2D" unique_id=2031588565]
+script = ExtResource("1_kvd4s")
+
+[node name="HandContainer" type="Node2D" parent="." unique_id=124764748]
+
+[node name="Hand1" parent="HandContainer" unique_id=127354916 instance=ExtResource("1_c1y88")]
+visible = false
+position = Vector2(-300, 0)
+
+[node name="Hand2" parent="HandContainer" unique_id=1695262504 instance=ExtResource("1_c1y88")]
+visible = false
+position = Vector2(-100, 0)
+
+[node name="Hand3" parent="HandContainer" unique_id=1380661318 instance=ExtResource("1_c1y88")]
+visible = false
+position = Vector2(100, 0)
+
+[node name="Hand4" parent="HandContainer" unique_id=247293271 instance=ExtResource("1_c1y88")]
+visible = false
+position = Vector2(300, 0)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=115562817]
+position = Vector2(0, -134)
