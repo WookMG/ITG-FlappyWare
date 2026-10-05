@@ -12,6 +12,7 @@ position = Vector2(0, 150)
 script = ExtResource("1_kvd4s")
 
 [node name="HandContainer" type="Node2D" parent="." unique_id=124764748]
+position = Vector2(164, -69)
 
 [node name="Hand1" parent="HandContainer" unique_id=127354916 instance=ExtResource("1_c1y88")]
 position = Vector2(-375, -100)
@@ -26,6 +27,7 @@ position = Vector2(-130, -80)
 position = Vector2(0, -100)
 
 [node name="LoserContainer" type="Node2D" parent="." unique_id=1426964851]
+position = Vector2(-295, 74)
 
 [node name="1" type="Marker2D" parent="LoserContainer" unique_id=205356289]
 position = Vector2(195, -87)
@@ -41,8 +43,8 @@ position = Vector2(395, -76)
 
 [node name="PointLight2D" type="PointLight2D" parent="LoserContainer" unique_id=2059640885]
 visible = false
-position = Vector2(300, -200)
-scale = Vector2(5.5, 5)
+position = Vector2(300, -150.00002)
+scale = Vector2(6, 6)
 energy = 0.5
 texture = ExtResource("3_d4cna")
 

@@ -15,15 +15,6 @@ size = Vector2(144.72026, 20.564331)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
 size = Vector2(66, 493)
 
-[sub_resource type="Gradient" id="Gradient_dx3ka"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bhunq"]
-gradient = SubResource("Gradient_dx3ka")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-
 [node name="Lobby" type="Node2D" unique_id=465588410]
 z_as_relative = false
 script = ExtResource("1_7mxwi")
@@ -145,16 +136,6 @@ rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=139240019]
-
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=702856709]
-color = Color(0.8431839, 0.8431839, 0.84318376, 1)
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1501681139]
-position = Vector2(340, -200)
-scale = Vector2(33, 33)
-color = Color(0.8258306, 0.96518046, 0.36833048, 1)
-energy = 0.25
-texture = SubResource("GradientTexture2D_bhunq")
 
 [connection signal="body_entered" from="Pipe Container/LeftPipe/ReturnPipe" to="." method="_onReturnPipeEntered"]
 [connection signal="body_entered" from="Pipe Container/RightPipe/StartPipe" to="." method="_onStartPipeEntered"]
