@@ -92,7 +92,7 @@ func _spawn_bullet(_data = null) -> Node:
 	
 	return bullet
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_local", "unreliable")
 func die():
 	if is_alive: died.emit(int(name))
 	is_alive = false
