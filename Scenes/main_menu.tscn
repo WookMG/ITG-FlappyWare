@@ -51,15 +51,17 @@ shader = ExtResource("6_cp0ys")
 shader_parameter/black_threshold = 0.08
 shader_parameter/edge_softness = 0.03
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp0ys"]
-bg_color = Color(0.99607843, 0.78039217, 0.3647059, 1)
-corner_radius_top_left = 16
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_531nx"]
+bg_color = Color(0.02745098, 0.03137255, 0.0627451, 1)
 corner_radius_top_right = 16
-corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vw2u"]
 bg_color = Color(6.497651e-07, 0.35851797, 0.3558298, 0.58431375)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Animation" id="Animation_cp0ys"]
 resource_name = "Flip"
@@ -464,7 +466,7 @@ speed_scale = 4.0
 wait_time = 2.0
 one_shot = true
 
-[node name="Panel" type="Panel" parent="." unique_id=901096388]
+[node name="MainPanel" type="Panel" parent="." unique_id=901096388]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -478,7 +480,7 @@ offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2129762137]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel" unique_id=2129762137]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -487,103 +489,112 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Host" parent="Panel/VBoxContainer" unique_id=678983629 instance=ExtResource("2_48xlc")]
+[node name="Host" parent="MainPanel/VBoxContainer" unique_id=678983629 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Host a Worm Ware Lobby"
 
-[node name="Join" parent="Panel/VBoxContainer" unique_id=1561493802 instance=ExtResource("2_48xlc")]
+[node name="Join" parent="MainPanel/VBoxContainer" unique_id=1561493802 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Join a Worm Ware Lobby"
 
-[node name="Play" parent="Panel/VBoxContainer" unique_id=2083359438 instance=ExtResource("2_48xlc")]
+[node name="Play" parent="MainPanel/VBoxContainer" unique_id=2083359438 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Play Flappy Bird"
 
-[node name="Settings" parent="Panel/VBoxContainer" unique_id=45368463 instance=ExtResource("2_48xlc")]
+[node name="Settings" parent="MainPanel/VBoxContainer" unique_id=45368463 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit" parent="Panel/VBoxContainer" unique_id=1315869629 instance=ExtResource("2_48xlc")]
+[node name="Quit" parent="MainPanel/VBoxContainer" unique_id=1315869629 instance=ExtResource("2_48xlc")]
 layout_mode = 2
 text = "Quit"
 
-[node name="InputTextPanel" type="Panel" parent="." unique_id=1516987994]
-visible = false
-z_index = 1
-layout_mode = 0
-offset_left = 351.0
-offset_top = 211.0
-offset_right = 801.0
-offset_bottom = 611.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cp0ys")
-
-[node name="IP" type="LineEdit" parent="InputTextPanel" unique_id=1670711476]
+[node name="InputTextPanel" type="Panel" parent="." unique_id=789100766]
 visible = false
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -75.0
-offset_right = 125.0
-offset_bottom = -40.00006
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -425.0
+offset_right = 208.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="Panel" parent="InputTextPanel" unique_id=1847904412]
+custom_minimum_size = Vector2(400, 200)
+custom_maximum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
-placeholder_text = "localhost"
+theme_override_styles/panel = SubResource("StyleBoxFlat_531nx")
 
-[node name="Username" type="LineEdit" parent="InputTextPanel" unique_id=2019447200]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="InputTextPanel" unique_id=1402508979]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -75.0
-offset_right = 125.0
-offset_bottom = -40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
-placeholder_text = "MartinyWeenie"
+alignment = 1
 
-[node name="IPText" type="RichTextLabel" parent="InputTextPanel" unique_id=1032748816]
+[node name="IPText" type="RichTextLabel" parent="InputTextPanel/VBoxContainer" unique_id=1032748816]
 visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -131.0
-offset_top = 75.0
-offset_right = 131.0
-offset_bottom = 114.999985
-grow_horizontal = 2
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -15)
 theme_override_constants/outline_size = 7
 text = "Please Enter the Host's IP address"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="UsernameText" type="RichTextLabel" parent="InputTextPanel" unique_id=1189414635]
+[node name="IP" type="LineEdit" parent="InputTextPanel/VBoxContainer" unique_id=1670711476]
 visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -85.5
-offset_top = 75.0
-offset_right = 85.5
-offset_bottom = 115.0
-grow_horizontal = 2
+custom_minimum_size = Vector2(300, 25)
+custom_maximum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
+placeholder_text = "localhost"
+alignment = 1
+
+[node name="UsernameText" type="RichTextLabel" parent="InputTextPanel/VBoxContainer" unique_id=1189414635]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -15)
 theme_override_constants/outline_size = 7
-text = "Enter Your Username!"
+text = "Please enter Your Username"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Username" type="LineEdit" parent="InputTextPanel/VBoxContainer" unique_id=2019447200]
+visible = false
+custom_minimum_size = Vector2(300, 25)
+custom_maximum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_4vw2u")
+placeholder_text = "MartinyWeenie"
+alignment = 1
+
+[node name="Return" parent="InputTextPanel/VBoxContainer" unique_id=1021771189 instance=ExtResource("2_48xlc")]
+layout_mode = 2
+offset_transform_position = Vector2(0, 15)
+text = "Back"
 
 [node name="Title" type="Label" parent="." unique_id=1629719040]
 layout_mode = 1
@@ -614,8 +625,9 @@ libraries/ = SubResource("AnimationLibrary_ce3w2")
 autoplay = &"Flip"
 
 [connection signal="timeout" from="VideoStreamPlayer/Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="InputTextPanel/VBoxContainer/Return" to="." method="_on_return_pressed"]

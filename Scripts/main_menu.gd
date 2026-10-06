@@ -1,14 +1,18 @@
 extends Control
 
 @onready var textAnimations: AnimationPlayer = $Title/AnimationPlayer
+
+@onready var main_panel: Panel = $MainPanel
 @onready var input_text_panel: Panel = $InputTextPanel
-@onready var ip: LineEdit = $InputTextPanel/IP
-@onready var ip_text: RichTextLabel = $InputTextPanel/IPText
-@onready var username: LineEdit = $InputTextPanel/Username
-@onready var username_text: RichTextLabel = $InputTextPanel/UsernameText
+@onready var ip: LineEdit = $InputTextPanel/VBoxContainer/IP
+@onready var ip_text: RichTextLabel = $InputTextPanel/VBoxContainer/IPText
+@onready var username: LineEdit = $InputTextPanel/VBoxContainer/Username
+@onready var username_text: RichTextLabel = $InputTextPanel/VBoxContainer/UsernameText
 
 var ip_open: bool = false
 var username_open: bool = false
+var inputPanelOpen: bool = false
+var place: String = "Menu"
 
 func _ready() -> void:
 	var aniList = textAnimations.get_animation_list()
@@ -19,6 +23,7 @@ func _ready() -> void:
 		$"Splash Art/Eye Container".show()
 
 func _on_host_pressed() -> void:
+	toggleMainPanel()
 	toggle_username_input()
 	var username_submitted: String = await username.text_submitted
 	toggle_username_input()
@@ -27,6 +32,7 @@ func _on_host_pressed() -> void:
 		SceneManager.lobby()
 
 func _on_join_pressed() -> void:
+	toggleMainPanel()
 	toggle_ip_input()
 	var ip_submitted: String = await ip.text_submitted
 	toggle_ip_input()
@@ -40,7 +46,7 @@ func _on_join_pressed() -> void:
 	else:
 		NetworkHandler.start_client(username_submitted)
 	SceneManager.lobby()
-	
+
 func _on_play_pressed() -> void:
 	SceneManager.copyright()
 
@@ -51,6 +57,8 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func toggle_ip_input():
+	place = "IP"
+	
 	ip_open = !ip_open
 	input_text_panel.visible = ip_open
 	ip.visible = ip_open
@@ -59,6 +67,8 @@ func toggle_ip_input():
 	if ip_open: ip.grab_focus()
 
 func toggle_username_input():
+	place = "Username"
+	
 	username_open = !username_open
 	input_text_panel.visible = username_open
 	username.visible = username_open
@@ -70,3 +80,19 @@ func _on_timer_timeout() -> void:
 	$VideoStreamPlayer.play()
 	$VideoStreamPlayer/Timer.wait_time = 10
 	$VideoStreamPlayer/Timer.start()
+
+func toggleMainPanel() -> void:
+	if main_panel.visible:
+		main_panel.hide()
+	else:
+		main_panel.show()
+
+func _on_return_pressed() -> void:
+	match place:
+		"Username":
+			toggle_username_input()
+		"IP":
+			toggle_ip_input()
+		"Menu":
+			return
+	toggleMainPanel()
