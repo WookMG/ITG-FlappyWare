@@ -8,6 +8,7 @@ signal connection_failed
 const DEFAULT_IP_ADDRESS: String = "localhost"
 const DEFAULT_PORT: int = 42069
 const MAX_PLAYERS: int = 4
+var MAINMENU = preload("uid://vxlj6cuch30x")
 
 var peer: ENetMultiplayerPeer
 var is_server: bool = false
@@ -16,7 +17,7 @@ var loaded_players: Array[int] = []
 
 var disconnect_reason: String = ""
 
-var mainMenu = preload("res://Scenes/main_menu.tscn")
+
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -78,7 +79,7 @@ func leave_game() -> void:
 	connected_players.clear()
 	
 	disconnect_reason = ""
-	get_tree().change_scene_to_packed(mainMenu)
+	get_tree().change_scene_to_packed(MAINMENU)
 
 func disconnect_game() -> void:
 	if peer:
@@ -91,7 +92,7 @@ func disconnect_game() -> void:
 	
 	if disconnect_reason == "":
 		disconnect_reason = "Lost connection to the host."
-	get_tree().change_scene_to_packed(mainMenu)
+	get_tree().change_scene_to_packed(MAINMENU)
 
 func _on_peer_connected(id: int) -> void:
 	print("Peer connected: %d" % id)
@@ -120,7 +121,7 @@ func _on_server_disconnected() -> void:
 func server_closing() -> void:
 	disconnect_reason = "The host closed the game."
 	multiplayer.multiplayer_peer = null
-	get_tree().change_scene_to_file.call_deferred("res://Scenes/main.tscn")
+	get_tree().change_scene_to_packed(MAINMENU)
 
 @rpc("any_peer", "call_local", "reliable")
 func client_loaded(id: int) -> void:

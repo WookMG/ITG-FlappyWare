@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dilgi6rj1vao8"]
 
-[ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/fishing_minigame.gd" id="1_0tu6p"]
+[ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/Fishing/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
 [ext_resource type="Texture2D" uid="uid://bm3p5227cxnmm" path="res://Assets/Sprites/sunspeed.png" id="4_smypx"]
 [ext_resource type="Texture2D" uid="uid://cnk76v06pmv8b" path="res://Assets/Sprites/sunrays.png" id="5_2gqw6"]

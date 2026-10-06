@@ -20,9 +20,9 @@ func _spawn_player(id: int) -> void:
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
-	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
+	var player_scene = preload("uid://lamy5h6tblh")
 	var player_root: Node2D = player_scene.instantiate()
-	var player : MultiplayerBird = player_root.get_node("Multiplayer Bird")
+	var player : MultiplayerBase = player_root.get_node("Player")
 	
 	player.name = str(data["id"])
 	player.slot = data["slot"]
@@ -39,11 +39,11 @@ func _despawn_player(id: int) -> void:
 #Return Pipe
 func _onReturnPipeEntered(body: Node2D) -> void:
 	if !NetworkHandler.is_server: return
-	if body is MultiplayerBird:
+	if body is MultiplayerBase:
 		
 		var id = int(body.name)
 		if id == 1:
-			#rpc can't be called with only sercer :sob:
+			#rpc can't be called with only server :sob:
 			NetworkHandler.leave_game()
 		else:
 			leave_lobby.rpc_id(id)
@@ -52,8 +52,8 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 func _onStartPipeEntered(body: Node2D) -> void:
 	#var i = randi_range(0,0) #change range when more games added
 	if !NetworkHandler.is_server: return
-	if body is MultiplayerBird:
-		SceneManager.start_minigame("res://Minigames/MinigameScenes/gun_minigame.tscn")
+	if body is MultiplayerBase:
+		SceneManager.start_minigame("res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn")
 
 @rpc("authority", "reliable")
 func leave_lobby() -> void:
@@ -67,5 +67,5 @@ func _notification(what: int) -> void:
 
 func _on_bird_collide(body: Node2D) -> void:
 	if !NetworkHandler.is_server: return
-	if body is MultiplayerBird:
+	if body is MultiplayerBase:
 		body.hit_pipe.rpc_id(int(body.name))

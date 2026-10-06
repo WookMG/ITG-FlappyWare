@@ -15,20 +15,20 @@ extends Node2D
 @onready var loop: AudioStreamPlayer = $loop
 @onready var end: AudioStreamPlayer = $end
 
-var players: Array[MultiplayerBird]
+var players: Array[MultiplayerBase]
 var win_info: Dictionary
 
 var hands: Array[Node2D] = []
 var hands_used: Array[Node2D] = []
 var ls: Array[Marker2D] = []
 
-var players_won: Array[MultiplayerBird] = []
+var players_won: Array[MultiplayerBase] = []
 
 func _ready() -> void:
 	hands = [hand_1, hand_2, hand_3, hand_4]
 	ls = [l1, l2, l3, l4]
 	for player in players:
-		player.game_mode = player.Gamemode.END
+		player.minigame_ended = true
 		player.head.rotation = 0
 		player.hide()
 		player.hide_body()

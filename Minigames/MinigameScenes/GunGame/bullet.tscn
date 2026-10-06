@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bkqy6qikx2hky"]
 
-[ext_resource type="Script" uid="uid://cpk0chcbv6xsy" path="res://Minigames/MinigameScripts/bullet.gd" id="1_py3cq"]
+[ext_resource type="Script" uid="uid://cpk0chcbv6xsy" path="res://Minigames/MinigameScripts/GunGame/bullet.gd" id="1_py3cq"]
 [ext_resource type="Texture2D" uid="uid://2q2ydulbhvf2" path="res://Assets/Sprites/Guns/bullet1.png" id="1_xbbwb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ilm2e"]

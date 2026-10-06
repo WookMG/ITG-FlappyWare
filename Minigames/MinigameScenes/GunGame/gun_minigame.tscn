@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dtivmpl0lcno"]
 
-[ext_resource type="Script" uid="uid://blitjv0800rq8" path="res://Minigames/MinigameScripts/gun_minigame.gd" id="1_68e0m"]
+[ext_resource type="Script" uid="uid://blitjv0800rq8" path="res://Minigames/MinigameScripts/GunGame/gun_minigame.gd" id="1_68e0m"]
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="2_5h1is"]
-[ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/gun_spikes.gd" id="3_rbtvy"]
+[ext_resource type="PackedScene" uid="uid://bmypolhaxxdgl" path="res://Minigames/MinigameScenes/GunGame/gungame_player.tscn" id="2_sxi3b"]
+[ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/GunGame/gun_spikes.gd" id="3_rbtvy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
 size = Vector2(32, 1215)
@@ -12,6 +13,7 @@ size = Vector2(1176, 20)
 
 [node name="GunMinigame" type="Node2D" unique_id=2082737476]
 script = ExtResource("1_68e0m")
+player_scene = ExtResource("2_sxi3b")
 
 [node name="Players" type="Node" parent="." unique_id=1261120073]
 
@@ -31,7 +33,7 @@ position = Vector2(375, -250)
 position = Vector2(125, -200)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1740861918]
-_spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
+_spawnable_scenes = PackedStringArray("uid://bmypolhaxxdgl")
 spawn_path = NodePath("../Players")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1508333926]
@@ -83,9 +85,4 @@ shape = SubResource("RectangleShape2D_rkidb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982888657]
 
-[node name="MinigameTimer" type="Timer" parent="." unique_id=1071770246]
-wait_time = 10.0
-one_shot = true
-
 [connection signal="body_entered" from="BG/walls/spikes" to="BG/walls/spikes" method="_on_body_entered"]
-[connection signal="timeout" from="MinigameTimer" to="." method="_end_minigame"]

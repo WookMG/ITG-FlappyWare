@@ -11,28 +11,38 @@ extends Node2D
 signal start_minigame()
 
 @export var load_timeout: float = 2.0
+@export var minigame_time: float = 10.0
+@export var player_scene: PackedScene
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var players_container: Node = $Players
-@onready var minigame_timer: Timer = $MinigameTimer
 
 const MAX_SLOTS := 4
 
 var players: Array[NodePath] = []
+var minigame_timer: Timer
 
 func _ready() -> void:
 	# Must be ready on EVERY peer before any spawn happens.
 	multiplayer_spawner.spawn_function = _spawn_player_with_data
+	create_timer()
 	
 	if !NetworkHandler.is_server: 
 		NetworkHandler.client_loaded.rpc_id(multiplayer.get_unique_id())
 		return
 	
 	NetworkHandler.player_disconnected.connect(_despawn_player)
-	NetworkHandler.client_loaded.rpc_id(1)
+	NetworkHandler.client_loaded.rpc_id(1, 1)
 	_spawn_when_ready()
 
 # ---------------------------------------------------------------- spawning
+
+func create_timer() -> void:
+	minigame_timer = Timer.new()
+	add_child(minigame_timer)
+	minigame_timer.wait_time = minigame_time
+	minigame_timer.one_shot = true
+	minigame_timer.timeout.connect(_end_minigame)
 
 func _spawn_when_ready() -> void:
 	var waited = 0.0
@@ -47,7 +57,6 @@ func _spawn_when_ready() -> void:
 
 	for id in NetworkHandler.loaded_players:
 		_spawn_player(id)
-
 	_on_all_players_loaded()
 
 # Runs on every peer with the same data, so every peer builds identical players.
@@ -58,15 +67,13 @@ func _spawn_player(id: int) -> void:
 		players.append(player_root.get_node(str(id)).get_path())
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
-	var player_scene = preload("res://Scenes/Lobby/multiplayer_bird.tscn")
 	var player_root: Node2D = player_scene.instantiate()
-	var player : MultiplayerBird = player_root.get_node("Multiplayer Bird")
+	var player : MultiplayerBase = player_root.get_node("Player")
 	
 	player.name = str(data["id"])
 	player.slot = data["slot"]
 	player.player_name = data["name"]
-	player.game_mode = player.Gamemode #TODO ADD GAMEMODE HERE .Gamemode
-	#start_minigame.connect(player.) #TODO ADD CUSTOM START FUNCTION FROM BIRD HERE
+	start_minigame.connect(player._start_minigame)
 	
 	player.set_multiplayer_authority(data["id"])
 	
@@ -82,12 +89,10 @@ func _despawn_player(id: int) -> void:
 
 # ------------------------------------------------------- switching games
 
-func _end_minigame():
+func _end_minigame() -> void:
 	if !NetworkHandler.is_server: return
 	minigame_timer.stop()
-	var player_win_info: Dictionary = {}
-	
-	#TODO send this info to scene manager to play win animations etc.
+	# Create your own in your own minigame and call super() at the top
 
 # ------------------------------------------------- hooks for subclasses
 
@@ -103,8 +108,10 @@ func _on_player_left(id: int) -> void:
 ## hit) and spawning has been requested. Safe point to start server-driven
 ## things that RPC to clients.
 func _on_all_players_loaded() -> void:
-	pass
+	# super() AFTER you've implemented your own code
+	start.rpc()
+	minigame_timer.start()
 
 @rpc("authority", "call_local", "reliable")
-func start():
+func start() -> void:
 	start_minigame.emit()

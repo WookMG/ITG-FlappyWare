@@ -1,0 +1,336 @@
+[gd_scene format=3 uid="uid://bmypolhaxxdgl"]
+
+[ext_resource type="Script" uid="uid://5pki3ys3baxu" path="res://Minigames/MinigameScripts/GunGame/gungame_player.gd" id="1_8apve"]
+[ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="2_thk6y"]
+[ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="3_igmk4"]
+[ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="4_lgllj"]
+[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Players/chead.png" id="5_s2mn8"]
+[ext_resource type="Texture2D" uid="uid://pq0ra47kte43" path="res://Assets/Sprites/Players/shead.png" id="6_unb7g"]
+[ext_resource type="Texture2D" uid="uid://b0cgaod1anax7" path="res://Assets/Sprites/Players/mhead.png" id="7_u0wyq"]
+[ext_resource type="Texture2D" uid="uid://c73cmqlxl5hyg" path="res://Assets/Sprites/Players/wdead.png" id="8_bg15a"]
+[ext_resource type="Texture2D" uid="uid://b5xab0hn163hs" path="res://Assets/Sprites/Players/cdead.png" id="9_qbtth"]
+[ext_resource type="Texture2D" uid="uid://oxdn1uyfqpg6" path="res://Assets/Sprites/Players/sdead.png" id="10_3610v"]
+[ext_resource type="Texture2D" uid="uid://x3fbpa1cte8u" path="res://Assets/Sprites/Players/mdead.png" id="11_trb1l"]
+[ext_resource type="Texture2D" uid="uid://dk1xf8t50iqv0" path="res://Assets/Sprites/Guns/gun1.png" id="12_qkvyi"]
+[ext_resource type="Texture2D" uid="uid://3v3i3t5c5dqc" path="res://Assets/Sprites/Guns/gun2.png" id="13_61eng"]
+[ext_resource type="AudioStream" uid="uid://7jsoxmji8lyd" path="res://Assets/Sounds/shotgun_reload.wav" id="14_rwa1v"]
+[ext_resource type="AudioStream" uid="uid://fcdygwnbnt6u" path="res://Assets/Sounds/shotgun_shoot2.wav" id="15_uwnvn"]
+[ext_resource type="Script" uid="uid://cypxbbx6tj3n4" path="res://Scripts/Default Player Models/3_segment_logic.gd" id="16_tvjv4"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="17_slnoa"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="18_vu8b4"]
+[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Players/cbody.png" id="19_3isab"]
+[ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="20_r3mr7"]
+[ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="21_4tlcx"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="22_eyumm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sseh2"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:collision_layer")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Flap:playing")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("Flap:pitch_scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7nr3w"]
+radius = 8.75
+height = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_736pw"]
+properties/0/path = NodePath(".:slot")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:offset")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Worm:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Caterpillar:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Snail:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Maggot:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5ibt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_qkvyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_61eng")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_736pw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6bl16"]
+resource_name = "inverted_shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 0),
+"update": 0,
+"values": [0.0, 0.7853981633974483, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vhgxe"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 0),
+"update": 0,
+"values": [0.0, -0.7853981633974483, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rdeab"]
+_data = {
+&"RESET": SubResource("Animation_736pw"),
+&"inverted_shoot": SubResource("Animation_6bl16"),
+&"shoot": SubResource("Animation_vhgxe")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vhgxe"]
+properties/0/path = NodePath("..:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="GunGamePlayer" type="Node2D" unique_id=1737167610]
+z_index = 1
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=638549041 groups=["Player"]]
+collision_layer = 6
+script = ExtResource("1_8apve")
+
+[node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=1622495749]
+replication_config = SubResource("SceneReplicationConfig_sseh2")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player" unique_id=924959964]
+position = Vector2(0, 3)
+rotation = 1.5707964
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_7nr3w")
+
+[node name="Flap" type="AudioStreamPlayer" parent="Player" unique_id=470836815]
+stream = ExtResource("2_thk6y")
+volume_db = -40.0
+max_polyphony = 10
+
+[node name="Head" type="Sprite2D" parent="Player" unique_id=1940780203 node_paths=PackedStringArray("body_list")]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("3_igmk4")
+script = ExtResource("4_lgllj")
+texture_list = Array[Texture2D]([ExtResource("3_igmk4"), ExtResource("5_s2mn8"), ExtResource("6_unb7g"), ExtResource("7_u0wyq"), ExtResource("8_bg15a"), ExtResource("9_qbtth"), ExtResource("10_3610v"), ExtResource("11_trb1l")])
+body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodePath("Maggot")]
+
+[node name="HeadSync" type="MultiplayerSynchronizer" parent="Player/Head" unique_id=1452787921]
+replication_config = SubResource("SceneReplicationConfig_736pw")
+
+[node name="NameContainer" type="Control" parent="Player/Head" unique_id=2013972649]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="username" type="RichTextLabel" parent="Player/Head/NameContainer" unique_id=635868080]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -65.0
+offset_top = -19.0
+offset_right = 335.0
+offset_bottom = 21.0
+scale = Vector2(0.32625794, 0.32625794)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GunContainer" type="Node2D" parent="Player/Head" unique_id=1086566451]
+visible = false
+scale = Vector2(0.18181817, 0.18181817)
+
+[node name="Gun" type="AnimatedSprite2D" parent="Player/Head/GunContainer" unique_id=261057929]
+position = Vector2(4.9999995, 35.999996)
+scale = Vector2(1.6399999, 1.6399999)
+sprite_frames = SubResource("SpriteFrames_p5ibt")
+offset = Vector2(27.5, -2.5)
+
+[node name="BulletSpawn" type="Marker2D" parent="Player/Head/GunContainer/Gun" unique_id=1661057465]
+position = Vector2(50.60976, -7.317072)
+scale = Vector2(0.6097561, 0.6097561)
+
+[node name="GunAnimator" type="AnimationPlayer" parent="Player/Head/GunContainer/Gun" unique_id=750961167]
+libraries/ = SubResource("AnimationLibrary_rdeab")
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="Player/Head/GunContainer" unique_id=1662892984]
+_spawnable_scenes = PackedStringArray("uid://bkqy6qikx2hky")
+spawn_path = NodePath("../../../../Bullets")
+
+[node name="GunSync" type="MultiplayerSynchronizer" parent="Player/Head/GunContainer" unique_id=530647765]
+root_path = NodePath("../Gun")
+replication_config = SubResource("SceneReplicationConfig_vhgxe")
+
+[node name="Reload" type="AudioStreamPlayer" parent="Player/Head/GunContainer" unique_id=1395875438]
+stream = ExtResource("14_rwa1v")
+volume_db = -20.0
+pitch_scale = 1.5
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Player/Head/GunContainer" unique_id=1393991731]
+stream = ExtResource("15_uwnvn")
+volume_db = -30.0
+
+[node name="Worm" type="Node2D" parent="Player/Head" unique_id=925834026]
+visible = false
+z_index = -1
+script = ExtResource("16_tvjv4")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Worm" unique_id=759539168]
+position = Vector2(5.9604645e-08, 2.9999998)
+texture = ExtResource("17_slnoa")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Worm" unique_id=1480670740]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("18_vu8b4")
+
+[node name="Caterpillar" type="Node2D" parent="Player/Head" unique_id=1577713069]
+visible = false
+z_index = -1
+script = ExtResource("16_tvjv4")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=80497436]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("19_3isab")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=1353059108]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("19_3isab")
+
+[node name="Snail" type="Node2D" parent="Player/Head" unique_id=694329721]
+visible = false
+z_index = -1
+script = ExtResource("16_tvjv4")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Snail" unique_id=1531423546]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("20_r3mr7")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Snail" unique_id=805146708]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("21_4tlcx")
+
+[node name="Maggot" type="Node2D" parent="Player/Head" unique_id=1301607599]
+visible = false
+z_index = -1
+script = ExtResource("16_tvjv4")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Maggot" unique_id=1434150637]
+position = Vector2(0, 7.999999)
+texture = ExtResource("22_eyumm")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Maggot" unique_id=1660150473]
+position = Vector2(0, 7.999999)
+texture = ExtResource("22_eyumm")
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1326639941]

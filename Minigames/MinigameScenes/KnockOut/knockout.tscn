@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dylm3f6jvp6kf"]
 
-[ext_resource type="Script" uid="uid://btad58cktjxu6" path="res://Minigames/MinigameScripts/knockout.gd" id="1_7lk2o"]
+[ext_resource type="Script" uid="uid://btad58cktjxu6" path="res://Minigames/MinigameScripts/KnockOut/knockout.gd" id="1_7lk2o"]
 [ext_resource type="Texture2D" uid="uid://b5saf66bxru3o" path="res://Assets/Backgrounds/Knockout.png" id="1_aisme"]
 
 [node name="Knockout" type="Node2D" unique_id=1666743579]

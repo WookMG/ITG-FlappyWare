@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ba0rv2ceiwgwd"]
 
-[ext_resource type="Script" uid="uid://b3fwcg8jityrv" path="res://Scripts/Lobby/lobby.gd" id="1_7mxwi"]
+[ext_resource type="Script" uid="uid://b3fwcg8jityrv" path="res://Minigames/MinigameScripts/Lobby/lobby.gd" id="1_7mxwi"]
 [ext_resource type="Texture2D" uid="uid://ck0wmg6wisysf" path="res://Assets/Backgrounds/image.png" id="2_33c4u"]
-[ext_resource type="Script" uid="uid://g280n24vme37" path="res://Scripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
+[ext_resource type="Script" uid="uid://g280n24vme37" path="res://Minigames/MinigameScripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
 [ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="6_qr1ks"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
 
@@ -37,7 +37,7 @@ position = Vector2(125, 1)
 position = Vector2(375, 1)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=121295150]
-_spawnable_scenes = PackedStringArray("uid://osx0pp5u4jam")
+_spawnable_scenes = PackedStringArray("uid://lamy5h6tblh")
 spawn_path = NodePath("../Players")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1022677885]

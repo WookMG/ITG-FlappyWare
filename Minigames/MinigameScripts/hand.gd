@@ -4,7 +4,7 @@ extends Node2D
 @onready var light: PointLight2D = $PointLight2D
 @onready var spotlight: AudioStreamPlayer = $spotlight
 
-func play(player: MultiplayerBird):
+func play(player: MultiplayerBase):
 	sprite.play("open")
 	await sprite.animation_finished
 	light.show()

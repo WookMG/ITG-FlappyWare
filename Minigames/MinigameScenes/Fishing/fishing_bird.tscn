@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bquswloae3qde"]
 
-[ext_resource type="Script" uid="uid://cot0h3s658qdo" path="res://Minigames/MinigameScripts/fishing_bird.gd" id="1_6bann"]
+[ext_resource type="Script" uid="uid://cot0h3s658qdo" path="res://Minigames/MinigameScripts/Fishing/fishing_bird.gd" id="1_6bann"]
 [ext_resource type="Texture2D" uid="uid://bdrst7yf0ki6x" path="res://Assets/Sprites/bird.png" id="1_qlwxo"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="2_6bann"]
 [ext_resource type="AudioStream" uid="uid://p40x3muqta7p" path="res://Assets/Sounds/deepsplash.mp3" id="4_6bann"]

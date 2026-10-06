@@ -1,16 +1,17 @@
 extends Node
 
 const MINIGAME_END: PackedScene = preload("res://Minigames/MinigameScenes/minigame_end.tscn")
-
+const LOBBY: String = "uid://ba0rv2ceiwgwd"
+const FLAPPYWORM: String = "uid://dvaeefi471jp8"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 func lobby() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Lobby/lobby.tscn")
+	get_tree().change_scene_to_file(LOBBY)
 
 func copyright() -> void:
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	get_tree().change_scene_to_file(FLAPPYWORM)
 
 func start_minigame(path: String) -> void:
 	if !NetworkHandler.is_server: return
@@ -22,12 +23,12 @@ func start_minigame(path: String) -> void:
 
 func start_next_minigame() -> void:
 	#TODO add this
-	start_minigame("res://Scenes/Lobby/lobby.tscn") 
+	start_minigame(LOBBY) 
 
 # This function will show who won that round etc.
 @rpc("authority", "call_local", "reliable")
 func end_minigame(players: Array, player_win_info: Dictionary) -> void:
-	var reconstructed_players: Array[MultiplayerBird] = []
+	var reconstructed_players: Array[MultiplayerBase] = []
 	for path in players:
 		var player_node = get_node_or_null(path)
 		if player_node: reconstructed_players.append(player_node)
