@@ -2,11 +2,11 @@ class_name MinigameBase
 extends Node2D
 ## Base script for minigame root nodes.
 ## Scene requirements:
-##   - a MultiplayerSpawner node named "MultiplayerSpawner" (plain node, NO script,
-##     multiplayerbird Auto Spawn List, Spawn Path set to where players should be added)
-##   - a Node2D named "Spawns" with one Marker2D child per slot (p1..p4) inside of the
-##     players node
-##   - a Timer named "MinigameTimer" that we will use to know when minigames are done
+##   - a Node2D named "Spawns" with one Marker2D per slot (named 1 through 4 respectively) 
+##     inside of the players node
+##   - a MultiplayerSpawner node named "MultiplayerSpawner" (NO script, specific player 
+##     scene set in the Auto Spawn List, Spawn Path set to  the "Players" Node)
+##   
 
 signal start_minigame()
 

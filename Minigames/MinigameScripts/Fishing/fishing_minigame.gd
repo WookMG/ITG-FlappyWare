@@ -1,12 +1,11 @@
-# fishing_minigame.gd
-extends Lobby
+extends MinigameBase
 
 @onready var sun: Node2D = $"Sun Container"
 @onready var fish_container: Node2D = $"Fish Container"
 
 var sunRot: float = 0
 const CYCLE_TIME: float = 80
-var timer = Timer.new()
+var timer: Timer
 
 @onready var timeBeforeFish: Timer = $"Time Before Fish"
 @export var minWait: float = 1
@@ -23,10 +22,17 @@ var fishRotVelocity = 0
 var minWiggleAngle: float = 0
 var wiggleAcceleration: float = 0.007
 
+var winning_players: Array[int] = [] #TODO assign
+var losing_players: Array[int] = [] #TODO assign
+
+func _spawn_player(id: int) -> void:
+		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
+							"slot": NetworkHandler.connected_players[str(id)].slot,
+							"name": NetworkHandler.connected_players[str(id)].player_name})
+		var player = player_root.get_node(str(id))
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is not FishingBird or !body.is_multiplayer_authority():
-		return
-	body.inWater = true
+	body.inWater = true #TODO make inWater in the player script rather than here and use an rpc()
 	body.velocity.y = body.velocity.y * body.AERODYNAMICS
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -36,7 +42,9 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	body.velocity.y = body.velocity.y * body.AERODYNAMICS
 
 func _ready() -> void:
-	sun.global_position = $"Sun Container/Start Position".global_position
+	super._ready()
+	
+	timer = Timer.new()
 	timer.wait_time = CYCLE_TIME
 	timer.one_shot = false
 	sun.add_child(timer)
@@ -50,6 +58,7 @@ func _ready() -> void:
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
 	timeBeforeFish.wait_time = randf_range(minWait, maxWait)
 	timeBeforeFish.start()
+	super._on_all_players_loaded()
 
 func _physics_process(_delta: float) -> void:
 	rotateSun()

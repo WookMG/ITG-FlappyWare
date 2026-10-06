@@ -28,8 +28,26 @@ size = Vector2(57.444443, 63.673286)
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
 minWait = 1.5
-maxWait = null
-maxWiggleAngle = null
+
+[node name="Players" type="Node" parent="." unique_id=1994812339]
+
+[node name="Spawns" type="Node2D" parent="Players" unique_id=2030537575]
+
+[node name="1" type="Marker2D" parent="Players/Spawns" unique_id=37656029]
+position = Vector2(230, 385)
+
+[node name="2" type="Marker2D" parent="Players/Spawns" unique_id=1943406496]
+position = Vector2(460, 385)
+
+[node name="3" type="Marker2D" parent="Players/Spawns" unique_id=61259702]
+position = Vector2(690, 385)
+
+[node name="4" type="Marker2D" parent="Players/Spawns" unique_id=2118671107]
+position = Vector2(920, 385)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=532738824]
+_spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
+spawn_path = NodePath("../Players")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=549917755]
 position = Vector2(576, 324)
@@ -58,34 +76,8 @@ position = Vector2(576, -53.999996)
 rotation = 1.5707964
 scale = Vector2(0.605, 2)
 
-[node name="Left Pipe" parent="Pipe Container" unique_id=271671154 instance=ExtResource("1_obtev")]
-visible = false
-position = Vector2(0, 327.00003)
-scale = Vector2(0.605, 0.605)
-
-[node name="Right Pipe" parent="Pipe Container" unique_id=1747971379 instance=ExtResource("1_obtev")]
-visible = false
-position = Vector2(1152, 327)
-scale = Vector2(0.605, 0.605)
-
-[node name="Start Positions" type="Node2D" parent="." unique_id=875210092]
-
-[node name="p1pos" type="Marker2D" parent="Start Positions" unique_id=11732697]
-position = Vector2(230, 385)
-
-[node name="p2pos" type="Marker2D" parent="Start Positions" unique_id=1723500164]
-position = Vector2(460, 385)
-
-[node name="p3pos" type="Marker2D" parent="Start Positions" unique_id=1644022096]
-position = Vector2(690, 385)
-
-[node name="p4pos" type="Marker2D" parent="Start Positions" unique_id=1503940005]
-position = Vector2(920, 385)
-
 [node name="Sun Container" type="Node2D" parent="." unique_id=1649224060]
-
-[node name="Start Position" type="Marker2D" parent="Sun Container" unique_id=30010527]
-position = Vector2(959, 159)
+position = Vector2(900, 150)
 
 [node name="Rays1" type="Sprite2D" parent="Sun Container" unique_id=605971670]
 position = Vector2(2.9999974, -8.000002)
