@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://bquswloae3qde"]
+
+[ext_resource type="Script" uid="uid://cot0h3s658qdo" path="res://Minigames/MinigameScripts/Fishing/fishing_player.gd" id="1_863gk"]
+[ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="3_yfhhx"]
+[ext_resource type="AudioStream" uid="uid://p40x3muqta7p" path="res://Assets/Sounds/deepsplash.mp3" id="4_i7q4p"]
+[ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="5_di4oy"]
+[ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="6_svp4x"]
+[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Players/chead.png" id="7_3h4kl"]
+[ext_resource type="Texture2D" uid="uid://pq0ra47kte43" path="res://Assets/Sprites/Players/shead.png" id="8_s88ka"]
+[ext_resource type="Texture2D" uid="uid://b0cgaod1anax7" path="res://Assets/Sprites/Players/mhead.png" id="9_ygjnd"]
+[ext_resource type="Texture2D" uid="uid://c73cmqlxl5hyg" path="res://Assets/Sprites/Players/wdead.png" id="10_ncym2"]
+[ext_resource type="Texture2D" uid="uid://b5xab0hn163hs" path="res://Assets/Sprites/Players/cdead.png" id="11_2xrns"]
+[ext_resource type="Texture2D" uid="uid://oxdn1uyfqpg6" path="res://Assets/Sprites/Players/sdead.png" id="12_lbyxf"]
+[ext_resource type="Texture2D" uid="uid://x3fbpa1cte8u" path="res://Assets/Sprites/Players/mdead.png" id="13_emt2b"]
+[ext_resource type="Script" uid="uid://cypxbbx6tj3n4" path="res://Scripts/Default Player Models/3_segment_logic.gd" id="14_h4rmm"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="15_wwnq1"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="16_m1lbh"]
+[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Players/cbody.png" id="17_amj3p"]
+[ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="18_kadvs"]
+[ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="19_nyvgx"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="20_rm4x6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_py7ah"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:collision_layer")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Flap:playing")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("Flap:pitch_scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p8vbe"]
+radius = 11.0
+height = 31.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jvtgr"]
+properties/0/path = NodePath(".:slot")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:offset")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Worm:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Caterpillar:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Snail:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Maggot:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
+[node name="Fishing Player" type="Node2D" unique_id=253277555]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1775137831 groups=["Player"]]
+script = ExtResource("1_863gk")
+
+[node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=349535805]
+replication_config = SubResource("SceneReplicationConfig_py7ah")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player" unique_id=1000993085]
+rotation = 1.5707964
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_p8vbe")
+
+[node name="Flap" type="AudioStreamPlayer" parent="Player" unique_id=477123901]
+stream = ExtResource("3_yfhhx")
+volume_db = -40.0
+max_polyphony = 10
+
+[node name="Deepsplash" type="AudioStreamPlayer" parent="Player" unique_id=1998003083]
+stream = ExtResource("4_i7q4p")
+
+[node name="Head" type="Sprite2D" parent="Player" unique_id=1371891922 node_paths=PackedStringArray("body_list")]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("5_di4oy")
+script = ExtResource("6_svp4x")
+texture_list = Array[Texture2D]([ExtResource("5_di4oy"), ExtResource("7_3h4kl"), ExtResource("8_s88ka"), ExtResource("9_ygjnd"), ExtResource("10_ncym2"), ExtResource("11_2xrns"), ExtResource("12_lbyxf"), ExtResource("13_emt2b")])
+body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodePath("Maggot")]
+
+[node name="HeadSync" type="MultiplayerSynchronizer" parent="Player/Head" unique_id=1577720274]
+replication_config = SubResource("SceneReplicationConfig_jvtgr")
+
+[node name="NameContainer" type="Control" parent="Player/Head" unique_id=1708340372]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="username" type="RichTextLabel" parent="Player/Head/NameContainer" unique_id=57796068]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -65.0
+offset_top = -19.0
+offset_right = 335.0
+offset_bottom = 21.0
+scale = Vector2(0.32625794, 0.32625794)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Worm" type="Node2D" parent="Player/Head" unique_id=409208581]
+visible = false
+z_index = -1
+script = ExtResource("14_h4rmm")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Worm" unique_id=679649961]
+position = Vector2(5.9604645e-08, 2.9999998)
+texture = ExtResource("15_wwnq1")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Worm" unique_id=41495030]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("16_m1lbh")
+
+[node name="Caterpillar" type="Node2D" parent="Player/Head" unique_id=1237878451]
+visible = false
+z_index = -1
+script = ExtResource("14_h4rmm")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=1999474464]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("17_amj3p")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=1514675762]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("17_amj3p")
+
+[node name="Snail" type="Node2D" parent="Player/Head" unique_id=1069585242]
+visible = false
+z_index = -1
+script = ExtResource("14_h4rmm")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Snail" unique_id=1201649698]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("18_kadvs")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Snail" unique_id=146313796]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("19_nyvgx")
+
+[node name="Maggot" type="Node2D" parent="Player/Head" unique_id=1178631855]
+visible = false
+z_index = -1
+script = ExtResource("14_h4rmm")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Maggot" unique_id=1259320729]
+position = Vector2(0, 7.999999)
+texture = ExtResource("20_rm4x6")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Maggot" unique_id=2036007427]
+position = Vector2(0, 7.999999)
+texture = ExtResource("20_rm4x6")

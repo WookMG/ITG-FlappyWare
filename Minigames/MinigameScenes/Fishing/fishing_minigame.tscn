@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/Fishing/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
+[ext_resource type="Script" uid="uid://xdy371l3cfat" path="res://Minigames/MinigameScripts/Fishing/water_area.gd" id="3_cf5c8"]
 [ext_resource type="Texture2D" uid="uid://bm3p5227cxnmm" path="res://Assets/Sprites/sunspeed.png" id="4_smypx"]
 [ext_resource type="Texture2D" uid="uid://cnk76v06pmv8b" path="res://Assets/Sprites/sunrays.png" id="5_2gqw6"]
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="6_2gqw6"]
@@ -27,7 +28,6 @@ size = Vector2(57.444443, 63.673286)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
-minWait = 1.5
 
 [node name="Players" type="Node" parent="." unique_id=1994812339]
 
@@ -49,7 +49,7 @@ position = Vector2(920, 385)
 _spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
 spawn_path = NodePath("../Players")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=549917755]
+[node name="BG" type="Sprite2D" parent="." unique_id=549917755]
 position = Vector2(576, 324)
 texture = ExtResource("6_2gqw6")
 
@@ -60,11 +60,12 @@ position = Vector2(576, 523)
 scale = Vector2(16.15625, 3.8749995)
 texture = SubResource("GradientTexture2D_p5ibt")
 
-[node name="Area2D" type="Area2D" parent="WaterContainer" unique_id=949205803]
+[node name="WaterArea" type="Area2D" parent="WaterContainer" unique_id=949205803]
 position = Vector2(576, 523.5)
 scale = Vector2(18, 3.859375)
+script = ExtResource("3_cf5c8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/Area2D" unique_id=658535785]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/WaterArea" unique_id=658535785]
 position = Vector2(0, -0.42245483)
 shape = SubResource("RectangleShape2D_p5ibt")
 
@@ -291,16 +292,9 @@ shape = SubResource("CircleShape2D_j8fmd")
 [node name="Start Position" type="Marker2D" parent="Fish Container/P4 Fish" unique_id=38156207]
 position = Vector2(920, 700)
 
-[node name="Time Before Fish" type="Timer" parent="." unique_id=749612453]
-one_shot = true
-
-[node name="Game Switch Time" type="Timer" parent="Time Before Fish" unique_id=607595390]
-
-[connection signal="body_entered" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="WaterContainer/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="WaterContainer/WaterArea" to="WaterContainer/WaterArea" method="_on_body_entered"]
+[connection signal="body_exited" from="WaterContainer/WaterArea" to="WaterContainer/WaterArea" method="_on_body_exited"]
 [connection signal="body_entered" from="Fish Container/P1 Fish/Area2D" to="." method="_p1FishTouched"]
 [connection signal="body_entered" from="Fish Container/P2 Fish/Area2D" to="." method="_p2FishTouched"]
 [connection signal="body_entered" from="Fish Container/P3 Fish/Area2D" to="." method="_p3FishTouched"]
 [connection signal="body_entered" from="Fish Container/P4 Fish/Area2D" to="." method="_p4FishTouched"]
-[connection signal="timeout" from="Time Before Fish" to="." method="_catchTimerExpire"]
-[connection signal="timeout" from="Time Before Fish/Game Switch Time" to="." method="_gameSwitchTimerExpire"]

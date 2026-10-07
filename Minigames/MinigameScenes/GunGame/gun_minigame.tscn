@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blitjv0800rq8" path="res://Minigames/MinigameScripts/GunGame/gun_minigame.gd" id="1_68e0m"]
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="2_5h1is"]
 [ext_resource type="PackedScene" uid="uid://bmypolhaxxdgl" path="res://Minigames/MinigameScenes/GunGame/gungame_player.tscn" id="2_sxi3b"]
-[ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/GunGame/gun_spikes.gd" id="3_rbtvy"]
+[ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/GunGame/gun_spikes.gd" id="4_sxi3b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
 size = Vector2(32, 1215)
@@ -77,7 +77,7 @@ shape = SubResource("RectangleShape2D_ilm2e")
 [node name="spikes" type="Area2D" parent="BG/walls" unique_id=1626588539]
 position = Vector2(1, 309)
 collision_mask = 2
-script = ExtResource("3_rbtvy")
+script = ExtResource("4_sxi3b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BG/walls/spikes" unique_id=1529046204]
 position = Vector2(-7, 0)

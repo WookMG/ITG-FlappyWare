@@ -68,7 +68,7 @@ func _spawn_player(id: int) -> void:
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_root: Node2D = player_scene.instantiate()
-	var player : MultiplayerBase = player_root.get_node("Player")
+	var player: MultiplayerBase = player_root.get_node("Player")
 	
 	player.name = str(data["id"])
 	player.slot = data["slot"]

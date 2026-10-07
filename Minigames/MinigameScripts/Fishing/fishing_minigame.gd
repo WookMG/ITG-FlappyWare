@@ -7,10 +7,10 @@ var sunRot: float = 0
 const CYCLE_TIME: float = 80
 var timer: Timer
 
-@onready var timeBeforeFish: Timer = $"Time Before Fish"
-@export var minWait: float = 1
+@export var minWait: float = 1.5
 @export var maxWait: float = 5
-@onready var gameSwitchTime: Timer = $"Time Limit/Game Switch Time"
+@export var endGameDelay: float = 2
+var timeBeforeFish: Timer
 
 const ALL_FISH_INITIAL_VELOCITY: float = -6
 const GRAVITY = 0.1
@@ -30,33 +30,43 @@ func _spawn_player(id: int) -> void:
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		var player = player_root.get_node(str(id))
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	body.inWater = true #TODO make inWater in the player script rather than here and use an rpc()
-	body.velocity.y = body.velocity.y * body.AERODYNAMICS
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body is not FishingBird or !body.is_multiplayer_authority():
-		return
-	body.inWater = false
-	body.velocity.y = body.velocity.y * body.AERODYNAMICS
+		player.win.connect(_player_won)
+		losing_players.append(id)
+		players.append(player.get_path())
 
 func _ready() -> void:
 	super._ready()
+	var waitTime: float = randf_range(minWait, maxWait)
+	#get_tree().root.find_child("minigame_time").wait_time = waitTime + endGameDelay
 	
+	#Fish
+	timeBeforeFish = Timer.new()
+	timeBeforeFish.wait_time = waitTime
+	timeBeforeFish.one_shot = true
+	add_child(timeBeforeFish)
+	#Timer is started in _on_all_players_loaded()
+	
+	maxWiggleAngle = maxWiggleAngle * (PI/180)
+	minWiggleAngle = -maxWiggleAngle
+	fishRot = maxWiggleAngle
+	
+	#Sun
 	timer = Timer.new()
 	timer.wait_time = CYCLE_TIME
 	timer.one_shot = false
 	sun.add_child(timer)
 	timer.start()
-	
-	#setFishPositions(playerNodes)
-	maxWiggleAngle = maxWiggleAngle * (PI/180)
-	minWiggleAngle = -maxWiggleAngle
-	fishRot = maxWiggleAngle
+
+func _end_minigame():
+	super._end_minigame()
+	var player_win_info: Dictionary = {}
+	for id in winning_players:
+		player_win_info[str(id)] = true
+	for id in losing_players:
+		player_win_info[str(id)] = false
+	SceneManager.end_minigame.rpc(players, player_win_info)
 
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
-	timeBeforeFish.wait_time = randf_range(minWait, maxWait)
 	timeBeforeFish.start()
 	super._on_all_players_loaded()
 
@@ -67,26 +77,10 @@ func _physics_process(_delta: float) -> void:
 	moveFish(fish_container)
 	wiggleFish(fish_container)
 
-func _catchTimerExpire() -> void:
-	fishJump()
-	#gameSwitchTime.start()
-	pass
-
-func _gameSwitchTimerExpire() -> void:
-	# HighLevelNetworkHandler.switch_minigame() <- put random minigame here
-	pass
-
 func showRandomFish(node: Node) -> void:  # server only
 	for child in node.get_children(false):
 		var count: int = child.find_child("Sprites Container").get_child_count()
 		child.get_child(randi_range(0, count)).show()
-
-#func setFishPositions(node: Node) -> void:
-	#for i in fish_container.size():
-		#var marker := fish_container.find_child("Start Position")
-		#if marker:
-			#child.global_position = marker.global_position
-			#marker.queue_free()
 
 func rotateSun() -> void:
 	$"Sun Container/Rays1".rotation = sunRot
@@ -123,3 +117,11 @@ func wiggleFish(node: Node) -> void:
 	fishDisplayRot = fishRot + flipRot
 	for child in node.get_children(false):
 		child.rotation = fishDisplayRot
+
+func _player_won(id: int) -> void:
+	if !NetworkHandler.is_server: return
+	print("Player ", id, " has won")
+	losing_players.erase(id)
+	winning_players.append(id)
+	
+	if winning_players.size() <= 0: _end_minigame()
