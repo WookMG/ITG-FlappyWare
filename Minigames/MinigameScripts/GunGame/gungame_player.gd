@@ -25,9 +25,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	if minigame_ended: return
+	if idle: return
 	var jump_input = Input.is_action_just_pressed("Jump")
 	var action_input = Input.is_action_just_pressed("Alternate Action")
-	if idle: return
 	if !is_on_floor():
 		velocity += get_gravity() * delta
 		move()

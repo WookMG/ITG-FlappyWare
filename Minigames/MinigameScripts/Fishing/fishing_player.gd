@@ -43,3 +43,6 @@ func enteredWater() -> void:
 func exitedWater() -> void:
 	inWater = false
 	velocity.y = velocity.y * AERODYNAMICS
+
+func _start_minigame() -> void:
+	pass

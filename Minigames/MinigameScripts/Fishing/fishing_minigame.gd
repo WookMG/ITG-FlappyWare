@@ -30,7 +30,7 @@ func _spawn_player(id: int) -> void:
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		var player = player_root.get_node(str(id))
-		player.win.connect(_player_won)
+		player.won.connect(_player_won)
 		losing_players.append(id)
 		players.append(player.get_path())
 
