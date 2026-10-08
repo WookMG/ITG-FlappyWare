@@ -25,7 +25,8 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func _process(delta: float) -> void:
-	print("FPS: ", Engine.get_frames_per_second())
+	#print("FPS: ", Engine.get_frames_per_second())
+	pass
 
 func start_server(player_name: String, port: int = DEFAULT_PORT) -> Error:
 	peer = ENetMultiplayerPeer.new()

@@ -1,5 +1,7 @@
 extends MultiplayerBase
 
+@onready var fishing_line: Sprite2D = $"Fishing Line"
+
 signal won(id: int)
 
 const BUOYANCY: float = 90
@@ -14,7 +16,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
-	if minigame_ended: return
+	if minigame_ended: 
+		fishing_line.hide()
+		return
 	
 	velocity += get_gravity() * delta
 	
@@ -35,12 +39,10 @@ func win() -> void: # called by fish
 	won.emit(int(name))
 	#TODO disable controlls and make it apparent that they've won
 
-@rpc("any_peer", "call_local", "unreliable")
 func enteredWater() -> void:
 	inWater = true
 	velocity.y = velocity.y * AERODYNAMICS
 
-@rpc("any_peer", "call_local", "unreliable")
 func exitedWater() -> void:
 	inWater = false
 	velocity.y = velocity.y * AERODYNAMICS

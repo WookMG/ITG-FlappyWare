@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bquswloae3qde"]
 
 [ext_resource type="Script" uid="uid://cot0h3s658qdo" path="res://Minigames/MinigameScripts/Fishing/fishing_player.gd" id="1_863gk"]
+[ext_resource type="PackedScene" uid="uid://ci5h5bhnf1fwr" path="res://Minigames/MinigameScenes/Fishing/fishing_line.tscn" id="1_di4oy"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="3_yfhhx"]
 [ext_resource type="AudioStream" uid="uid://p40x3muqta7p" path="res://Assets/Sounds/deepsplash.mp3" id="4_i7q4p"]
 [ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="5_di4oy"]
@@ -77,6 +78,10 @@ z_index = 1
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1775137831 groups=["Player"]]
 script = ExtResource("1_863gk")
+
+[node name="Fishing Line" parent="Player" unique_id=224123452 instance=ExtResource("1_di4oy")]
+position = Vector2(20, -48)
+scale = Vector2(10, 10)
 
 [node name="NameContainer" type="Control" parent="Player" unique_id=1708340372]
 z_index = 1

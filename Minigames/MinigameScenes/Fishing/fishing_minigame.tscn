@@ -22,6 +22,7 @@ size = Vector2(57.444443, 63.673286)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
+endGameDelay = 0.5
 load_timeout = 0.1
 player_scene = ExtResource("2_pyn6r")
 

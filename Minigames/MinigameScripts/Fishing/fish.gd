@@ -5,12 +5,13 @@ extends Node2D
 
 var allFishVelocity: Vector2
 const ALL_FISH_INITIAL_VELOCITY: float = -6
-const GRAVITY = 0.1
 const FLIP_WINDOW: float = 0.3  # how much of the jump the flip spans, either side of the peak
 
+@export var gravity: float = 0.1
+@export var fishMoveSpeed: float = 1
 @export var maxWiggleAngle: float = 45
-var fishRot = 0 
-var fishRotVelocity = 0
+var fishRot: float = 0 
+var fishRotVelocity: float = 0
 var minWiggleAngle: float = 0
 var wiggleAcceleration: float = 0.007
 var fishDisplayRot := 0.0
@@ -27,7 +28,7 @@ func _ready() -> void:
 	fishRot = maxWiggleAngle
 
 func _physics_process(delta: float) -> void:
-	#wiggleFish()
+	wiggleFish()
 	moveFish()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -47,16 +48,15 @@ func wiggleFish() -> void:
 	var flipRot: float = PI * -smoothstep(0.0, 1.0, t)
 	
 	fishDisplayRot = fishRot + flipRot
-	for child in get_children(false):
-		child.rotation = fishDisplayRot
+	
+	rotation = fishDisplayRot
 
 func _fishJump() -> void:
-	print("_fishJump called!")
 	allFishVelocity.y = ALL_FISH_INITIAL_VELOCITY
 	jumped = true
 
 func moveFish() -> void:
 	if jumped:
-		allFishVelocity.y = allFishVelocity.y + GRAVITY
+		allFishVelocity.y = allFishVelocity.y + gravity
 		
-		global_position.y += allFishVelocity.y
+		global_position.y += allFishVelocity.y * fishMoveSpeed

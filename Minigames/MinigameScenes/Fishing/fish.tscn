@@ -38,6 +38,8 @@ properties/7/replication_mode = 1
 
 [node name="Fish" type="Node2D" unique_id=831577027]
 script = ExtResource("1_dco7l")
+gravity = 0.125
+fishMoveSpeed = 0.8
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1214183180]
 scale = Vector2(2.5, 2.5)

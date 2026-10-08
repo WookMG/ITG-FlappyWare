@@ -18,7 +18,6 @@ func _physics_process(delta: float) -> void:
 			position.y += 5*sin(Time.get_ticks_msec()/100)
 			
 			if Input.is_action_just_pressed("Swap Gamemode"):
-				print("here")
 				get_tree().change_scene_to_packed(menu)
 		Global.States.Playing:
 			if not is_on_floor():

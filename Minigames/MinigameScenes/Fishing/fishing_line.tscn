@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ci5h5bhnf1fwr"]
+
+[ext_resource type="Texture2D" uid="uid://cmp8gjurh1u1" path="res://Assets/Sprites/Fishing Line/Hook.png" id="1_5rrkh"]
+[ext_resource type="Texture2D" uid="uid://ijr40nq82j3n" path="res://Assets/Sprites/Fishing Line/Line.png" id="2_vnji6"]
+
+[node name="Fishing Line" type="Sprite2D" unique_id=224123452]
+texture = ExtResource("1_5rrkh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1976567708]
+position = Vector2(0, -136)
+scale = Vector2(1, 16)
+texture = ExtResource("2_vnji6")
