@@ -28,7 +28,7 @@ func _ready() -> void:
 	create_timer()
 	
 	if !NetworkHandler.is_server: 
-		NetworkHandler.client_loaded.rpc_id(multiplayer.get_unique_id())
+		NetworkHandler.client_loaded.rpc_id(1, multiplayer.get_unique_id())
 		return
 	
 	NetworkHandler.player_disconnected.connect(_despawn_player)
