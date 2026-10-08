@@ -10,6 +10,32 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_scaf1"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dco7l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprites Container/Shrimp:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprites Container/Yellow Fish:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Sprites Container/Shark:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Sprites Container/Pog Fish:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Sprites Container/Gaped Fish:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Sprites Container/Discord Fish:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
 [node name="Fish" type="Node2D" unique_id=831577027]
 script = ExtResource("1_dco7l")
 
@@ -50,5 +76,8 @@ texture = ExtResource("5_6g186")
 rotation = 1.5707964
 scale = Vector2(0.945, 0.945)
 texture = ExtResource("6_aoxj0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1459975754]
+replication_config = SubResource("SceneReplicationConfig_dco7l")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

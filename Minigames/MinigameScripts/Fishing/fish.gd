@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var sprites_container: Node2D = $"Sprites Container"
+@onready var sync: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 var allFishVelocity: Vector2
 const ALL_FISH_INITIAL_VELOCITY: float = -6
@@ -13,6 +14,7 @@ var fishRotVelocity = 0
 var minWiggleAngle: float = 0
 var wiggleAcceleration: float = 0.007
 var fishDisplayRot := 0.0
+var jumped: bool = false
 
 func _ready() -> void:
 	for child in sprites_container.get_children():
@@ -24,11 +26,17 @@ func _ready() -> void:
 	minWiggleAngle = -maxWiggleAngle
 	fishRot = maxWiggleAngle
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	body.won.rpc()
-	self.queue_free()
+func _physics_process(delta: float) -> void:
+	#wiggleFish()
+	moveFish()
 
-func wiggleFish(node: Node) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is MultiplayerBase:
+		body.win.rpc()
+		print("called body.won.rpc()")
+		self.queue_free()
+
+func wiggleFish() -> void:
 	fishRotVelocity += -sign(fishRot) * wiggleAcceleration
 	fishRot += fishRotVelocity
 	
@@ -39,17 +47,16 @@ func wiggleFish(node: Node) -> void:
 	var flipRot: float = PI * -smoothstep(0.0, 1.0, t)
 	
 	fishDisplayRot = fishRot + flipRot
-	for child in node.get_children(false):
+	for child in get_children(false):
 		child.rotation = fishDisplayRot
 
 func _fishJump() -> void:
+	print("_fishJump called!")
 	allFishVelocity.y = ALL_FISH_INITIAL_VELOCITY
+	jumped = true
 
 func moveFish() -> void:
-	allFishVelocity.y = allFishVelocity.y + GRAVITY
-	
-	global_position.y += allFishVelocity.y
-	global_position.x = -fishRotVelocity * 50
-	
-	if global_position.y > 0:
-		global_position.y = 0
+	if jumped:
+		allFishVelocity.y = allFishVelocity.y + GRAVITY
+		
+		global_position.y += allFishVelocity.y

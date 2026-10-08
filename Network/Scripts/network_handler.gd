@@ -17,14 +17,15 @@ var loaded_players: Array[int] = []
 
 var disconnect_reason: String = ""
 
-
-
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+func _process(delta: float) -> void:
+	print("FPS: ", Engine.get_frames_per_second())
 
 func start_server(player_name: String, port: int = DEFAULT_PORT) -> Error:
 	peer = ENetMultiplayerPeer.new()

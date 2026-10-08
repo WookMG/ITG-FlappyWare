@@ -26,7 +26,7 @@ func _spawn_player(id: int) -> void:
 		losing_players.append(id)
 		players.append(player.get_path())
 		
-		fishJump.connect(Callable(fish_container.get_child(id).get_child(0), "_fishJump"))
+		fishJump.connect(Callable(fish_container.get_child(player.slot - 1), "_fishJump"))
 
 func _ready() -> void:
 	super._ready()
@@ -38,9 +38,7 @@ func _ready() -> void:
 	timeBeforeFish.wait_time = waitTime
 	timeBeforeFish.one_shot = true
 	add_child(timeBeforeFish)
-	timeBeforeFish.timeout.connect(_timeBeforeFish_timeout)
-	#Timer is started in _on_all_players_loaded()
-	
+	timeBeforeFish.timeout.connect(_timeBeforeFish_timeout) #Timer is started in _on_all_players_loaded()
 	
 	
 	#Sun
@@ -83,4 +81,5 @@ func _player_won(id: int) -> void:
 	if winning_players.size() <= 0: _end_minigame()
 
 func _timeBeforeFish_timeout() -> void:
-	fishJump.emit()
+	emit_signal("fishJump")
+	

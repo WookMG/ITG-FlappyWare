@@ -10,9 +10,11 @@ var inWater: bool = false
 
 func _ready() -> void:
 	super._ready()
+	show_body()
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
+	if minigame_ended: return
 	
 	velocity += get_gravity() * delta
 	

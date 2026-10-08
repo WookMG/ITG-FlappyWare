@@ -79,6 +79,30 @@ z_index = 1
 collision_layer = 0
 script = ExtResource("1_rkfoj")
 
+[node name="NameContainer" type="Control" parent="Player" unique_id=2013972649]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5.5, 5.5)
+
+[node name="username" type="RichTextLabel" parent="Player/NameContainer" unique_id=635868080]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -65.0
+offset_top = -19.0
+offset_right = 335.0
+offset_bottom = 21.0
+scale = Vector2(0.32625794, 0.32625794)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=1622495749]
 replication_config = SubResource("SceneReplicationConfig_sseh2")
 
@@ -102,29 +126,6 @@ body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodeP
 
 [node name="HeadSync" type="MultiplayerSynchronizer" parent="Player/Head" unique_id=1452787921]
 replication_config = SubResource("SceneReplicationConfig_736pw")
-
-[node name="NameContainer" type="Control" parent="Player/Head" unique_id=2013972649]
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="username" type="RichTextLabel" parent="Player/Head/NameContainer" unique_id=635868080]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = -65.0
-offset_top = -19.0
-offset_right = 335.0
-offset_bottom = 21.0
-scale = Vector2(0.32625794, 0.32625794)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/normal_font_size = 20
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Worm" type="Node2D" parent="Player/Head" unique_id=925834026]
 visible = false

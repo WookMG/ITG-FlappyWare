@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var head_sync: MultiplayerSynchronizer = $Head/HeadSync
 
 @onready var head: Sprite2D = $Head
-@onready var username: RichTextLabel = $Head/NameContainer/username
+@onready var username: RichTextLabel = $NameContainer/username
 
 const JUMP_VELOCITY: float = -1000
 const HORIZONTAL_ACCELERATION: float = 10

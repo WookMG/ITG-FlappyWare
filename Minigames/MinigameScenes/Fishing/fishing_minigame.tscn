@@ -22,6 +22,7 @@ size = Vector2(57.444443, 63.673286)
 
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
+load_timeout = 0.1
 player_scene = ExtResource("2_pyn6r")
 
 [node name="Players" type="Node" parent="." unique_id=1994812339]
@@ -89,25 +90,17 @@ texture = ExtResource("4_smypx")
 
 [node name="Fish Container" type="Node2D" parent="." unique_id=532459610]
 
-[node name="1" type="Marker2D" parent="Fish Container" unique_id=1869501087]
+[node name="1" parent="Fish Container" unique_id=831577027 instance=ExtResource("7_qfn2k")]
 position = Vector2(-375, 373)
 
-[node name="Fish" parent="Fish Container/1" unique_id=831577027 instance=ExtResource("7_qfn2k")]
-
-[node name="2" type="Marker2D" parent="Fish Container" unique_id=1692295626]
+[node name="2" parent="Fish Container" unique_id=488248903 instance=ExtResource("7_qfn2k")]
 position = Vector2(-125, 373)
 
-[node name="Fish" parent="Fish Container/2" unique_id=488248903 instance=ExtResource("7_qfn2k")]
-
-[node name="3" type="Marker2D" parent="Fish Container" unique_id=1142061553]
+[node name="3" parent="Fish Container" unique_id=610299309 instance=ExtResource("7_qfn2k")]
 position = Vector2(125, 373)
 
-[node name="Fish" parent="Fish Container/3" unique_id=610299309 instance=ExtResource("7_qfn2k")]
-
-[node name="4" type="Marker2D" parent="Fish Container" unique_id=38156207]
+[node name="4" parent="Fish Container" unique_id=605332728 instance=ExtResource("7_qfn2k")]
 position = Vector2(375, 373)
-
-[node name="Fish" parent="Fish Container/4" unique_id=605332728 instance=ExtResource("7_qfn2k")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1455591541]
 

@@ -43,9 +43,8 @@ properties/6/path = NodePath(".:visible")
 properties/6/spawn = true
 properties/6/replication_mode = 1
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p8vbe"]
-radius = 11.0
-height = 31.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_b46b8"]
+radius = 10.752907
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jvtgr"]
 properties/0/path = NodePath(".:slot")
@@ -74,9 +73,34 @@ properties/7/spawn = true
 properties/7/replication_mode = 1
 
 [node name="Fishing Player" type="Node2D" unique_id=253277555]
+z_index = 1
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1775137831 groups=["Player"]]
 script = ExtResource("1_863gk")
+
+[node name="NameContainer" type="Control" parent="Player" unique_id=1708340372]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5.5, 5.5)
+
+[node name="username" type="RichTextLabel" parent="Player/NameContainer" unique_id=57796068]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -65.0
+offset_top = -19.0
+offset_right = 335.0
+offset_bottom = 21.0
+scale = Vector2(0.32625794, 0.32625794)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=349535805]
 replication_config = SubResource("SceneReplicationConfig_py7ah")
@@ -84,7 +108,7 @@ replication_config = SubResource("SceneReplicationConfig_py7ah")
 [node name="Hitbox" type="CollisionShape2D" parent="Player" unique_id=1000993085]
 rotation = 1.5707964
 scale = Vector2(4, 4)
-shape = SubResource("CapsuleShape2D_p8vbe")
+shape = SubResource("CircleShape2D_b46b8")
 
 [node name="Flap" type="AudioStreamPlayer" parent="Player" unique_id=477123901]
 stream = ExtResource("3_yfhhx")
@@ -103,29 +127,6 @@ body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodeP
 
 [node name="HeadSync" type="MultiplayerSynchronizer" parent="Player/Head" unique_id=1577720274]
 replication_config = SubResource("SceneReplicationConfig_jvtgr")
-
-[node name="NameContainer" type="Control" parent="Player/Head" unique_id=1708340372]
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="username" type="RichTextLabel" parent="Player/Head/NameContainer" unique_id=57796068]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = -65.0
-offset_top = -19.0
-offset_right = 335.0
-offset_bottom = 21.0
-scale = Vector2(0.32625794, 0.32625794)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/normal_font_size = 20
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Worm" type="Node2D" parent="Player/Head" unique_id=409208581]
 visible = false
