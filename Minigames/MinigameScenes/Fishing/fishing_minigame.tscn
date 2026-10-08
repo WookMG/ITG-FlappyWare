@@ -27,6 +27,11 @@ endGameDelay = 0.5
 minigame_time = 6.0
 player_scene = ExtResource("2_pyn6r")
 
+[node name="Top Pipe" parent="." unique_id=1407374869 instance=ExtResource("1_obtev")]
+position = Vector2(576, -385)
+rotation = 1.5707964
+scale = Vector2(0.605, 2)
+
 [node name="Players" type="Node" parent="." unique_id=1994812339]
 
 [node name="Spawns" type="Node2D" parent="Players" unique_id=445301342]
@@ -65,13 +70,6 @@ script = ExtResource("3_cf5c8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterContainer/WaterArea" unique_id=658535785]
 position = Vector2(0, -0.42245483)
 shape = SubResource("RectangleShape2D_p5ibt")
-
-[node name="Pipe Container" type="Node2D" parent="." unique_id=958072543]
-
-[node name="Top Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
-position = Vector2(576, -385)
-rotation = 1.5707964
-scale = Vector2(0.605, 2)
 
 [node name="Sun Container" type="Node2D" parent="." unique_id=1649224060]
 position = Vector2(328, -151)
