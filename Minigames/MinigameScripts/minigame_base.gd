@@ -49,7 +49,7 @@ func _spawn_when_ready() -> void:
 	while waited < load_timeout:
 		var all_loaded = true
 		for id in NetworkHandler.connected_players:
-			all_loaded = !NetworkHandler.loaded_players.has(int(id))
+			all_loaded = NetworkHandler.loaded_players.has(int(id))
 			if !all_loaded: break
 		if all_loaded: break
 		await get_tree().process_frame

@@ -58,8 +58,8 @@ func _end_minigame():
 	SceneManager.end_minigame.rpc(players, player_win_info)
 
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
-	timeBeforeFish.start()
 	super._on_all_players_loaded()
+	timeBeforeFish.start()
 
 func _physics_process(_delta: float) -> void:
 	rotateSun()
