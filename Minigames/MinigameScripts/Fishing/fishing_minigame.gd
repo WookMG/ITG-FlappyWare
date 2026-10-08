@@ -29,11 +29,12 @@ func _spawn_player(id: int) -> void:
 		fishJump.connect(Callable(fish_container.get_child(player.slot - 1), "_fishJump"))
 
 func _ready() -> void:
+	set_timers()
 	super._ready()
-	var waitTime: float = randf_range(minWait, maxWait)
-	#get_tree().root.find_child("minigame_time").wait_time = waitTime + endGameDelay
-	
+
+func set_timers():
 	#Fish
+	var waitTime: float = randf_range(minWait, maxWait)
 	timeBeforeFish = Timer.new()
 	timeBeforeFish.wait_time = waitTime
 	timeBeforeFish.one_shot = true
