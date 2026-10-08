@@ -53,8 +53,8 @@ func _onStartPipeEntered(body: Node2D) -> void:
 	#var i = randi_range(0,0) #change range when more games added
 	if !NetworkHandler.is_server: return
 	if body is MultiplayerBase:
-		SceneManager.start_minigame("res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn")
-		#SceneManager.start_minigame("res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn")
+		#SceneManager.start_minigame("res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn")
+		SceneManager.start_minigame("res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn")
 
 @rpc("authority", "reliable")
 func leave_lobby() -> void:

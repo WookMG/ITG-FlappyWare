@@ -7,7 +7,6 @@ const AERODYNAMICS: float = 0.6
 
 var isOnFloor: bool = false
 var inWater: bool = false
-var fishCaught: bool = false
 
 func _ready() -> void:
 	super._ready()
@@ -30,8 +29,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 @rpc("any_peer", "call_local", "unreliable")
-func win() -> void:
-	if fishCaught: won.emit(int(name))
+func win() -> void: # called by fish
+	won.emit(int(name))
 	#TODO disable controlls and make it apparent that they've won
 
 @rpc("any_peer", "call_local", "unreliable")

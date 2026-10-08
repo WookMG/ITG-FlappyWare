@@ -2,17 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cmd0cc5dqv864" path="res://Minigames/MinigameScripts/Fishing/fishing_minigame.gd" id="1_0tu6p"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="1_obtev"]
-[ext_resource type="PackedScene" uid="uid://bquswloae3qde" path="res://Minigames/MinigameScenes/Fishing/fishing_player.tscn" id="2_qsdah"]
+[ext_resource type="PackedScene" uid="uid://bquswloae3qde" path="res://Minigames/MinigameScenes/Fishing/fishing_player.tscn" id="2_pyn6r"]
 [ext_resource type="Script" uid="uid://xdy371l3cfat" path="res://Minigames/MinigameScripts/Fishing/water_area.gd" id="3_cf5c8"]
 [ext_resource type="Texture2D" uid="uid://bm3p5227cxnmm" path="res://Assets/Sprites/sunspeed.png" id="4_smypx"]
 [ext_resource type="Texture2D" uid="uid://cnk76v06pmv8b" path="res://Assets/Sprites/sunrays.png" id="5_2gqw6"]
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="6_2gqw6"]
-[ext_resource type="Texture2D" uid="uid://cpdd6iaypmt8k" path="res://Assets/Sprites/Fish/Shrimp.png" id="7_i1qjs"]
-[ext_resource type="Texture2D" uid="uid://c1rqb332o4diq" path="res://Assets/Sprites/Fish/Yellow Fish.png" id="8_8jxaw"]
-[ext_resource type="Texture2D" uid="uid://drgcb2rebtoce" path="res://Assets/Sprites/Fish/Shark.png" id="9_feyfx"]
-[ext_resource type="Texture2D" uid="uid://c18c82eojdg2e" path="res://Assets/Sprites/Fish/Pog Fish.png" id="10_h0cbg"]
-[ext_resource type="Texture2D" uid="uid://uwvfv6uf712c" path="res://Assets/Sprites/Fish/Gaped Fish.png" id="11_k68us"]
-[ext_resource type="Texture2D" uid="uid://e1l84afxsqo" path="res://Assets/Sprites/Fish/Discord Fish.png" id="12_iq05i"]
+[ext_resource type="PackedScene" uid="uid://bjdi4yap2fgm2" path="res://Minigames/MinigameScenes/Fishing/fish.tscn" id="7_qfn2k"]
 
 [sub_resource type="Gradient" id="Gradient_s3t03"]
 colors = PackedColorArray(0, 0.32156864, 1, 0.43137255, 0.4, 0.90588236, 0.9490196, 0.43137255)
@@ -25,45 +20,42 @@ fill_to = Vector2(1, 0.20869565)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5ibt"]
 size = Vector2(57.444443, 63.673286)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j8fmd"]
-
 [node name="Fishing Minigame" type="Node2D" unique_id=2010992951]
 script = ExtResource("1_0tu6p")
-player_scene = ExtResource("2_qsdah")
+player_scene = ExtResource("2_pyn6r")
 
 [node name="Players" type="Node" parent="." unique_id=1994812339]
 
-[node name="Spawns" type="Node2D" parent="Players" unique_id=2030537575]
+[node name="Spawns" type="Node2D" parent="Players" unique_id=445301342]
+position = Vector2(0, 75)
 
-[node name="1" type="Marker2D" parent="Players/Spawns" unique_id=37656029]
-position = Vector2(230, 385)
+[node name="1" type="Marker2D" parent="Players/Spawns" unique_id=1347754188]
+position = Vector2(-375, 1)
 
-[node name="2" type="Marker2D" parent="Players/Spawns" unique_id=1943406496]
-position = Vector2(460, 385)
+[node name="2" type="Marker2D" parent="Players/Spawns" unique_id=1795332240]
+position = Vector2(-125, 1)
 
-[node name="3" type="Marker2D" parent="Players/Spawns" unique_id=61259702]
-position = Vector2(690, 385)
+[node name="3" type="Marker2D" parent="Players/Spawns" unique_id=1037881429]
+position = Vector2(125, 1)
 
-[node name="4" type="Marker2D" parent="Players/Spawns" unique_id=2118671107]
-position = Vector2(920, 385)
+[node name="4" type="Marker2D" parent="Players/Spawns" unique_id=323749832]
+position = Vector2(375, 1)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=532738824]
 _spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
 spawn_path = NodePath("../Players")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=549917755]
-position = Vector2(576, 324)
 texture = ExtResource("6_2gqw6")
 
 [node name="WaterContainer" type="Node2D" parent="." unique_id=1287393606]
+position = Vector2(0, 200)
 
 [node name="Water" type="Sprite2D" parent="WaterContainer" unique_id=1958359851 groups=["Water"]]
-position = Vector2(576, 523)
 scale = Vector2(16.15625, 3.8749995)
 texture = SubResource("GradientTexture2D_p5ibt")
 
 [node name="WaterArea" type="Area2D" parent="WaterContainer" unique_id=949205803]
-position = Vector2(576, 523.5)
 scale = Vector2(18, 3.859375)
 script = ExtResource("3_cf5c8")
 
@@ -74,13 +66,12 @@ shape = SubResource("RectangleShape2D_p5ibt")
 [node name="Pipe Container" type="Node2D" parent="." unique_id=958072543]
 
 [node name="Top Pipe" parent="Pipe Container" unique_id=1407374869 instance=ExtResource("1_obtev")]
-visible = false
-position = Vector2(576, -53.999996)
+position = Vector2(576, -385)
 rotation = 1.5707964
 scale = Vector2(0.605, 2)
 
 [node name="Sun Container" type="Node2D" parent="." unique_id=1649224060]
-position = Vector2(900, 150)
+position = Vector2(328, -151)
 
 [node name="Rays1" type="Sprite2D" parent="Sun Container" unique_id=605971670]
 position = Vector2(2.9999974, -8.000002)
@@ -98,205 +89,29 @@ texture = ExtResource("4_smypx")
 
 [node name="Fish Container" type="Node2D" parent="." unique_id=532459610]
 
-[node name="P1 Fish" type="Node2D" parent="Fish Container" unique_id=852077961]
+[node name="1" type="Marker2D" parent="Fish Container" unique_id=1869501087]
+position = Vector2(-375, 373)
 
-[node name="Sprites Container" type="Node2D" parent="Fish Container/P1 Fish" unique_id=1908310737]
+[node name="Fish" parent="Fish Container/1" unique_id=831577027 instance=ExtResource("7_qfn2k")]
 
-[node name="Shrimp" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=1903009823]
-visible = false
-position = Vector2(-0.9999995, -0.99999976)
-scale = Vector2(0.89, 0.89)
-texture = ExtResource("7_i1qjs")
+[node name="2" type="Marker2D" parent="Fish Container" unique_id=1692295626]
+position = Vector2(-125, 373)
 
-[node name="Yellow Fish" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=791135848]
-visible = false
-position = Vector2(-4, 0.9999999)
-rotation = 1.5707964
-scale = Vector2(0.765, 0.765)
-texture = ExtResource("8_8jxaw")
+[node name="Fish" parent="Fish Container/2" unique_id=488248903 instance=ExtResource("7_qfn2k")]
 
-[node name="Shark" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=239152632]
-visible = false
-scale = Vector2(0.645, 0.645)
-texture = ExtResource("9_feyfx")
+[node name="3" type="Marker2D" parent="Fish Container" unique_id=1142061553]
+position = Vector2(125, 373)
 
-[node name="Pog Fish" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=1728322466]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.685, 0.685)
-texture = ExtResource("10_h0cbg")
+[node name="Fish" parent="Fish Container/3" unique_id=610299309 instance=ExtResource("7_qfn2k")]
 
-[node name="Gaped Fish" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=893065099]
-visible = false
-position = Vector2(-1, 3)
-rotation = 1.5707964
-texture = ExtResource("11_k68us")
+[node name="4" type="Marker2D" parent="Fish Container" unique_id=38156207]
+position = Vector2(375, 373)
 
-[node name="Discord Fish" type="Sprite2D" parent="Fish Container/P1 Fish/Sprites Container" unique_id=1409149066]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.945, 0.945)
-texture = ExtResource("12_iq05i")
+[node name="Fish" parent="Fish Container/4" unique_id=605332728 instance=ExtResource("7_qfn2k")]
 
-[node name="Area2D" type="Area2D" parent="Fish Container/P1 Fish" unique_id=109432480]
-scale = Vector2(2.5, 2.5)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1455591541]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Fish Container/P1 Fish/Area2D" unique_id=9218510]
-shape = SubResource("CircleShape2D_j8fmd")
-
-[node name="Start Position" type="Marker2D" parent="Fish Container/P1 Fish" unique_id=1869501087]
-position = Vector2(230, 700)
-
-[node name="P2 Fish" type="Node2D" parent="Fish Container" unique_id=1029954483]
-
-[node name="Sprites Container" type="Node2D" parent="Fish Container/P2 Fish" unique_id=1200706895]
-
-[node name="Shrimp" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=1563619096]
-visible = false
-position = Vector2(-0.9999995, -0.99999976)
-scale = Vector2(0.89, 0.89)
-texture = ExtResource("7_i1qjs")
-
-[node name="Yellow Fish" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=1952394096]
-visible = false
-position = Vector2(-4, 0.9999999)
-rotation = 1.5707964
-scale = Vector2(0.765, 0.765)
-texture = ExtResource("8_8jxaw")
-
-[node name="Shark" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=1222139440]
-visible = false
-scale = Vector2(0.645, 0.645)
-texture = ExtResource("9_feyfx")
-
-[node name="Pog Fish" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=1745423444]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.685, 0.685)
-texture = ExtResource("10_h0cbg")
-
-[node name="Gaped Fish" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=1233348930]
-visible = false
-position = Vector2(-1, 3)
-rotation = 1.5707964
-texture = ExtResource("11_k68us")
-
-[node name="Discord Fish" type="Sprite2D" parent="Fish Container/P2 Fish/Sprites Container" unique_id=2011661421]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.945, 0.945)
-texture = ExtResource("12_iq05i")
-
-[node name="Area2D" type="Area2D" parent="Fish Container/P2 Fish" unique_id=33702306]
-scale = Vector2(2.5, 2.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Fish Container/P2 Fish/Area2D" unique_id=1334865798]
-shape = SubResource("CircleShape2D_j8fmd")
-
-[node name="Start Position" type="Marker2D" parent="Fish Container/P2 Fish" unique_id=1692295626]
-position = Vector2(460, 700)
-
-[node name="P3 Fish" type="Node2D" parent="Fish Container" unique_id=1232578132]
-
-[node name="Sprites Container" type="Node2D" parent="Fish Container/P3 Fish" unique_id=778768784]
-
-[node name="Shrimp" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=1283182483]
-visible = false
-position = Vector2(-0.9999995, -0.99999976)
-scale = Vector2(0.89, 0.89)
-texture = ExtResource("7_i1qjs")
-
-[node name="Yellow Fish" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=1584902844]
-visible = false
-position = Vector2(-4, 0.9999999)
-rotation = 1.5707964
-scale = Vector2(0.765, 0.765)
-texture = ExtResource("8_8jxaw")
-
-[node name="Shark" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=489790546]
-visible = false
-scale = Vector2(0.645, 0.645)
-texture = ExtResource("9_feyfx")
-
-[node name="Pog Fish" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=534874505]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.685, 0.685)
-texture = ExtResource("10_h0cbg")
-
-[node name="Gaped Fish" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=996198077]
-visible = false
-position = Vector2(-1, 3)
-rotation = 1.5707964
-texture = ExtResource("11_k68us")
-
-[node name="Discord Fish" type="Sprite2D" parent="Fish Container/P3 Fish/Sprites Container" unique_id=1281490520]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.945, 0.945)
-texture = ExtResource("12_iq05i")
-
-[node name="Area2D" type="Area2D" parent="Fish Container/P3 Fish" unique_id=1985854273]
-scale = Vector2(2.5, 2.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Fish Container/P3 Fish/Area2D" unique_id=414209128]
-shape = SubResource("CircleShape2D_j8fmd")
-
-[node name="Start Position" type="Marker2D" parent="Fish Container/P3 Fish" unique_id=1142061553]
-position = Vector2(690, 700)
-
-[node name="P4 Fish" type="Node2D" parent="Fish Container" unique_id=513689181]
-
-[node name="Sprites Container" type="Node2D" parent="Fish Container/P4 Fish" unique_id=1273943041]
-
-[node name="Shrimp" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=1586421305]
-visible = false
-position = Vector2(-0.9999995, -0.99999976)
-scale = Vector2(0.89, 0.89)
-texture = ExtResource("7_i1qjs")
-
-[node name="Yellow Fish" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=999581108]
-visible = false
-position = Vector2(-4, 0.9999999)
-rotation = 1.5707964
-scale = Vector2(0.765, 0.765)
-texture = ExtResource("8_8jxaw")
-
-[node name="Shark" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=1702527731]
-visible = false
-scale = Vector2(0.645, 0.645)
-texture = ExtResource("9_feyfx")
-
-[node name="Pog Fish" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=2133713417]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.685, 0.685)
-texture = ExtResource("10_h0cbg")
-
-[node name="Gaped Fish" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=2105016041]
-visible = false
-position = Vector2(-1, 3)
-rotation = 1.5707964
-texture = ExtResource("11_k68us")
-
-[node name="Discord Fish" type="Sprite2D" parent="Fish Container/P4 Fish/Sprites Container" unique_id=576755422]
-visible = false
-rotation = 1.5707964
-scale = Vector2(0.945, 0.945)
-texture = ExtResource("12_iq05i")
-
-[node name="Area2D" type="Area2D" parent="Fish Container/P4 Fish" unique_id=1526321401]
-scale = Vector2(2.5, 2.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Fish Container/P4 Fish/Area2D" unique_id=814650332]
-shape = SubResource("CircleShape2D_j8fmd")
-
-[node name="Start Position" type="Marker2D" parent="Fish Container/P4 Fish" unique_id=38156207]
-position = Vector2(920, 700)
+[node name="Timer" type="Timer" parent="." unique_id=1936503663]
 
 [connection signal="body_entered" from="WaterContainer/WaterArea" to="WaterContainer/WaterArea" method="_on_body_entered"]
 [connection signal="body_exited" from="WaterContainer/WaterArea" to="WaterContainer/WaterArea" method="_on_body_exited"]
-[connection signal="body_entered" from="Fish Container/P1 Fish/Area2D" to="." method="_p1FishTouched"]
-[connection signal="body_entered" from="Fish Container/P2 Fish/Area2D" to="." method="_p2FishTouched"]
-[connection signal="body_entered" from="Fish Container/P3 Fish/Area2D" to="." method="_p3FishTouched"]
-[connection signal="body_entered" from="Fish Container/P4 Fish/Area2D" to="." method="_p4FishTouched"]
