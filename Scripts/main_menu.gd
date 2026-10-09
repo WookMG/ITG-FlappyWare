@@ -9,12 +9,16 @@ extends Control
 @onready var username: LineEdit = $InputTextPanel/VBoxContainer/Username
 @onready var username_text: RichTextLabel = $InputTextPanel/VBoxContainer/UsernameText
 
+@onready var bark_fart: AudioStreamPlayer = $BarkFart
+@onready var snap: AudioStreamPlayer = $Snap
+
 var ip_open: bool = false
 var username_open: bool = false
 var inputPanelOpen: bool = false
 var place: String = "Menu"
 
 func _ready() -> void:
+	bark_fart.play()
 	var aniList = textAnimations.get_animation_list()
 	textAnimations.current_animation = aniList[randi_range(0, aniList.size() - 1)]
 	if textAnimations.current_animation == "huh?":
@@ -22,7 +26,9 @@ func _ready() -> void:
 		await get_tree().create_timer(2.15).timeout
 		$"Splash Art/Eye Container".show()
 
+
 func _on_host_pressed() -> void:
+	snap.play()
 	toggleMainPanel()
 	toggle_username_input()
 	var username_submitted: String = await username.text_submitted
@@ -32,9 +38,11 @@ func _on_host_pressed() -> void:
 		SceneManager.lobby()
 
 func _on_join_pressed() -> void:
+	snap.play()
 	toggleMainPanel()
 	toggle_ip_input()
 	var ip_submitted: String = await ip.text_submitted
+	snap.play()
 	toggle_ip_input()
 	toggle_username_input()
 	var username_submitted: String = await username.text_submitted
@@ -48,12 +56,15 @@ func _on_join_pressed() -> void:
 	SceneManager.lobby()
 
 func _on_play_pressed() -> void:
+	snap.play()
 	SceneManager.copyright()
 
 func _on_settings_pressed() -> void:
-	pass # Replace with function body.
+	pass
 
 func _on_quit_pressed() -> void:
+	snap.play()
+	await snap.finished
 	get_tree().quit()
 
 func toggle_ip_input():
@@ -88,6 +99,7 @@ func toggleMainPanel() -> void:
 		main_panel.show()
 
 func _on_return_pressed() -> void:
+	snap.play()
 	match place:
 		"Username":
 			toggle_username_input()

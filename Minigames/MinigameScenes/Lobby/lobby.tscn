@@ -137,7 +137,6 @@ rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
 
 [node name="Game Settings" parent="." unique_id=1819393493 instance=ExtResource("6_74awt")]
-visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=139240019]
 

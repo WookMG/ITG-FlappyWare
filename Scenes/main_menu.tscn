@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://drwqg5v6shsd7" path="res://Assets/Sprites/eyes.png" id="4_n45e2"]
 [ext_resource type="Shader" uid="uid://c3gfqid00bfi1" path="res://Assets/gifs/skeleton_gif_shader.gdshader" id="6_cp0ys"]
 [ext_resource type="VideoStream" uid="uid://by7n0ij4gjeef" path="res://Assets/gifs/Timeline 1.ogv" id="6_opfnp"]
+[ext_resource type="AudioStream" uid="uid://cbs7yte63f5ao" path="res://Assets/Sounds/Menu/bark fart.mp3" id="8_yhxw7"]
+[ext_resource type="AudioStream" uid="uid://c04f5j7mhpd33" path="res://Assets/Sounds/Menu/Snap.mp3" id="9_trj04"]
 
 [sub_resource type="Animation" id="Animation_ce3w2"]
 length = 0.001
@@ -623,6 +625,15 @@ vertical_alignment = 2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title" unique_id=1130134879]
 libraries/ = SubResource("AnimationLibrary_ce3w2")
 autoplay = &"Flip"
+
+[node name="BarkFart" type="AudioStreamPlayer" parent="." unique_id=1989422508]
+stream = ExtResource("8_yhxw7")
+volume_db = -25.0
+
+[node name="Snap" type="AudioStreamPlayer" parent="." unique_id=263369600]
+stream = ExtResource("9_trj04")
+volume_db = -22.0
+pitch_scale = 0.75
 
 [connection signal="timeout" from="VideoStreamPlayer/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="MainPanel/VBoxContainer/Host" to="." method="_on_host_pressed"]
