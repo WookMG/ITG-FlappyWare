@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3fwcg8jityrv" path="res://Minigames/MinigameScripts/Lobby/lobby.gd" id="1_7mxwi"]
 [ext_resource type="Texture2D" uid="uid://ck0wmg6wisysf" path="res://Assets/Backgrounds/image.png" id="2_33c4u"]
 [ext_resource type="Script" uid="uid://g280n24vme37" path="res://Minigames/MinigameScripts/Lobby/lobby_pipe_manager.gd" id="5_7sbsm"]
+[ext_resource type="PackedScene" uid="uid://n6mqp6hkbtee" path="res://Minigames/MinigameScenes/Lobby/game_settings.tscn" id="6_74awt"]
 [ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="6_qr1ks"]
 [ext_resource type="PackedScene" uid="uid://cp3y723xuea8r" path="res://Scenes/static_pipe.tscn" id="6_s46go"]
 
@@ -134,6 +135,8 @@ scale = Vector2(0.5, 1.5485)
 position = Vector2(-220, -367)
 rotation = -1.5707964
 scale = Vector2(0.5, 1.5485)
+
+[node name="Game Settings" parent="." unique_id=1819393493 instance=ExtResource("6_74awt")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=139240019]
 

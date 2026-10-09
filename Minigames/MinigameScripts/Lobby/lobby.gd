@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var players_container: Node = $Players
+@onready var game_settings: Control = $"Game Settings"
 
 func _ready() -> void:
 	multiplayer_spawner.spawn_function = _spawn_player_with_data
@@ -50,11 +51,12 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 
 #Start Pipe
 func _onStartPipeEntered(body: Node2D) -> void:
-	#var i = randi_range(0,0) #change range when more games added
 	if !NetworkHandler.is_server: return
 	if body is MultiplayerBase:
+		game_settings.setDefaultPlaylist()
+		SceneManager.start_next_minigame()
 		#SceneManager.start_minigame("res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn")
-		SceneManager.start_minigame("res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn")
+		#SceneManager.start_minigame("res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn")
 
 @rpc("authority", "reliable")
 func leave_lobby() -> void:
