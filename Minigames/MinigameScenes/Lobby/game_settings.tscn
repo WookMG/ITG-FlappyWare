@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://iakgr4escjck" path="res://Scenes/animated_button.tscn" id="5_hlocj"]
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="6_a8jim"]
 [ext_resource type="AudioStream" uid="uid://c04f5j7mhpd33" path="res://Assets/Sounds/Menu/Snap.mp3" id="6_kp6h2"]
+[ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="7_wwlte"]
+[ext_resource type="AudioStream" uid="uid://cbs7yte63f5ao" path="res://Assets/Sounds/Menu/bark fart.mp3" id="9_8p5d2"]
 
 [node name="Game Settings" type="Control" unique_id=1819393493]
 layout_mode = 3
@@ -87,13 +89,29 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Games" type="Panel" parent="Game Settings Panel" unique_id=1564738918]
+[node name="RichTextLabel" type="RichTextLabel" parent="Game Settings Panel" unique_id=1646918051]
+custom_minimum_size = Vector2(384, 0)
+custom_maximum_size = Vector2(384, -1)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -300.0
+grow_horizontal = 2
+text = "Select Active Minigames"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Games" type="Panel" parent="Game Settings Panel" unique_id=1564738918]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 48.0
 offset_right = -16.0
 offset_bottom = -82.0
 
@@ -115,13 +133,13 @@ layout_mode = 2
 size_flags_vertical = 3
 dragging_enabled = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1337202354]
+[node name="Left Column" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1337202354]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Gun Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=835250909]
+[node name="Gun Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column" unique_id=835250909]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -130,17 +148,17 @@ texture_normal = ExtResource("6_a8jim")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1195011103]
+[node name="Right Column" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1195011103]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Fishing Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=535297259]
+[node name="Fishing Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column" unique_id=535297259]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource("6_a8jim")
+texture_normal = ExtResource("7_wwlte")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -166,7 +184,12 @@ pitch_scale = 0.75
 stream = ExtResource("6_kp6h2")
 volume_db = -22.0
 
+[node name="BarkFart" type="AudioStreamPlayer" parent="." unique_id=1551772860]
+stream = ExtResource("9_8p5d2")
+
 [connection signal="pressed" from="Game Settings Cog" to="." method="_on_game_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Cog" to="." method="_on_player_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Panel/VBoxContainer/Back to Game" to="." method="_on_back_to_game_pressed"]
+[connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Gun Minigame" to="." method="_on_gun_minigame_pressed"]
+[connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Fishing Minigame" to="." method="_on_fishing_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Back to Game" to="." method="_on_back_to_game_pressed"]

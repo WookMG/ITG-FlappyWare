@@ -53,7 +53,7 @@ func _onReturnPipeEntered(body: Node2D) -> void:
 func _onStartPipeEntered(body: Node2D) -> void:
 	if !NetworkHandler.is_server: return
 	if body is MultiplayerBase:
-		SceneManager.setDefaultPlaylist()
+		SceneManager.setPlaylist()
 		SceneManager.start_next_minigame()
 		#SceneManager.start_minigame("res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn")
 		#SceneManager.start_minigame("res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn")
