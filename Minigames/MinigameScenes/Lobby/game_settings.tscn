@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c7xqvsh8quvot" path="res://Assets/Sprites/Menu/game settings cog.png" id="3_cupm5"]
 [ext_resource type="PackedScene" uid="uid://ugh41a2hr8n3" path="res://Scenes/player_settings_cog.tscn" id="3_hlocj"]
 [ext_resource type="PackedScene" uid="uid://iakgr4escjck" path="res://Scenes/animated_button.tscn" id="5_hlocj"]
+[ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="6_a8jim"]
 [ext_resource type="AudioStream" uid="uid://c04f5j7mhpd33" path="res://Assets/Sounds/Menu/Snap.mp3" id="6_kp6h2"]
 
 [node name="Game Settings" type="Control" unique_id=1819393493]
@@ -86,29 +87,74 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Game Settings Panel" unique_id=2077475101]
+[node name="Games" type="Panel" parent="Game Settings Panel" unique_id=1564738918]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -82.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Game Settings Panel/Games" unique_id=1171109487]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
-[node name="Panel" type="Panel" parent="Game Settings Panel/VBoxContainer" unique_id=268597000]
+[node name="VBoxContainer" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer" unique_id=913223227]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Game Settings Panel/VBoxContainer/Panel" unique_id=1821171425]
-layout_mode = 0
-offset_top = -44.0
-offset_right = 416.0
-offset_bottom = -4.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Game Settings Panel/VBoxContainer/Panel/HBoxContainer" unique_id=131973595]
+[node name="HSplitContainer" type="HSplitContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer" unique_id=1490298603]
 layout_mode = 2
+size_flags_vertical = 3
+dragging_enabled = false
 
-[node name="Back to Game" parent="Game Settings Panel/VBoxContainer" unique_id=1998827427 instance=ExtResource("5_hlocj")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1337202354]
+custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Gun Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=835250909]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("6_a8jim")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1195011103]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Fishing Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=535297259]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("6_a8jim")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Back to Game" parent="Game Settings Panel" unique_id=1998827427 instance=ExtResource("5_hlocj")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 58.0
+offset_top = 274.0
+offset_right = -58.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Back to Game"
 
 [node name="Snap" type="AudioStreamPlayer" parent="." unique_id=2025808334]
@@ -123,4 +169,4 @@ volume_db = -22.0
 [connection signal="pressed" from="Game Settings Cog" to="." method="_on_game_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Cog" to="." method="_on_player_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Panel/VBoxContainer/Back to Game" to="." method="_on_back_to_game_pressed"]
-[connection signal="pressed" from="Game Settings Panel/VBoxContainer/Back to Game" to="." method="_on_back_to_game_pressed"]
+[connection signal="pressed" from="Game Settings Panel/Back to Game" to="." method="_on_back_to_game_pressed"]

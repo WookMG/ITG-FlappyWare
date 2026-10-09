@@ -4,7 +4,13 @@ const MINIGAME_END: PackedScene = preload("res://Minigames/MinigameScenes/miniga
 const LOBBY: String = "uid://ba0rv2ceiwgwd"
 const FLAPPYWORM: String = "uid://dvaeefi471jp8"
 
+@export var defaultCapacity: int = 3
 var playlist: Array[String]
+#Games go here
+var games: Dictionary = {
+"gunMinigame": {"path": "res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn", "weight": 2},
+"fishingMinigame": {"path": "res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn", "weight": 1}
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +35,17 @@ func start_next_minigame() -> void:
 		start_minigame(LOBBY)
 	else:
 		start_minigame(playlist.pop_front()) 
+
+func setDefaultPlaylist() -> void:
+	var keys = games.keys()
+	var weights: Array[int]
+	for i in keys:
+			weights.append(games.get(i).get("weight"))
 	
+	while playlist.size() < defaultCapacity:
+		var rng = RandomNumberGenerator.new()
+		var randomWeightedLevelPath = games.get(keys[rng.rand_weighted(weights)]).get("path")
+		playlist.append(randomWeightedLevelPath)
 
 # This function will show who won that round etc.
 @rpc("authority", "call_local", "reliable")
