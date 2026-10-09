@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://ugh41a2hr8n3"]
+
+[ext_resource type="Texture2D" uid="uid://cvwf76vhoxo7n" path="res://Assets/Sprites/Menu/cog.png" id="1_c6vyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6vyj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ei77v"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.20784314)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plop3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22352941, 0.22352941, 0.22352941, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Animation" id="Animation_em36d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hlocj"]
+resource_name = "hover"
+length = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.5235988]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kp6h2"]
+_data = {
+&"RESET": SubResource("Animation_em36d"),
+&"hover": SubResource("Animation_hlocj")
+}
+
+[node name="Player Settings Cog" type="Button" unique_id=984636097]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_c6vyj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ei77v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_plop3")
+icon = ExtResource("1_c6vyj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=149923308]
+libraries/ = SubResource("AnimationLibrary_kp6h2")
+
+[connection signal="mouse_entered" from="." to="AnimationPlayer" method="play" binds= ["hover"]]
+[connection signal="mouse_exited" from="." to="AnimationPlayer" method="play_backwards" binds= ["hover"]]
