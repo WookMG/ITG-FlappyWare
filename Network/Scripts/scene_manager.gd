@@ -7,6 +7,7 @@ const FLAPPYWORM: String = "uid://dvaeefi471jp8"
 @export var defaultCapacity: int = 2
 var playlist: Array[String]
 var guaranteedGames: Array[String]
+var enabledKeys: Array[String]
 #Games go here
 var games: Dictionary = {
 "Gun Minigame": {"path": "res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn", "weight": 2, "enabled": true},
@@ -36,24 +37,21 @@ func start_next_minigame() -> void:
 # Only call if there is at least 1 Minigame enabled
 func setPlaylist() -> void:
 	playlist.clear()
+	enabledKeys.clear()
+	var enabledWeights: Array[int]
 	
-	var keys = games.keys()
-	var weights: Array[int]
-	var enabledGames: Array
-	for i in keys:
+	for i in games.keys():
 		if games.get(i)["enabled"]:
-			enabledGames.append(games.get(i)["path"])
-			weights.append(games.get(i)["weight"])
+			enabledKeys.append(games.find_key(games.get(i)))
+			enabledWeights.append(games.get(i)["weight"])
 	
 	for i in guaranteedGames.size():
 		playlist.append(games.get(guaranteedGames[i])["path"])
 	
 	while playlist.size() < defaultCapacity:
 		var rng = RandomNumberGenerator.new()
-		var game = enabledGames[rng.rand_weighted(weights)]
+		var game = games[enabledKeys[rng.rand_weighted(enabledWeights)]]["path"]
 		playlist.append(game)
-		print("here")
-	print(playlist)
 
 func getState(game: String) -> bool:
 	return games[game]["enabled"]

@@ -36,11 +36,24 @@ func _ready() -> void:
 	game_settings_panel.hide()
 	#if NetworkHandler.is_server: game_settings_cog.show()
 	#else: game_settings_cog.hide()
+	
 	var keys = SceneManager.games.keys()
+	var guaranteedGames = SceneManager.guaranteedGames
 	for i in keys:
 		var button = self.find_child(i)
-		if SceneManager.games.get(i).get("enabled"): button.modulate.a = enabled
-		else: button.modulate.a = disabled
+		
+		for j in guaranteedGames:
+			print(j)
+			if i == j:
+				button.modulate = green
+				button.find_child("Queued").show()
+		
+		if SceneManager.games.get(i).get("enabled"): 
+			button.modulate.a = enabled
+		else: 
+			button.modulate.a = disabled
+			button.find_child("Removed").show()
+	
 	errorTimer = Timer.new()
 	self.add_child(errorTimer)
 
