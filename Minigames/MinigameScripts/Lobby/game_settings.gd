@@ -15,6 +15,7 @@ extends Control
 @onready var game_settings_panel: Panel = $"Game Settings Panel"
 @onready var game_settings_cog: Button = $"Game Settings Cog"
 @onready var player_settings_cog: Button = $"Player Settings Cog"
+@onready var error: RichTextLabel = $"Game Settings Panel/Error"
 
 @onready var snap: AudioStreamPlayer = $Snap
 @onready var snap_high: AudioStreamPlayer = $"Snap High"
@@ -25,9 +26,10 @@ var guaranteeToggle: bool = false
 var disabled: float = 0.5
 var enabled: float = 1
 
-#var red: Color = Color(0.652, 0.0, 0.0, 1.0)
 var green: Color = Color(0.4, 1.0, 0.37, 1.0)
 var defaultColor: Color = Color(1.0, 1.0, 1.0, 1.0)
+
+var errorTimer: Timer
 
 func _ready() -> void:
 	player_settings_panel.hide()
@@ -39,6 +41,13 @@ func _ready() -> void:
 		var button = self.find_child(i)
 		if SceneManager.games.get(i).get("enabled"): button.modulate.a = enabled
 		else: button.modulate.a = disabled
+	errorTimer = Timer.new()
+	self.add_child(errorTimer)
+
+func _physics_process(delta: float) -> void:
+	if error.modulate.a > 0:
+		error.modulate.a -= 0.01
+		error.position.y -= 0.2
 
 func _on_player_settings_cog_pressed() -> void:
 	if inMenu: return
@@ -73,12 +82,15 @@ func gameSelectLogic(game: String, button: TextureButton) -> void:
 		if SceneManager.guaranteedGames.find(game) == -1:
 			SceneManager.guaranteedGames.append(game)
 			button.modulate = green
+			button.find_child("Queued").show()
 		elif SceneManager.guaranteedGames.find(game) != -1:
 			SceneManager.guaranteedGames.erase(game)
 			button.modulate = defaultColor
+			button.find_child("Queued").hide()
 		
 		if state: button.modulate.a = enabled
 		else: button.modulate.a = disabled
+		snap.play()
 		SceneManager.setPlaylist()
 		return
 	
@@ -92,10 +104,21 @@ func gameSelectLogic(game: String, button: TextureButton) -> void:
 	if !isAnyGameEnabled: 
 		SceneManager.changeState(game)
 		bark_fart.play()
+		showError()
 		return
 	
 	snap.play()
-	if state: button.modulate.a = enabled
-	else: button.modulate.a = disabled
+	if state: 
+		button.modulate.a = enabled
+		button.find_child("Removed").hide()
+	else: 
+		button.modulate.a = disabled
+		button.find_child("Removed").show()
 	
 	SceneManager.setPlaylist()
+
+func showError() -> void:
+	errorTimer.wait_time = 2
+	error.modulate.a = 1
+	error.position.y = 154.0
+	error.show()

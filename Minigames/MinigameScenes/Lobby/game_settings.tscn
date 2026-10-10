@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c7xqvsh8quvot" path="res://Assets/Sprites/Menu/game settings cog.png" id="3_cupm5"]
 [ext_resource type="PackedScene" uid="uid://ugh41a2hr8n3" path="res://Scenes/player_settings_cog.tscn" id="3_hlocj"]
 [ext_resource type="PackedScene" uid="uid://iakgr4escjck" path="res://Scenes/animated_button.tscn" id="5_hlocj"]
+[ext_resource type="PackedScene" uid="uid://b5cusfc2kibjc" path="res://Scenes/minigame_selection_button.tscn" id="6_31je2"]
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="6_a8jim"]
 [ext_resource type="AudioStream" uid="uid://c04f5j7mhpd33" path="res://Assets/Sounds/Menu/Snap.mp3" id="6_kp6h2"]
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="7_wwlte"]
@@ -101,6 +102,22 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Error" type="RichTextLabel" parent="Game Settings Panel" unique_id=1115854987]
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 0.0627451, 0.18431373, 1)
+theme_override_constants/outline_size = 6
+text = "1 Minigame Must Be Enabled"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Games" type="Panel" parent="Game Settings Panel" unique_id=1564738918]
 layout_mode = 1
 anchors_preset = -1
@@ -135,28 +152,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Gun Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column" unique_id=835250909]
-custom_minimum_size = Vector2(0, 108)
+[node name="Gun Minigame" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column" unique_id=770828228 instance=ExtResource("6_31je2")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture_normal = ExtResource("6_a8jim")
-ignore_texture_size = true
-stretch_mode = 4
 
 [node name="Right Column" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1195011103]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Fishing Minigame" type="TextureButton" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column" unique_id=535297259]
-custom_minimum_size = Vector2(0, 108)
+[node name="Fishing Minigame" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column" unique_id=382832028 instance=ExtResource("6_31je2")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture_normal = ExtResource("7_wwlte")
-ignore_texture_size = true
-stretch_mode = 4
 
 [node name="Back to Game" parent="Game Settings Panel" unique_id=1998827427 instance=ExtResource("5_hlocj")]
 layout_mode = 1
@@ -171,13 +178,14 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Back to Game"
 
-[node name="Select Active Minigames" type="RichTextLabel" parent="Game Settings Panel" unique_id=1646918051]
+[node name="Minigame Settings" type="RichTextLabel" parent="Game Settings Panel" unique_id=1646918051]
 layout_mode = 0
 offset_left = 16.0
 offset_right = 400.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
-text = "Select Active Minigames"
+text = "Minigame Settings
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -197,7 +205,7 @@ offset_top = 5.0
 offset_right = 132.0
 offset_bottom = 25.0
 theme_override_font_sizes/normal_font_size = 12
-text = "Guarantee Mode:"
+text = "Add to Queue Mode:"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -205,9 +213,9 @@ vertical_alignment = 1
 [node name="CheckBox" type="CheckBox" parent="Game Settings Panel/Guarantee Panel" unique_id=172613809]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 126.944
+offset_left = 125.944
 offset_top = -3.0
-offset_right = 150.944
+offset_right = 149.944
 offset_bottom = 21.0
 grow_horizontal = 0
 grow_vertical = 0

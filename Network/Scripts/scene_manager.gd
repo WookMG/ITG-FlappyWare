@@ -39,17 +39,20 @@ func setPlaylist() -> void:
 	
 	var keys = games.keys()
 	var weights: Array[int]
+	var enabledGames: Array
 	for i in keys:
-		weights.append(games.get(i).get("weight"))
+		if games.get(i)["enabled"]:
+			enabledGames.append(games.get(i)["path"])
+			weights.append(games.get(i)["weight"])
 	
 	for i in guaranteedGames.size():
 		playlist.append(games.get(guaranteedGames[i])["path"])
 	
 	while playlist.size() < defaultCapacity:
 		var rng = RandomNumberGenerator.new()
-		var game = games.get(keys[rng.rand_weighted(weights)])
-		if game["enabled"]:
-			playlist.append(game["path"])
+		var game = enabledGames[rng.rand_weighted(weights)]
+		playlist.append(game)
+		print("here")
 	print(playlist)
 
 func getState(game: String) -> bool:
