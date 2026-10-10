@@ -10,6 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="7_wwlte"]
 [ext_resource type="AudioStream" uid="uid://cbs7yte63f5ao" path="res://Assets/Sounds/Menu/bark fart.mp3" id="9_8p5d2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p5d2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.16206557, 0.1620656, 0.16206557, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="Game Settings" type="Control" unique_id=1819393493]
 layout_mode = 3
 anchors_preset = 15
@@ -89,22 +101,6 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Game Settings Panel" unique_id=1646918051]
-custom_minimum_size = Vector2(384, 0)
-custom_maximum_size = Vector2(384, -1)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -300.0
-grow_horizontal = 2
-text = "Select Active Minigames"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Games" type="Panel" parent="Game Settings Panel" unique_id=1564738918]
 layout_mode = 1
 anchors_preset = -1
@@ -175,6 +171,48 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Back to Game"
 
+[node name="Select Active Minigames" type="RichTextLabel" parent="Game Settings Panel" unique_id=1646918051]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 400.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+text = "Select Active Minigames"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Guarantee Panel" type="Panel" parent="Game Settings Panel" unique_id=1308605196]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 224.0
+offset_right = 179.0
+offset_bottom = 254.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8p5d2")
+
+[node name="Guarantee Minigame" type="RichTextLabel" parent="Game Settings Panel/Guarantee Panel" unique_id=2143103530]
+layout_mode = 1
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 132.0
+offset_bottom = 25.0
+theme_override_font_sizes/normal_font_size = 12
+text = "Guarantee Mode:"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Game Settings Panel/Guarantee Panel" unique_id=172613809]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 126.944
+offset_top = -3.0
+offset_right = 150.944
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+
 [node name="Snap" type="AudioStreamPlayer" parent="." unique_id=2025808334]
 stream = ExtResource("6_kp6h2")
 volume_db = -22.0
@@ -186,6 +224,7 @@ volume_db = -22.0
 
 [node name="BarkFart" type="AudioStreamPlayer" parent="." unique_id=1551772860]
 stream = ExtResource("9_8p5d2")
+volume_db = -25.0
 
 [connection signal="pressed" from="Game Settings Cog" to="." method="_on_game_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Cog" to="." method="_on_player_settings_cog_pressed"]
@@ -193,3 +232,4 @@ stream = ExtResource("9_8p5d2")
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Gun Minigame" to="." method="_on_gun_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Fishing Minigame" to="." method="_on_fishing_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Back to Game" to="." method="_on_back_to_game_pressed"]
+[connection signal="toggled" from="Game Settings Panel/Guarantee Panel/CheckBox" to="." method="_on_check_box_toggled"]

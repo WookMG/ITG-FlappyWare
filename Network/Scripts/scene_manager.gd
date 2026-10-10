@@ -6,15 +6,12 @@ const FLAPPYWORM: String = "uid://dvaeefi471jp8"
 
 @export var defaultCapacity: int = 2
 var playlist: Array[String]
+var guaranteedGames: Array[String]
 #Games go here
 var games: Dictionary = {
 "Gun Minigame": {"path": "res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn", "weight": 2, "enabled": true},
 "Fishing Minigame": {"path": "res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn", "weight": 1, "enabled": true}
 }
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 func lobby() -> void:
 	get_tree().change_scene_to_file(LOBBY)
@@ -45,11 +42,18 @@ func setPlaylist() -> void:
 	for i in keys:
 		weights.append(games.get(i).get("weight"))
 	
+	for i in guaranteedGames.size():
+		playlist.append(games.get(guaranteedGames[i])["path"])
+	
 	while playlist.size() < defaultCapacity:
 		var rng = RandomNumberGenerator.new()
 		var game = games.get(keys[rng.rand_weighted(weights)])
 		if game["enabled"]:
 			playlist.append(game["path"])
+	print(playlist)
+
+func getState(game: String) -> bool:
+	return games[game]["enabled"]
 
 func changeState(game: String) -> bool:
 	games[game]["enabled"] = !games[game]["enabled"]

@@ -1,5 +1,7 @@
 extends Control
 
+#TODO create menu that allows for adding guaranteed games
+
 #-----------------------------------------------------------------#
 # When adding a new game button to the menu, please name it 
 # after what it's named as in the games disctionary in Scene Manager.
@@ -19,8 +21,13 @@ extends Control
 @onready var bark_fart: AudioStreamPlayer = $BarkFart
 
 var inMenu: bool = false
+var guaranteeToggle: bool = false
 var disabled: float = 0.5
 var enabled: float = 1
+
+#var red: Color = Color(0.652, 0.0, 0.0, 1.0)
+var green: Color = Color(0.4, 1.0, 0.37, 1.0)
+var defaultColor: Color = Color(1.0, 1.0, 1.0, 1.0)
 
 func _ready() -> void:
 	player_settings_panel.hide()
@@ -57,21 +64,37 @@ func _on_gun_minigame_pressed() -> void:
 func _on_fishing_minigame_pressed() -> void:
 	gameSelectLogic("Fishing Minigame", fishing_minigame)
 
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	guaranteeToggle = !guaranteeToggle
+
 func gameSelectLogic(game: String, button: TextureButton) -> void:
-	var state: bool = SceneManager.changeState(game)
+	var state: bool = SceneManager.getState(game)
+	if guaranteeToggle:
+		if SceneManager.guaranteedGames.find(game) == -1:
+			SceneManager.guaranteedGames.append(game)
+			button.modulate = green
+		elif SceneManager.guaranteedGames.find(game) != -1:
+			SceneManager.guaranteedGames.erase(game)
+			button.modulate = defaultColor
+		
+		if state: button.modulate.a = enabled
+		else: button.modulate.a = disabled
+		SceneManager.setPlaylist()
+		return
 	
+	state = SceneManager.changeState(game)
 	var isAnyGameEnabled = false
 	var keys = SceneManager.games.keys()
 	for i in keys:
 		if SceneManager.games.get(i).get("enabled"):
 			isAnyGameEnabled = true
+			break
 	if !isAnyGameEnabled: 
 		SceneManager.changeState(game)
 		bark_fart.play()
 		return
-	else: 
-		snap.play()
 	
+	snap.play()
 	if state: button.modulate.a = enabled
 	else: button.modulate.a = disabled
 	
