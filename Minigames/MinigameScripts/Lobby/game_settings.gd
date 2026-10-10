@@ -34,8 +34,8 @@ var errorTimer: Timer
 func _ready() -> void:
 	player_settings_panel.hide()
 	game_settings_panel.hide()
-	#if NetworkHandler.is_server: game_settings_cog.show()
-	#else: game_settings_cog.hide()
+	if NetworkHandler.is_server: game_settings_cog.show()
+	else: game_settings_cog.hide()
 	
 	var keys = SceneManager.games.keys()
 	var guaranteedGames = SceneManager.guaranteedGames
@@ -43,7 +43,6 @@ func _ready() -> void:
 		var button = self.find_child(i)
 		
 		for j in guaranteedGames:
-			print(j)
 			if i == j:
 				button.modulate = green
 				button.find_child("Queued").show()
