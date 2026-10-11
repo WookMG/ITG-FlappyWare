@@ -1,13 +1,15 @@
 extends MultiplayerBase
 
-var jumps: int = 0
+signal breakOut(id: int)
 
+var jumps: int = 0
+var goal: int = 20
+
+var won: bool = false
 
 func _ready() -> void:
 	super._ready()
 	show_body()
-
-
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
@@ -15,7 +17,9 @@ func _physics_process(delta: float) -> void:
 		jump()
 		jumps += 1
 	
-	#if jumps >
+	if jumps >= goal && !won:
+		breakOut.emit(int(name))
+		won = true
 
 
 

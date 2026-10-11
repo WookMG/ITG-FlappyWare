@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="7_wwlte"]
 [ext_resource type="Texture2D" uid="uid://drwqg5v6shsd7" path="res://Assets/Sprites/eyes.png" id="8_qemsk"]
 [ext_resource type="AudioStream" uid="uid://cbs7yte63f5ao" path="res://Assets/Sounds/Menu/bark fart.mp3" id="9_8p5d2"]
+[ext_resource type="Texture2D" uid="uid://td8nnqxq6y8f" path="res://Assets/Sprites/Microwave/Microwave Closed.png" id="10_0rhi0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p5d2"]
 content_margin_left = 0.0
@@ -170,6 +171,10 @@ size_flags_vertical = 0
 layout_mode = 2
 texture_normal = ExtResource("7_wwlte")
 
+[node name="Microwave Minigame" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column" unique_id=1765878349 instance=ExtResource("6_31je2")]
+layout_mode = 2
+texture_normal = ExtResource("10_0rhi0")
+
 [node name="Back to Game" parent="Game Settings Panel" unique_id=1998827427 instance=ExtResource("5_hlocj")]
 layout_mode = 1
 anchors_preset = -1
@@ -245,5 +250,6 @@ volume_db = -25.0
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Gun Minigame" to="." method="_on_gun_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Racing Minigame" to="." method="_on_racing_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Fishing Minigame" to="." method="_on_fishing_minigame_pressed"]
+[connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Microwave Minigame" to="." method="_on_fishing_minigame_2_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Back to Game" to="." method="_on_back_to_game_pressed"]
 [connection signal="toggled" from="Game Settings Panel/Guarantee Panel/CheckBox" to="." method="_on_check_box_toggled"]

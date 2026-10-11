@@ -12,7 +12,8 @@ var enabledKeys: Array[String]
 var games: Dictionary = {
 "Gun Minigame": {"path": "res://Minigames/MinigameScenes/GunGame/gun_minigame.tscn", "weight": 2, "enabled": true},
 "Fishing Minigame": {"path": "res://Minigames/MinigameScenes/Fishing/fishing_minigame.tscn", "weight": 1, "enabled": true},
-"Racing Minigame": {"path": "res://Minigames/MinigameScenes/Race/race_minigame.tscn", "weight": 1, "enabled": true}
+"Racing Minigame": {"path": "res://Minigames/MinigameScenes/Race/race_minigame.tscn", "weight": 1, "enabled": true},
+"Microwave Minigame": {"path": "res://Minigames/MinigameScenes/Microwave/microwave_minigame.tscn", "weight": 2, "enabled": true}
 }
 
 func lobby() -> void:

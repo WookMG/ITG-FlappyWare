@@ -14,8 +14,8 @@ var timer: Timer
 @export var endGameDelay: float = 2
 var timeBeforeFish: Timer
 
-var winning_players: Array[int] = [] #TODO assign
-var losing_players: Array[int] = [] #TODO assign
+var winning_players: Array[int] = []
+var losing_players: Array[int] = []
 
 func _spawn_player(id: int) -> void:
 		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
