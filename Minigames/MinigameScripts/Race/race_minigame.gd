@@ -3,6 +3,7 @@ extends MinigameBase
 @onready var follow_player: Node2D = $FollowPlayer
 @onready var player_camera: Camera2D = $FollowPlayer/PlayerCamera
 @onready var end_camera: Camera2D = $EndCamera
+@onready var countdown: Control = $Countdown
 
 var players_not_finished: Array[int] = []
 var players_finished: Array[int] = []
@@ -28,15 +29,8 @@ func _end_minigame():
 	SceneManager.end_minigame.rpc(players, player_win_info)
 
 func _on_all_players_loaded() -> void:
-	await get_tree().create_timer(1.5).timeout
-	print("3...")
-	await get_tree().create_timer(.5).timeout
-	print("2...")
-	await get_tree().create_timer(.5).timeout
-	print("1...")
-	await get_tree().create_timer(.5).timeout
-	print("Go!")
-	
+	countdown.play()
+	await get_tree().create_timer(2.1).timeout
 	super._on_all_players_loaded()
 
 func _player_finished(id: int) -> void:

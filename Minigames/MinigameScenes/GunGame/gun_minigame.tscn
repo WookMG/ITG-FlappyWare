@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="2_5h1is"]
 [ext_resource type="PackedScene" uid="uid://bmypolhaxxdgl" path="res://Minigames/MinigameScenes/GunGame/gungame_player.tscn" id="2_sxi3b"]
 [ext_resource type="Script" uid="uid://bnoc18ti85cyq" path="res://Minigames/MinigameScripts/GunGame/gun_spikes.gd" id="4_sxi3b"]
+[ext_resource type="PackedScene" uid="uid://cicycnss3wn3t" path="res://Minigames/MinigameScenes/countdown.tscn" id="5_wu1gf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
 size = Vector2(32, 1215)
@@ -84,5 +85,7 @@ position = Vector2(-7, 0)
 shape = SubResource("RectangleShape2D_rkidb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982888657]
+
+[node name="Countdown" parent="." unique_id=599870349 instance=ExtResource("5_wu1gf")]
 
 [connection signal="body_entered" from="BG/walls/spikes" to="BG/walls/spikes" method="_on_body_entered"]
