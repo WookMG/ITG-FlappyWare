@@ -9,7 +9,7 @@ func play(player: MultiplayerBase):
 	await sprite.animation_finished
 	light.show()
 	spotlight.play()
-	player.show()
+	player.modulate = Color.hex(0xffffffff)
 
 func fade_in():
 	var tween = create_tween()

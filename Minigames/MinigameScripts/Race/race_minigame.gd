@@ -15,7 +15,6 @@ func _spawn_player(id: int) -> void:
 		player.finished.connect(_player_finished)
 		players_not_finished.append(id)
 		players.append(player.get_path())
-		player_nodes.append(player)
 		follow_player.set_player.rpc_id(id, id)
 
 func _end_minigame():
@@ -56,3 +55,7 @@ func switch_cameras():
 func _on_pipe_body_entered(body: Node2D) -> void:
 	if body is MultiplayerBase:
 		body.hit.rpc()
+
+func _on_finish_body_entered(body: Node2D) -> void:
+	if body is MultiplayerBase:
+		body.finish.rpc()

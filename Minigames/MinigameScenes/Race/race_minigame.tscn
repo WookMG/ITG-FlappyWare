@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://o685n830wa4r" path="res://Minigames/MinigameScripts/Race/race_follow.gd" id="2_6hmq4"]
 [ext_resource type="PackedScene" uid="uid://dsr8p4ou4x1kt" path="res://Minigames/MinigameScenes/Race/race_player.tscn" id="2_lwxff"]
 [ext_resource type="Texture2D" uid="uid://ca0smk6itdqg8" path="res://Assets/Sprites/finishline.png" id="3_iguiw"]
-[ext_resource type="Script" uid="uid://bcrbuvikp8iwr" path="res://Minigames/MinigameScripts/Race/finish_line.gd" id="4_lmor4"]
 [ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="6_biiys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
@@ -49,7 +48,6 @@ texture = ExtResource("3_iguiw")
 [node name="Area2D" type="Area2D" parent="FinishLine" unique_id=1143422478]
 position = Vector2(-0.00043210728, -2.8215214e-07)
 collision_mask = 2
-script = ExtResource("4_lmor4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine/Area2D" unique_id=1394384642]
 position = Vector2(-1, -0.5)
@@ -253,7 +251,7 @@ texture = ExtResource("6_biiys")
 position = Vector2(0, 77.5)
 shape = SubResource("RectangleShape2D_tv18q")
 
-[connection signal="body_entered" from="FinishLine/Area2D" to="FinishLine/Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="FinishLine/Area2D" to="." method="_on_finish_body_entered"]
 [connection signal="body_entered" from="Tracks/Track1/pipe1" to="." method="_on_pipe_body_entered"]
 [connection signal="body_entered" from="Tracks/Track1/pipe2" to="." method="_on_pipe_body_entered"]
 [connection signal="body_entered" from="Tracks/Track1/pipe3" to="." method="_on_pipe_body_entered"]

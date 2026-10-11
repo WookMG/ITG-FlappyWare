@@ -29,7 +29,7 @@ func _ready() -> void:
 	for player in players:
 		player.minigame_ended = true
 		player.head.rotation = 0
-		player.hide()
+		player.modulate = Color.hex(0xffffff00)
 		player.hide_body()
 		
 	var i = 0
@@ -68,7 +68,7 @@ func play_end() -> void:
 		await get_tree().create_timer(.3).timeout
 	await get_tree().create_timer(.5).timeout
 	for player in players:
-		player.show()
+		player.modulate = Color.hex(0xffffffff)
 	loop.stop()
 	end.play()
 
