@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://crg66imj0pwyq"]
+
+[ext_resource type="Script" uid="uid://dflylgsasd36p" path="res://Minigames/MinigameScripts/Microwave/microwave_player.gd" id="1_teqqh"]
+[ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="1_ymge5"]
+[ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="2_teqqh"]
+[ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="3_lhsnw"]
+[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Players/chead.png" id="4_8rs0x"]
+[ext_resource type="Texture2D" uid="uid://pq0ra47kte43" path="res://Assets/Sprites/Players/shead.png" id="5_7w73o"]
+[ext_resource type="Texture2D" uid="uid://b0cgaod1anax7" path="res://Assets/Sprites/Players/mhead.png" id="6_rs6pf"]
+[ext_resource type="Texture2D" uid="uid://c73cmqlxl5hyg" path="res://Assets/Sprites/Players/wdead.png" id="7_70c8l"]
+[ext_resource type="Texture2D" uid="uid://b5xab0hn163hs" path="res://Assets/Sprites/Players/cdead.png" id="8_xajf3"]
+[ext_resource type="Texture2D" uid="uid://oxdn1uyfqpg6" path="res://Assets/Sprites/Players/sdead.png" id="9_bl383"]
+[ext_resource type="Texture2D" uid="uid://x3fbpa1cte8u" path="res://Assets/Sprites/Players/mdead.png" id="10_0bt2h"]
+[ext_resource type="Script" uid="uid://cypxbbx6tj3n4" path="res://Scripts/Default Player Models/3_segment_logic.gd" id="11_ytvtw"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="12_76gyq"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="13_124st"]
+[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Players/cbody.png" id="14_yahsf"]
+[ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="15_n2tbt"]
+[ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="16_tpdf6"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="17_lv6cw"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jvpv1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:collision_layer")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Flap:playing")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("Flap:pitch_scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrycp"]
+radius = 10.752907
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6gmj6"]
+properties/0/path = NodePath(".:slot")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:offset")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Worm:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Caterpillar:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Snail:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Maggot:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+
+[node name="Microwave Player" type="Node2D" unique_id=2078293166]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=980650756 groups=["Player"]]
+script = ExtResource("1_teqqh")
+
+[node name="NameContainer" type="Control" parent="Player" unique_id=252504247]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5.5, 5.5)
+
+[node name="username" type="RichTextLabel" parent="Player/NameContainer" unique_id=495844164]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -65.0
+offset_top = -19.0
+offset_right = 335.0
+offset_bottom = 21.0
+scale = Vector2(0.32625794, 0.32625794)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 20
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=871088339]
+replication_config = SubResource("SceneReplicationConfig_jvpv1")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player" unique_id=1101363136]
+rotation = 1.5707964
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_qrycp")
+
+[node name="Flap" type="AudioStreamPlayer" parent="Player" unique_id=1485251429]
+stream = ExtResource("1_ymge5")
+volume_db = -40.0
+max_polyphony = 10
+
+[node name="Head" type="Sprite2D" parent="Player" unique_id=214934914 node_paths=PackedStringArray("body_list")]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("2_teqqh")
+script = ExtResource("3_lhsnw")
+texture_list = Array[Texture2D]([ExtResource("2_teqqh"), ExtResource("4_8rs0x"), ExtResource("5_7w73o"), ExtResource("6_rs6pf"), ExtResource("7_70c8l"), ExtResource("8_xajf3"), ExtResource("9_bl383"), ExtResource("10_0bt2h")])
+body_list = [NodePath("Worm"), NodePath("Caterpillar"), NodePath("Snail"), NodePath("Maggot")]
+
+[node name="HeadSync" type="MultiplayerSynchronizer" parent="Player/Head" unique_id=488471311]
+replication_config = SubResource("SceneReplicationConfig_6gmj6")
+
+[node name="Worm" type="Node2D" parent="Player/Head" unique_id=811523493]
+visible = false
+z_index = -1
+script = ExtResource("11_ytvtw")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Worm" unique_id=882315317]
+position = Vector2(5.9604645e-08, 2.9999998)
+texture = ExtResource("12_76gyq")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Worm" unique_id=8499705]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("13_124st")
+
+[node name="Caterpillar" type="Node2D" parent="Player/Head" unique_id=2078771440]
+visible = false
+z_index = -1
+script = ExtResource("11_ytvtw")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=1158525960]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("14_yahsf")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Caterpillar" unique_id=730416523]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("14_yahsf")
+
+[node name="Snail" type="Node2D" parent="Player/Head" unique_id=1952079757]
+visible = false
+z_index = -1
+script = ExtResource("11_ytvtw")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Snail" unique_id=380194451]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("15_n2tbt")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Snail" unique_id=777201063]
+position = Vector2(0, 2.9999998)
+texture = ExtResource("16_tpdf6")
+
+[node name="Maggot" type="Node2D" parent="Player/Head" unique_id=231551880]
+visible = false
+z_index = -1
+script = ExtResource("11_ytvtw")
+
+[node name="Body1" type="Sprite2D" parent="Player/Head/Maggot" unique_id=10992480]
+position = Vector2(0, 7.999999)
+texture = ExtResource("17_lv6cw")
+
+[node name="Body2" type="Sprite2D" parent="Player/Head/Maggot" unique_id=216361683]
+position = Vector2(0, 7.999999)
+texture = ExtResource("17_lv6cw")

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dggggady7yvr0"]
+
+[ext_resource type="PackedScene" uid="uid://bng834wuyqapy" path="res://Minigames/MinigameScenes/Microwave/microwave.tscn" id="1_4fj7d"]
+[ext_resource type="Script" uid="uid://bumba2fw7t7ii" path="res://Minigames/MinigameScripts/Microwave/microwave_minigame.gd" id="1_am3p2"]
+
+[node name="Microwave Minigame" type="Node2D" unique_id=395993293]
+script = ExtResource("1_am3p2")
+
+[node name="Players" type="Node" parent="." unique_id=1259789376]
+
+[node name="Spawns" type="Node2D" parent="Players" unique_id=1810619098]
+position = Vector2(0, 75)
+
+[node name="1" type="Marker2D" parent="Players/Spawns" unique_id=480154793]
+position = Vector2(-375, 1)
+
+[node name="Microwave" parent="Players/Spawns/1" unique_id=2014940752 instance=ExtResource("1_4fj7d")]
+position = Vector2(19, 0)
+scale = Vector2(3, 3)
+
+[node name="2" type="Marker2D" parent="Players/Spawns" unique_id=770617375]
+position = Vector2(-125, 1)
+
+[node name="Microwave" parent="Players/Spawns/2" unique_id=741940753 instance=ExtResource("1_4fj7d")]
+position = Vector2(19, 0)
+scale = Vector2(3, 3)
+
+[node name="3" type="Marker2D" parent="Players/Spawns" unique_id=2068440215]
+position = Vector2(125, 1)
+
+[node name="Microwave" parent="Players/Spawns/3" unique_id=818138606 instance=ExtResource("1_4fj7d")]
+position = Vector2(19, 0)
+scale = Vector2(3, 3)
+
+[node name="4" type="Marker2D" parent="Players/Spawns" unique_id=1903311845]
+position = Vector2(375, 1)
+
+[node name="Microwave" parent="Players/Spawns/4" unique_id=664194278 instance=ExtResource("1_4fj7d")]
+position = Vector2(19, 0)
+scale = Vector2(3, 3)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1876294382]
+_spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
+spawn_path = NodePath("../Players")
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1374404792]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2071766070]

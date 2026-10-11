@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bng834wuyqapy"]
+
+[ext_resource type="Texture2D" uid="uid://dgs5somqk72p6" path="res://Assets/Sprites/Microwave/Microwave Open.png" id="1_ewedo"]
+[ext_resource type="Script" uid="uid://ccvie3hjxbdaa" path="res://Minigames/MinigameScripts/Microwave/microwave.gd" id="2_65t85"]
+[ext_resource type="Texture2D" uid="uid://di4a07igsuj6u" path="res://Assets/Sprites/Microwave/Microwave Door.png" id="3_tsqtq"]
+
+[node name="Microwave" type="Sprite2D" unique_id=2014940752]
+texture = ExtResource("1_ewedo")
+script = ExtResource("2_65t85")
+
+[node name="Door" type="Sprite2D" parent="." unique_id=390163387]
+position = Vector2(-23, 0)
+texture = ExtResource("3_tsqtq")
+offset = Vector2(22, 0)
