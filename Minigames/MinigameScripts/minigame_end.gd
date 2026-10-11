@@ -9,7 +9,6 @@ extends Node2D
 @onready var l3: Marker2D = $"LoserContainer/3"
 @onready var l4: Marker2D = $"LoserContainer/4"
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
-@onready var loser_light: PointLight2D = $LoserContainer/PointLight2D
 
 @onready var start: AudioStreamPlayer = $start
 @onready var loop: AudioStreamPlayer = $loop
@@ -70,7 +69,6 @@ func play_end() -> void:
 	await get_tree().create_timer(.5).timeout
 	for player in players:
 		player.show()
-	loser_light.show()
 	loop.stop()
 	end.play()
 

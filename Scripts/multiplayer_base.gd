@@ -7,12 +7,14 @@ extends CharacterBody2D
 @onready var head: Sprite2D = $Head
 @onready var username: RichTextLabel = $NameContainer/username
 
-const JUMP_VELOCITY: float = -1000
-const HORIZONTAL_ACCELERATION: float = 10
-const HORIZONTAL_DECCELERATION: float = -25
-const MAX_HORIZONTAL_SPEED: float = 500
+
 const WALL_ABSORBTION: float = 2.5
 const PLAYERSCALE: float = 0.5
+
+var jump_velocity: float = -1000
+var horizontal_acceleration: float = 10
+var horizontal_decceleration: float = -25
+var max_horizontal_speed: float = 500
 
 var slot: int
 var player_name: String
@@ -33,7 +35,7 @@ func hide_body() -> void:
 	head.hide_body()
 
 func jump() -> void:
-	velocity.y = JUMP_VELOCITY
+	velocity.y = jump_velocity
 	$Flap.play()
 
 func speed_to_rotation(speed) -> float:
@@ -45,21 +47,21 @@ func speed_to_rotation(speed) -> float:
 func move() -> void:
 	# move horizontally and account for direction
 	if !isFacingLeft:
-		velocity.x += HORIZONTAL_ACCELERATION
+		velocity.x += horizontal_acceleration
 	else:
-		velocity.x -= HORIZONTAL_ACCELERATION
+		velocity.x -= horizontal_acceleration
 	
 	#set horizontal max speed if over max speed
-	if abs(velocity.x) >= MAX_HORIZONTAL_SPEED:
-		velocity.x = MAX_HORIZONTAL_SPEED * sign(velocity.x)
+	if abs(velocity.x) >= max_horizontal_speed:
+		velocity.x = max_horizontal_speed * sign(velocity.x)
 
 func deccelerate() -> void:
 	if sign(velocity.x) == 1:
-		velocity.x += HORIZONTAL_DECCELERATION
+		velocity.x += horizontal_decceleration
 	elif sign(velocity.x) == -1:
-		velocity.x += -HORIZONTAL_DECCELERATION
+		velocity.x += -horizontal_decceleration
 	
-	if abs(velocity.x) <= abs(HORIZONTAL_DECCELERATION):
+	if abs(velocity.x) <= abs(horizontal_decceleration):
 		velocity.x = 0
 
 func set_worm_properties() -> void:
