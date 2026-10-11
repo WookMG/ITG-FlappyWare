@@ -10,6 +10,7 @@ extends Control
 # Game Buttons
 @onready var gun_minigame: TextureButton = $"Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Gun Minigame"
 @onready var fishing_minigame: TextureButton = $"Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Fishing Minigame"
+@onready var racing_minigame: TextureButton = $"Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Racing Minigame"
 
 @onready var player_settings_panel: Panel = $"Player Settings Panel"
 @onready var game_settings_panel: Panel = $"Game Settings Panel"
@@ -84,6 +85,9 @@ func _on_gun_minigame_pressed() -> void:
 
 func _on_fishing_minigame_pressed() -> void:
 	gameSelectLogic("Fishing Minigame", fishing_minigame)
+
+func _on_racing_minigame_pressed() -> void:
+	gameSelectLogic("Racing Minigame", racing_minigame)
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	guaranteeToggle = !guaranteeToggle

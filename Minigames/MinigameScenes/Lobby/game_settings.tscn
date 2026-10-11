@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bjlep1phl6kmh" path="res://Assets/Backgrounds/gungame.png" id="6_a8jim"]
 [ext_resource type="AudioStream" uid="uid://c04f5j7mhpd33" path="res://Assets/Sounds/Menu/Snap.mp3" id="6_kp6h2"]
 [ext_resource type="Texture2D" uid="uid://dstwxkcghqsg7" path="res://Assets/Backgrounds/fishing.png" id="7_wwlte"]
+[ext_resource type="Texture2D" uid="uid://drwqg5v6shsd7" path="res://Assets/Sprites/eyes.png" id="8_qemsk"]
 [ext_resource type="AudioStream" uid="uid://cbs7yte63f5ao" path="res://Assets/Sounds/Menu/bark fart.mp3" id="9_8p5d2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p5d2"]
@@ -156,6 +157,10 @@ size_flags_vertical = 0
 layout_mode = 2
 texture_normal = ExtResource("6_a8jim")
 
+[node name="Racing Minigame" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column" unique_id=1742422867 instance=ExtResource("6_31je2")]
+layout_mode = 2
+texture_normal = ExtResource("8_qemsk")
+
 [node name="Right Column" type="VBoxContainer" parent="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer" unique_id=1195011103]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -238,6 +243,7 @@ volume_db = -25.0
 [connection signal="pressed" from="Player Settings Cog" to="." method="_on_player_settings_cog_pressed"]
 [connection signal="pressed" from="Player Settings Panel/VBoxContainer/Back to Game" to="." method="_on_back_to_game_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Gun Minigame" to="." method="_on_gun_minigame_pressed"]
+[connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Left Column/Racing Minigame" to="." method="_on_racing_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Games/ScrollContainer/VBoxContainer/HSplitContainer/Right Column/Fishing Minigame" to="." method="_on_fishing_minigame_pressed"]
 [connection signal="pressed" from="Game Settings Panel/Back to Game" to="." method="_on_back_to_game_pressed"]
 [connection signal="toggled" from="Game Settings Panel/Guarantee Panel/CheckBox" to="." method="_on_check_box_toggled"]

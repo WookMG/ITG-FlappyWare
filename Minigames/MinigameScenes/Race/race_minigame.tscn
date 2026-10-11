@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://h3326g5wvabo"]
 
 [ext_resource type="Script" uid="uid://3s3dhghx4skm" path="res://Minigames/MinigameScripts/Race/race_minigame.gd" id="1_h83wc"]
-[ext_resource type="Script" uid="uid://o685n830wa4r" path="res://Minigames/MinigameScripts/Race/race_camera.gd" id="2_6hmq4"]
+[ext_resource type="Script" uid="uid://o685n830wa4r" path="res://Minigames/MinigameScripts/Race/race_follow.gd" id="2_6hmq4"]
+[ext_resource type="PackedScene" uid="uid://dsr8p4ou4x1kt" path="res://Minigames/MinigameScenes/Race/race_player.tscn" id="2_lwxff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(122, 572)
 
 [node name="RaceMinigame" type="Node2D" unique_id=1596650435]
 script = ExtResource("1_h83wc")
+minigame_time = 15.0
+player_scene = ExtResource("2_lwxff")
 
 [node name="Players" type="Node" parent="." unique_id=725930972]
 
@@ -23,13 +26,10 @@ position = Vector2(-1, 1)
 [node name="4" type="Marker2D" parent="Players/Spawns" unique_id=331595302]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1241728895]
+_spawnable_scenes = PackedStringArray("uid://dsr8p4ou4x1kt")
 spawn_path = NodePath("../Players")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=605396074]
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=151526812]
-position_smoothing_enabled = true
-script = ExtResource("2_6hmq4")
 
 [node name="FinishLine" type="Sprite2D" parent="." unique_id=1894161205]
 
@@ -38,3 +38,8 @@ script = ExtResource("2_6hmq4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine/Area2D" unique_id=1394384642]
 position = Vector2(423, 1)
 shape = SubResource("RectangleShape2D_bhunq")
+
+[node name="FollowPlayer" type="Node2D" parent="." unique_id=777656685]
+script = ExtResource("2_6hmq4")
+
+[node name="Camera2D" type="Camera2D" parent="FollowPlayer" unique_id=151526812]

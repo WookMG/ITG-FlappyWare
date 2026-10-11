@@ -1,6 +1,6 @@
 extends MinigameBase
 
-@onready var camera: Camera2D = $Camera2D
+@onready var follow_player: Node2D = $FollowPlayer
 
 var players_not_finished: Array[int] = []
 var players_finished: Array[int] = []
@@ -14,7 +14,7 @@ func _spawn_player(id: int) -> void:
 		player.set_alpha()
 		players_not_finished.append(id)
 		players.append(player.get_path())
-		if is_multiplayer_authority(): camera.player = player
+		if is_multiplayer_authority(): follow_player.player = player
 
 func _end_minigame():
 	super._end_minigame()
