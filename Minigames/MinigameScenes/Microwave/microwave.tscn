@@ -4,11 +4,39 @@
 [ext_resource type="Script" uid="uid://ccvie3hjxbdaa" path="res://Minigames/MinigameScripts/Microwave/microwave.gd" id="2_65t85"]
 [ext_resource type="Texture2D" uid="uid://di4a07igsuj6u" path="res://Assets/Sprites/Microwave/Microwave Door.png" id="3_tsqtq"]
 
-[node name="Microwave" type="Sprite2D" unique_id=2014940752]
-texture = ExtResource("1_ewedo")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewedo"]
+size = Vector2(23, 6)
+
+[node name="Microwave" type="Node2D" unique_id=1141391712]
 script = ExtResource("2_65t85")
+
+[node name="Microwave" type="Sprite2D" parent="." unique_id=1165367914]
+texture = ExtResource("1_ewedo")
 
 [node name="Door" type="Sprite2D" parent="." unique_id=390163387]
 position = Vector2(-23, 0)
 texture = ExtResource("3_tsqtq")
 offset = Vector2(22, 0)
+
+[node name="Collision Container" type="Node2D" parent="." unique_id=158724878]
+
+[node name="Top" type="StaticBody2D" parent="Collision Container" unique_id=1207535806]
+position = Vector2(-6.5, -11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Container/Top" unique_id=131243052]
+shape = SubResource("RectangleShape2D_ewedo")
+
+[node name="Bottom" type="StaticBody2D" parent="Collision Container" unique_id=297505265]
+position = Vector2(-6.5, 11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Container/Bottom" unique_id=1590749388]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_ewedo")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=253781149]
+visible = false
+offset_left = -18.0
+offset_top = -8.0
+offset_right = 5.0
+offset_bottom = 8.0
+color = Color(1, 1, 0, 0.23529412)

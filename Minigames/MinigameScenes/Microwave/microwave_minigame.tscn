@@ -3,9 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://bng834wuyqapy" path="res://Minigames/MinigameScenes/Microwave/microwave.tscn" id="1_4fj7d"]
 [ext_resource type="Script" uid="uid://bumba2fw7t7ii" path="res://Minigames/MinigameScripts/Microwave/microwave_minigame.gd" id="1_am3p2"]
 [ext_resource type="PackedScene" uid="uid://crg66imj0pwyq" path="res://Minigames/MinigameScenes/Microwave/microwave_player.tscn" id="2_n4wav"]
+[ext_resource type="AudioStream" uid="uid://cs7wyf0r142xa" path="res://Assets/Sounds/microwave door.mp3" id="4_bcjwf"]
+[ext_resource type="PackedScene" uid="uid://cicycnss3wn3t" path="res://Minigames/MinigameScenes/countdown.tscn" id="5_oknbd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8jepb"]
 
 [node name="Microwave Minigame" type="Node2D" unique_id=395993293]
 script = ExtResource("1_am3p2")
+doorIntegrity = 5
 player_scene = ExtResource("2_n4wav")
 
 [node name="Players" type="Node" parent="." unique_id=1259789376]
@@ -17,29 +22,29 @@ position = Vector2(0, 75)
 position = Vector2(-375, 1)
 
 [node name="Microwave" parent="Players/Spawns/1" unique_id=2014940752 instance=ExtResource("1_4fj7d")]
-position = Vector2(19, 0)
-scale = Vector2(3, 3)
+position = Vector2(32, 0)
+scale = Vector2(5, 5)
 
 [node name="2" type="Marker2D" parent="Players/Spawns" unique_id=770617375]
 position = Vector2(-125, 1)
 
 [node name="Microwave" parent="Players/Spawns/2" unique_id=741940753 instance=ExtResource("1_4fj7d")]
-position = Vector2(19, 0)
-scale = Vector2(3, 3)
+position = Vector2(32, 0)
+scale = Vector2(5, 5)
 
 [node name="3" type="Marker2D" parent="Players/Spawns" unique_id=2068440215]
 position = Vector2(125, 1)
 
 [node name="Microwave" parent="Players/Spawns/3" unique_id=818138606 instance=ExtResource("1_4fj7d")]
-position = Vector2(19, 0)
-scale = Vector2(3, 3)
+position = Vector2(32, 0)
+scale = Vector2(5, 5)
 
 [node name="4" type="Marker2D" parent="Players/Spawns" unique_id=1903311845]
 position = Vector2(375, 1)
 
 [node name="Microwave" parent="Players/Spawns/4" unique_id=664194278 instance=ExtResource("1_4fj7d")]
-position = Vector2(19, 0)
-scale = Vector2(3, 3)
+position = Vector2(32, 0)
+scale = Vector2(5, 5)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1876294382]
 _spawnable_scenes = PackedStringArray("uid://bquswloae3qde")
@@ -48,3 +53,15 @@ spawn_path = NodePath("../Players")
 [node name="BG" type="Sprite2D" parent="." unique_id=1374404792]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2071766070]
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=1910893528]
+position = Vector2(0, -324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roof" unique_id=1500132949]
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_8jepb")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="." unique_id=1603714926]
+stream = ExtResource("4_bcjwf")
+
+[node name="Countdown" parent="." unique_id=599870349 instance=ExtResource("5_oknbd")]

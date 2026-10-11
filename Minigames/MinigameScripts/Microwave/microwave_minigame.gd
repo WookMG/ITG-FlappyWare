@@ -1,11 +1,13 @@
 extends MinigameBase
 
-signal openDoor
-
 @onready var spawns: Node2D = $Players/Spawns
+@onready var door_sfx: AudioStreamPlayer2D = $DoorSFX
+@onready var countdown: Control = $Countdown
 
 var winning_players: Array[int] = []
 var losing_players: Array[int] = []
+
+@export var doorIntegrity: int = 20
 
 func _ready() -> void:
 	super._ready()
@@ -15,22 +17,28 @@ func _spawn_player(id: int) -> void:
 							"slot": NetworkHandler.connected_players[str(id)].slot,
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		var player = player_root.get_node(str(id))
-		player.breakOut.connect(_player_won)
 		losing_players.append(id)
 		players.append(player.get_path())
 		
-		openDoor.connect(Callable(spawns.get_child(player.slot - 1).find_child("Microwave"), "_openDoor"))
+		var microwave = spawns.get_child(player.slot - 1).find_child("Microwave")
+		microwave.integrity = doorIntegrity
+		player.integrity = doorIntegrity
+		
+		player.breakOut.connect(_player_won)
+		player.hit.connect(Callable(microwave, "_redFlash"))
 
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
+	door_sfx.play(3.5)
+	countdown.play()
+	await get_tree().create_timer(2.1).timeout
 	super._on_all_players_loaded()
+
 
 func _player_won(id: int) -> void:
 	if !NetworkHandler.is_server: return
 	print("Player ", id, " has won")
 	losing_players.erase(id)
 	winning_players.append(id)
-	
-	openDoor.emit()
 	
 	if winning_players.size() <= 0: _end_minigame()
 
