@@ -3,9 +3,18 @@
 [ext_resource type="Script" uid="uid://3s3dhghx4skm" path="res://Minigames/MinigameScripts/Race/race_minigame.gd" id="1_h83wc"]
 [ext_resource type="Script" uid="uid://o685n830wa4r" path="res://Minigames/MinigameScripts/Race/race_follow.gd" id="2_6hmq4"]
 [ext_resource type="PackedScene" uid="uid://dsr8p4ou4x1kt" path="res://Minigames/MinigameScenes/Race/race_player.tscn" id="2_lwxff"]
+[ext_resource type="Texture2D" uid="uid://ca0smk6itdqg8" path="res://Assets/Sprites/finishline.png" id="3_iguiw"]
+[ext_resource type="Script" uid="uid://bcrbuvikp8iwr" path="res://Minigames/MinigameScripts/Race/finish_line.gd" id="4_lmor4"]
+[ext_resource type="Texture2D" uid="uid://cebivtolruepn" path="res://Assets/Sprites/Pipes/pipe.png" id="6_biiys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
-size = Vector2(122, 572)
+size = Vector2(248, 355)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwxff"]
+size = Vector2(1930, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tv18q"]
+size = Vector2(66, 493)
 
 [node name="RaceMinigame" type="Node2D" unique_id=1596650435]
 script = ExtResource("1_h83wc")
@@ -29,17 +38,234 @@ position = Vector2(-1, 1)
 _spawnable_scenes = PackedStringArray("uid://dsr8p4ou4x1kt")
 spawn_path = NodePath("../Players")
 
-[node name="BG" type="Sprite2D" parent="." unique_id=605396074]
+[node name="EndCamera" type="Camera2D" parent="." unique_id=1669678436]
+enabled = false
 
 [node name="FinishLine" type="Sprite2D" parent="." unique_id=1894161205]
+position = Vector2(2585.0002, 7.0000005)
+scale = Vector2(0.565, 1.69)
+texture = ExtResource("3_iguiw")
 
 [node name="Area2D" type="Area2D" parent="FinishLine" unique_id=1143422478]
+position = Vector2(-0.00043210728, -2.8215214e-07)
+collision_mask = 2
+script = ExtResource("4_lmor4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine/Area2D" unique_id=1394384642]
-position = Vector2(423, 1)
+position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_bhunq")
 
 [node name="FollowPlayer" type="Node2D" parent="." unique_id=777656685]
 script = ExtResource("2_6hmq4")
 
-[node name="Camera2D" type="Camera2D" parent="FollowPlayer" unique_id=151526812]
+[node name="BG" type="Sprite2D" parent="FollowPlayer" unique_id=605396074]
+
+[node name="PlayerCamera" type="Camera2D" parent="FollowPlayer" unique_id=151526812]
+
+[node name="Boundaries" type="Node2D" parent="FollowPlayer" unique_id=423040830]
+
+[node name="Roof" type="StaticBody2D" parent="FollowPlayer/Boundaries" unique_id=1921604743]
+position = Vector2(-962, -290)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowPlayer/Boundaries/Roof" unique_id=1544693843]
+position = Vector2(962, -54)
+shape = SubResource("RectangleShape2D_lwxff")
+
+[node name="Floor" type="StaticBody2D" parent="FollowPlayer/Boundaries" unique_id=244979396]
+position = Vector2(-962, 394)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowPlayer/Boundaries/Floor" unique_id=1807111681]
+position = Vector2(962, -54)
+shape = SubResource("RectangleShape2D_lwxff")
+
+[node name="Tracks" type="Node2D" parent="." unique_id=800786386]
+
+[node name="Track1" type="Node2D" parent="Tracks" unique_id=786700461]
+
+[node name="pipe1" type="Area2D" parent="Tracks/Track1" unique_id=1537897408 groups=["Pipe"]]
+position = Vector2(519, 244)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe1" unique_id=1204942587]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe1" unique_id=831394974]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe2" type="Area2D" parent="Tracks/Track1" unique_id=2082000711 groups=["Pipe"]]
+position = Vector2(708, 179)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe2" unique_id=1180096130]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe2" unique_id=840859958]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe3" type="Area2D" parent="Tracks/Track1" unique_id=26542493 groups=["Pipe"]]
+position = Vector2(879, 31)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe3" unique_id=1752672040]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe3" unique_id=1980221709]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe4" type="Area2D" parent="Tracks/Track1" unique_id=582705340 groups=["Pipe"]]
+position = Vector2(1154, -288)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe4" unique_id=1840084778]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe4" unique_id=783338636]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe5" type="Area2D" parent="Tracks/Track1" unique_id=1322152820 groups=["Pipe"]]
+position = Vector2(1154, 246)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe5" unique_id=2089427437]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe5" unique_id=1253237154]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe6" type="Area2D" parent="Tracks/Track1" unique_id=893784427 groups=["Pipe"]]
+position = Vector2(1373, -356)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe6" unique_id=1028422286]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe6" unique_id=346348603]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe7" type="Area2D" parent="Tracks/Track1" unique_id=190042373 groups=["Pipe"]]
+position = Vector2(1373, 178)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe7" unique_id=1417696044]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe7" unique_id=677170639]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe8" type="Area2D" parent="Tracks/Track1" unique_id=1099183200 groups=["Pipe"]]
+position = Vector2(1597, -302)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe8" unique_id=1079328096]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe8" unique_id=257482721]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe9" type="Area2D" parent="Tracks/Track1" unique_id=165424524 groups=["Pipe"]]
+position = Vector2(1597, 232)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe9" unique_id=1579887341]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe9" unique_id=1905038403]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe10" type="Area2D" parent="Tracks/Track1" unique_id=742575173 groups=["Pipe"]]
+position = Vector2(1922, -444)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe10" unique_id=778627286]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe10" unique_id=927394877]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe11" type="Area2D" parent="Tracks/Track1" unique_id=622504301 groups=["Pipe"]]
+position = Vector2(1922, 90)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe11" unique_id=1260638575]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe11" unique_id=417960937]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe12" type="Area2D" parent="Tracks/Track1" unique_id=1810049492 groups=["Pipe"]]
+position = Vector2(2071, -444)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe12" unique_id=175865589]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe12" unique_id=1824066621]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe13" type="Area2D" parent="Tracks/Track1" unique_id=1387341201 groups=["Pipe"]]
+position = Vector2(2071, 90)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe13" unique_id=336275085]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe13" unique_id=1433905479]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe14" type="Area2D" parent="Tracks/Track1" unique_id=597686769 groups=["Pipe"]]
+position = Vector2(2222, -482)
+scale = Vector2(-1, -1)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe14" unique_id=820546218]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe14" unique_id=1618794979]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[node name="pipe15" type="Area2D" parent="Tracks/Track1" unique_id=1922013578 groups=["Pipe"]]
+position = Vector2(2222, 52)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Tracks/Track1/pipe15" unique_id=865137936]
+texture = ExtResource("6_biiys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracks/Track1/pipe15" unique_id=50773498]
+position = Vector2(0, 77.5)
+shape = SubResource("RectangleShape2D_tv18q")
+
+[connection signal="body_entered" from="FinishLine/Area2D" to="FinishLine/Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe1" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe2" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe3" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe4" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe5" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe6" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe7" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe8" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe9" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe10" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe11" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe12" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe13" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe14" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Tracks/Track1/pipe15" to="." method="_on_pipe_body_entered"]

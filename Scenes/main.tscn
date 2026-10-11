@@ -188,5 +188,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_k12tt")
 
 [node name="DisconnectDialog" type="AcceptDialog" parent="." unique_id=707426210]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
 
 [connection signal="timeout" from="PipeManager/SpawnPipe" to="PipeManager" method="_on_spawn_pipe_timeout"]

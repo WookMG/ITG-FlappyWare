@@ -3,6 +3,7 @@ extends MultiplayerBase
 signal finished(id)
 
 @onready var recover_timer: Timer = $"../Recover"
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var racing: bool = true
 var recovering: bool = false
@@ -26,23 +27,31 @@ func _physics_process(delta: float) -> void:
 	head.rotation = speed_to_rotation(velocity.y)
 	move_and_slide()
 
-func set_alpha() -> void:
-	# Transparancy for players not authority over bird
-	if !is_multiplayer_authority(): modulate = Color.hex(0xffffff80)
-
 func _start_minigame() -> void:
+	if !is_multiplayer_authority(): modulate = Color.hex(0xffffff50)
 	idle = false
 	show_body()
 
 @rpc("any_peer", "call_local", "unreliable")
 func finish():
-	if !racing: finished.emit(int(name))
+	if racing: finished.emit(int(name))
 	racing = false
 
 @rpc("any_peer", "call_local", "unreliable")
 func hit():
 	recover_timer.start()
+	animation_player.play("hit")
 	recovering = true
+	set_collision_layer_value(3, false) #This layer is what pipes scan for
+	
+	if velocity.x >= 50: velocity.x = 50
+	horizontal_acceleration = 5
+	max_horizontal_speed = 300
 
 func _on_recover_timeout() -> void:
 	recovering = false
+	animation_player.play("RESET")
+	set_collision_layer_value(3, true)
+	
+	horizontal_acceleration = 10.0
+	max_horizontal_speed = 500

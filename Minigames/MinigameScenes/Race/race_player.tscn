@@ -72,6 +72,43 @@ properties/7/path = NodePath("Maggot:visible")
 properties/7/spawn = true
 properties/7/replication_mode = 1
 
+[sub_resource type="Animation" id="Animation_kexdu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_op412"]
+resource_name = "hit"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.70000005, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ssokx"]
+_data = {
+&"RESET": SubResource("Animation_kexdu"),
+&"hit": SubResource("Animation_op412")
+}
+
 [node name="MultiplayerBase" type="Node2D" unique_id=1737167610]
 z_index = 1
 
@@ -178,6 +215,9 @@ texture = ExtResource("18_rryet")
 [node name="Body2" type="Sprite2D" parent="Player/Head/Maggot" unique_id=1660150473]
 position = Vector2(0, 7.999999)
 texture = ExtResource("18_rryet")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1999168070]
+libraries/ = SubResource("AnimationLibrary_ssokx")
 
 [node name="Recover" type="Timer" parent="." unique_id=718380482]
 one_shot = true

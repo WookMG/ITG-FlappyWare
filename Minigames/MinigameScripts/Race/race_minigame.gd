@@ -1,6 +1,8 @@
 extends MinigameBase
 
 @onready var follow_player: Node2D = $FollowPlayer
+@onready var player_camera: Camera2D = $FollowPlayer/PlayerCamera
+@onready var end_camera: Camera2D = $EndCamera
 
 var players_not_finished: Array[int] = []
 var players_finished: Array[int] = []
@@ -11,13 +13,14 @@ func _spawn_player(id: int) -> void:
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		var player = player_root.get_node(str(id))
 		player.finished.connect(_player_finished)
-		player.set_alpha()
 		players_not_finished.append(id)
 		players.append(player.get_path())
-		if is_multiplayer_authority(): follow_player.player = player
+		player_nodes.append(player)
+		follow_player.set_player.rpc_id(id, id)
 
 func _end_minigame():
 	super._end_minigame()
+	switch_cameras.rpc()
 	var player_win_info: Dictionary = {}
 	for id in players_finished:
 		player_win_info[str(id)] = true
@@ -44,3 +47,12 @@ func _player_finished(id: int) -> void:
 	players_not_finished.erase(id)
 	
 	if players_finished.size() >= players.size(): _end_minigame()
+
+@rpc ("authority", "call_local", "unreliable")
+func switch_cameras():
+	end_camera.enabled = true
+	player_camera.enabled = false
+
+func _on_pipe_body_entered(body: Node2D) -> void:
+	if body is MultiplayerBase:
+		body.hit.rpc()
