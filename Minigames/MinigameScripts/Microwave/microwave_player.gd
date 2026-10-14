@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	
 	if integrity == 0:
-		breakOut.emit(int(name))
+		broke_out.rpc()
 		won = true
 		jump_velocity = -1000
 		integrity = -1
@@ -38,6 +38,10 @@ func _physics_process(delta: float) -> void:
 	
 	lastVelocity = velocity
 	move_and_slide()
+
+@rpc("any_peer", "call_local", "unreliable")
+func broke_out():
+	breakOut.emit(int(name))
 
 func _start_minigame() -> void:
 	pass

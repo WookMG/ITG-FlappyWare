@@ -20,7 +20,6 @@ signal start_minigame()
 const MAX_SLOTS := 4
 
 var players: Array[NodePath] = []
-var player_nodes: Array[MultiplayerBase] = []
 var minigame_timer: Timer
 
 func _ready() -> void:
@@ -67,7 +66,6 @@ func _spawn_player(id: int) -> void:
 							"name": NetworkHandler.connected_players[str(id)].player_name})
 		var player = player_root.get_node(str(id))
 		players.append(player.get_path())
-		player_nodes.append(player)
 
 func _spawn_player_with_data(data: Dictionary) -> Node:
 	var player_root: Node2D = player_scene.instantiate()

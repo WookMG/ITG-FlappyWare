@@ -29,7 +29,7 @@ func _end_minigame():
 	SceneManager.end_minigame.rpc(players, player_win_info)
 
 func _on_all_players_loaded() -> void:
-	countdown.play()
+	show_countdown.rpc()
 	await get_tree().create_timer(2.1).timeout
 	super._on_all_players_loaded()
 
@@ -40,6 +40,10 @@ func _player_finished(id: int) -> void:
 	players_not_finished.erase(id)
 	
 	if players_finished.size() >= players.size(): _end_minigame()
+
+@rpc ("authority", "call_local", "reliable")
+func show_countdown():
+	countdown.play()
 
 @rpc ("authority", "call_local", "unreliable")
 func switch_cameras():

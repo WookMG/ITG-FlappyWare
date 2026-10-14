@@ -23,6 +23,10 @@ func _physics_process(delta: float) -> void:
 		if door.modulate == Color(1.0, 1.0, 1.0, 1.0):
 			hit = false
 
+func hit_func():
+	_redFlash.rpc()
+
+@rpc ("any_peer", "call_local", "reliable")
 func _redFlash() -> void:
 	if integrity <= 0: return
 	door.modulate = Color(1, 0.4, 0.4, 1.0)

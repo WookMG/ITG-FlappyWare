@@ -1,12 +1,15 @@
 extends MinigameBase
 
+
+@onready var countdown: Control = $Countdown
 @onready var spawns: Node2D = $Players/Spawns
+@onready var microwave_container: Node2D = $MicrowaveContainer
 @onready var microwave_door_close: AudioStreamPlayer = $MicrowaveDoorClose
 @onready var microwave_door_open: AudioStreamPlayer = $MicrowaveDoorOpen
-@onready var countdown: Control = $Countdown
 @onready var microwave_beep: AudioStreamPlayer = $MicrowaveBeep
 @onready var microwave_hum: AudioStreamPlayer = $MicrowaveHum
 @onready var microwave_end_beep: AudioStreamPlayer = $MicrowaveEndBeep
+
 
 var winning_players: Array[int] = []
 var losing_players: Array[int] = []
@@ -15,9 +18,6 @@ var beeps: int
 
 @export var doorIntegrity: int = 20
 
-func _ready() -> void:
-	super._ready()
-
 func _spawn_player(id: int) -> void:
 		var player_root: Node2D = multiplayer_spawner.spawn({"id": id,
 							"slot": NetworkHandler.connected_players[str(id)].slot,
@@ -25,14 +25,9 @@ func _spawn_player(id: int) -> void:
 		var player = player_root.get_node(str(id))
 		losing_players.append(id)
 		players.append(player.get_path())
-		
-		var microwave = spawns.get_child(player.slot - 1).find_child("Microwave")
-		microwave.integrity = doorIntegrity
-		player.integrity = doorIntegrity
-		
 		player.breakOut.connect(_player_won)
-		player.hit.connect(Callable(microwave, "_redFlash"))
-
+		connect_microwave.rpc(player.name)
+	
 func _on_all_players_loaded() -> void:  # server only, from MinigameBase
 	_start_minigame()
 	super._on_all_players_loaded()
@@ -62,6 +57,14 @@ func _end_minigame():
 		beeps = 4
 		endBeeps()
 	SceneManager.end_minigame.rpc(players, player_win_info)
+
+@rpc("authority", "call_local", "reliable")
+func connect_microwave(id: String):
+	var player = get_node("Players").get_node(id).get_node(id)
+	var microwave = spawns.find_child(str(player.slot)).find_child("Microwave")
+	microwave.integrity = doorIntegrity
+	player.integrity = doorIntegrity
+	player.hit.connect(microwave.hit_func)
 
 @rpc("any_peer", "call_remote", "unreliable")
 func _hum() -> void:

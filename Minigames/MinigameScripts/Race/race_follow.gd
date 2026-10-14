@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 
 @rpc("authority", "call_local", "unreliable")
 func set_player(id: int) -> void:
-	var player = get_parent().get_node("Players").get_node_or_null(str(id)).get_node(str(id))
+	var player = get_parent().get_node("Players").get_node(str(id)).get_node(str(id))
 	if player: 
 		player_to_follow = player
 		print("PLAYER FOUND")
