@@ -33,3 +33,9 @@ func openDoor(delta: float) -> void:
 	if door.scale.x > -0.3:
 		door.scale.x -= delta * speed
 		speed = sign(speed) * (abs(speed) - resistance)
+
+func _gameStart() -> void:
+	color_rect.show()
+
+func _playerWon() -> void:
+	color_rect.hide()

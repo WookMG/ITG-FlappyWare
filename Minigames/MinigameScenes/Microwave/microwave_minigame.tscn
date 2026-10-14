@@ -3,8 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://bng834wuyqapy" path="res://Minigames/MinigameScenes/Microwave/microwave.tscn" id="1_4fj7d"]
 [ext_resource type="Script" uid="uid://bumba2fw7t7ii" path="res://Minigames/MinigameScripts/Microwave/microwave_minigame.gd" id="1_am3p2"]
 [ext_resource type="PackedScene" uid="uid://crg66imj0pwyq" path="res://Minigames/MinigameScenes/Microwave/microwave_player.tscn" id="2_n4wav"]
-[ext_resource type="AudioStream" uid="uid://cs7wyf0r142xa" path="res://Assets/Sounds/microwave door.mp3" id="4_bcjwf"]
 [ext_resource type="PackedScene" uid="uid://cicycnss3wn3t" path="res://Minigames/MinigameScenes/countdown.tscn" id="5_oknbd"]
+[ext_resource type="AudioStream" uid="uid://dkku30yjyrjik" path="res://Assets/Sounds/microwave door close.mp3" id="5_wwfuw"]
+[ext_resource type="AudioStream" uid="uid://cwobceqvyxmbe" path="res://Assets/Sounds/microwave door open.mp3" id="6_cci0u"]
+[ext_resource type="AudioStream" uid="uid://cmdy215a0qynd" path="res://Assets/Sounds/microwave beep.mp3" id="7_cci0u"]
+[ext_resource type="AudioStream" uid="uid://5ly2tol08nhm" path="res://Assets/Sounds/Microwave Hum.mp3" id="8_pfy3e"]
+[ext_resource type="AudioStream" uid="uid://mho3dxmivms2" path="res://Assets/Sounds/Microwave End Beep.mp3" id="9_vmlpg"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vmlpg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8jepb"]
 
@@ -13,34 +19,37 @@ script = ExtResource("1_am3p2")
 doorIntegrity = 5
 player_scene = ExtResource("2_n4wav")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1666514196]
+replication_config = SubResource("SceneReplicationConfig_vmlpg")
+
 [node name="Players" type="Node" parent="." unique_id=1259789376]
 
 [node name="Spawns" type="Node2D" parent="Players" unique_id=1810619098]
 position = Vector2(0, 75)
 
 [node name="1" type="Marker2D" parent="Players/Spawns" unique_id=480154793]
-position = Vector2(-375, 1)
+position = Vector2(-405, 1)
 
 [node name="Microwave" parent="Players/Spawns/1" unique_id=2014940752 instance=ExtResource("1_4fj7d")]
 position = Vector2(32, 0)
 scale = Vector2(5, 5)
 
 [node name="2" type="Marker2D" parent="Players/Spawns" unique_id=770617375]
-position = Vector2(-125, 1)
+position = Vector2(-155, 1)
 
 [node name="Microwave" parent="Players/Spawns/2" unique_id=741940753 instance=ExtResource("1_4fj7d")]
 position = Vector2(32, 0)
 scale = Vector2(5, 5)
 
 [node name="3" type="Marker2D" parent="Players/Spawns" unique_id=2068440215]
-position = Vector2(125, 1)
+position = Vector2(95, 1)
 
 [node name="Microwave" parent="Players/Spawns/3" unique_id=818138606 instance=ExtResource("1_4fj7d")]
 position = Vector2(32, 0)
 scale = Vector2(5, 5)
 
 [node name="4" type="Marker2D" parent="Players/Spawns" unique_id=1903311845]
-position = Vector2(375, 1)
+position = Vector2(345, 1)
 
 [node name="Microwave" parent="Players/Spawns/4" unique_id=664194278 instance=ExtResource("1_4fj7d")]
 position = Vector2(32, 0)
@@ -61,7 +70,21 @@ position = Vector2(0, -324)
 rotation = 3.1415927
 shape = SubResource("WorldBoundaryShape2D_8jepb")
 
-[node name="DoorSFX" type="AudioStreamPlayer2D" parent="." unique_id=1603714926]
-stream = ExtResource("4_bcjwf")
-
 [node name="Countdown" parent="." unique_id=599870349 instance=ExtResource("5_oknbd")]
+
+[node name="MicrowaveDoorClose" type="AudioStreamPlayer" parent="." unique_id=1733435375]
+stream = ExtResource("5_wwfuw")
+volume_db = -25.0
+
+[node name="MicrowaveDoorOpen" type="AudioStreamPlayer" parent="." unique_id=943532169]
+stream = ExtResource("6_cci0u")
+volume_db = -25.0
+
+[node name="MicrowaveBeep" type="AudioStreamPlayer" parent="." unique_id=764690970]
+stream = ExtResource("7_cci0u")
+
+[node name="MicrowaveHum" type="AudioStreamPlayer" parent="." unique_id=716244346]
+stream = ExtResource("8_pfy3e")
+
+[node name="MicrowaveEndBeep" type="AudioStreamPlayer" parent="." unique_id=1145629917]
+stream = ExtResource("9_vmlpg")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmdy215a0qynd"
+path="res://.godot/imported/microwave beep.mp3-19cce13676a6ead4ab3e38b00afda6f2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/microwave beep.mp3"
+dest_files=["res://.godot/imported/microwave beep.mp3-19cce13676a6ead4ab3e38b00afda6f2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

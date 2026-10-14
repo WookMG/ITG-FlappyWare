@@ -11,7 +11,7 @@
 size = Vector2(66, 105)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_830bo"]
-size = Vector2(144.72026, 20.564331)
+size = Vector2(268.4057, 20.564331)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilm2e"]
 size = Vector2(66, 493)
@@ -61,8 +61,8 @@ scale = Vector2(0.38004372, 0.473293)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/LeftPipe/ReturnPipe" unique_id=235723266]
-position = Vector2(1.3157043, -0.28234863)
-scale = Vector2(0.9999998, 0.99999976)
+position = Vector2(-2.6312256, -0.28234863)
+scale = Vector2(0.9999998, 0.99999946)
 shape = SubResource("RectangleShape2D_830bo")
 
 [node name="RightPipe" type="StaticBody2D" parent="Pipe Container" unique_id=58983553]
@@ -79,6 +79,7 @@ scale = Vector2(0.38, 0.473)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pipe Container/RightPipe/StartPipe" unique_id=22908956]
+position = Vector2(0.007751465, 0)
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_830bo")
 
