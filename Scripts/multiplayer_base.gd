@@ -36,6 +36,10 @@ func hide_body() -> void:
 
 func jump() -> void:
 	velocity.y = jump_velocity
+	play_flap.rpc()
+
+@rpc ("authority", "call_local", "unreliable")
+func play_flap():
 	$Flap.play()
 
 func speed_to_rotation(speed) -> float:
