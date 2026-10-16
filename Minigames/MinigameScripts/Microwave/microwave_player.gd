@@ -1,8 +1,12 @@
 extends MultiplayerBase
 
+@onready var input_component: InputComponent = %InputComponent
+@onready var jump_component: JumpComponent = %JumpComponent
+
 signal breakOut(id: int)
 signal hit
 
+var defaultJumpVelocity: float
 var jumpVelocity: float = -250
 
 var integrity: int = 1 #set in mincrowave_minigame.gd
@@ -10,23 +14,23 @@ var won: bool = false
 
 func _ready() -> void:
 	super._ready()
-	jump_velocity = jumpVelocity
+	defaultJumpVelocity = jump_component.jumpVelocity
+	jump_component.jumpVelocity = jumpVelocity
 	show_body()
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	
+	var sender_id := multiplayer.get_remote_sender_id()
+	
 	if integrity == 0:
 		broke_out.rpc()
 		won = true
-		jump_velocity = -1000
+		jump_component.jumpVelocity = defaultJumpVelocity
 		integrity = -1
 	
-	if !is_on_floor():
-		velocity += get_gravity() * delta
 	
-	if Input.is_action_just_pressed("Jump"):
-		jump()
+	if input_component.jumpPressed:
 		if !won:
 			integrity -= 1
 			hit.emit()
@@ -36,7 +40,6 @@ func _physics_process(delta: float) -> void:
 	
 	head.rotation = speed_to_rotation(velocity.y)
 	
-	lastVelocity = velocity
 	move_and_slide()
 
 @rpc("any_peer", "call_local", "unreliable")

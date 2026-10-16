@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dxsxapjkbm41m"]
+
+[ext_resource type="Script" uid="uid://bd6ibsqpvk4xi" path="res://Scripts/Worm Model (new)/worm_body_segment.gd" id="1_8s632"]
+[ext_resource type="Texture2D" uid="uid://cif16jthhgqea" path="res://Assets/Sprites/Players/wbody2.png" id="2_erwes"]
+[ext_resource type="Texture2D" uid="uid://b6jnog2u0y4kn" path="res://Assets/Sprites/Players/wbody1.png" id="3_j1jm3"]
+[ext_resource type="Texture2D" uid="uid://cbmnerbjummaf" path="res://Assets/Sprites/Players/cbody.png" id="4_da773"]
+[ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="5_d76jo"]
+[ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="6_faevb"]
+[ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="7_i8uml"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jepb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_erwes")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j1jm3")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgxxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_da773")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0wip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_d76jo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_faevb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_531nx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_i8uml")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_erwes"]
+
+[node name="Worm Body Segment" type="Node2D" unique_id=270252876]
+z_index = -1
+script = ExtResource("1_8s632")
+
+[node name="Worm Body" type="AnimatedSprite2D" parent="." unique_id=1878585427]
+sprite_frames = SubResource("SpriteFrames_8jepb")
+
+[node name="Caterpillar Body" type="AnimatedSprite2D" parent="." unique_id=1344991825]
+visible = false
+sprite_frames = SubResource("SpriteFrames_qgxxk")
+
+[node name="Snail Body" type="AnimatedSprite2D" parent="." unique_id=919864910]
+visible = false
+sprite_frames = SubResource("SpriteFrames_v0wip")
+
+[node name="Maggot Body" type="AnimatedSprite2D" parent="." unique_id=298396086]
+visible = false
+position = Vector2(0, 0.5)
+sprite_frames = SubResource("SpriteFrames_531nx")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1230915920]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=298587262]
+shape = SubResource("CircleShape2D_erwes")
+debug_color = Color(0.9579671, 4.813075e-07, 0.5323374, 0.41960785)

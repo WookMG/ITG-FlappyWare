@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dflylgsasd36p" path="res://Minigames/MinigameScripts/Microwave/microwave_player.gd" id="1_teqqh"]
 [ext_resource type="AudioStream" uid="uid://d1cd7l3xxehqx" path="res://Assets/Sounds/quick-swhooshing-noise-80898.mp3" id="1_ymge5"]
+[ext_resource type="PackedScene" uid="uid://bxl51xqdfgbpy" path="res://Scenes/name_container.tscn" id="2_lhsnw"]
 [ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="2_teqqh"]
 [ext_resource type="Script" uid="uid://ef04185bniuq" path="res://Scripts/Default Player Models/default_player_models.gd" id="3_lhsnw"]
 [ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Players/chead.png" id="4_8rs0x"]
@@ -18,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://d35t4imdknuk1" path="res://Assets/Sprites/Players/sbody2.png" id="15_n2tbt"]
 [ext_resource type="Texture2D" uid="uid://b5okmnwb2xp14" path="res://Assets/Sprites/Players/sbody1.png" id="16_tpdf6"]
 [ext_resource type="Texture2D" uid="uid://bbkeu68jb86m1" path="res://Assets/Sprites/Players/mbody.png" id="17_lv6cw"]
+[ext_resource type="Script" uid="uid://ba5mewkdebx71" path="res://Scripts/Components/input_component.gd" id="20_7w73o"]
+[ext_resource type="Script" uid="uid://cpirdby6d4nx" path="res://Scripts/Components/jump_component.gd" id="21_rs6pf"]
+[ext_resource type="Script" uid="uid://d374noo7lhjbw" path="res://Scripts/Components/gravity_component.gd" id="22_rs6pf"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jvpv1"]
 properties/0/path = NodePath(".:position")
@@ -76,29 +80,7 @@ properties/7/replication_mode = 1
 [node name="Player" type="CharacterBody2D" parent="." unique_id=980650756 groups=["Player"]]
 script = ExtResource("1_teqqh")
 
-[node name="NameContainer" type="Control" parent="Player" unique_id=252504247]
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(5.5, 5.5)
-
-[node name="username" type="RichTextLabel" parent="Player/NameContainer" unique_id=495844164]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
-offset_left = -65.0
-offset_top = -19.0
-offset_right = 335.0
-offset_bottom = 21.0
-scale = Vector2(0.32625794, 0.32625794)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/normal_font_size = 20
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="NameContainer" parent="Player" unique_id=102046611 instance=ExtResource("2_lhsnw")]
 
 [node name="BodySync" type="MultiplayerSynchronizer" parent="Player" unique_id=871088339]
 replication_config = SubResource("SceneReplicationConfig_jvpv1")
@@ -174,3 +156,21 @@ texture = ExtResource("17_lv6cw")
 [node name="Body2" type="Sprite2D" parent="Player/Head/Maggot" unique_id=216361683]
 position = Vector2(0, 7.999999)
 texture = ExtResource("17_lv6cw")
+
+[node name="JumpComponent" type="Node" parent="." unique_id=431112847 node_paths=PackedStringArray("character_body_2D", "input_component")]
+unique_name_in_owner = true
+script = ExtResource("21_rs6pf")
+character_body_2D = NodePath("../Player")
+input_component = NodePath("../InputComponent")
+metadata/_custom_type_script = "uid://cpirdby6d4nx"
+
+[node name="InputComponent" type="Node" parent="." unique_id=1399381469]
+unique_name_in_owner = true
+script = ExtResource("20_7w73o")
+metadata/_custom_type_script = "uid://ba5mewkdebx71"
+
+[node name="GravityComponent" type="Node" parent="." unique_id=596440977 node_paths=PackedStringArray("character_body_2D")]
+unique_name_in_owner = true
+script = ExtResource("22_rs6pf")
+character_body_2D = NodePath("../Player")
+metadata/_custom_type_script = "uid://d374noo7lhjbw"

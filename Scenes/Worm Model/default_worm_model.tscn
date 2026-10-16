@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c8vst86i2ivo4"]
+
+[ext_resource type="Script" uid="uid://buumealecr2yw" path="res://Scripts/Worm Model (new)/default_worm_model.gd" id="1_xumos"]
+[ext_resource type="Texture2D" uid="uid://caxjj3btg3q3j" path="res://Assets/Sprites/Players/whead.png" id="2_f4aw8"]
+[ext_resource type="Texture2D" uid="uid://b5xab0hn163hs" path="res://Assets/Sprites/Players/cdead.png" id="3_bud5e"]
+[ext_resource type="Texture2D" uid="uid://c73cmqlxl5hyg" path="res://Assets/Sprites/Players/wdead.png" id="3_f4aw8"]
+[ext_resource type="Texture2D" uid="uid://c73rc2h538wtb" path="res://Assets/Sprites/Players/chead.png" id="3_qxijm"]
+[ext_resource type="Texture2D" uid="uid://pq0ra47kte43" path="res://Assets/Sprites/Players/shead.png" id="4_bud5e"]
+[ext_resource type="Texture2D" uid="uid://b0cgaod1anax7" path="res://Assets/Sprites/Players/mhead.png" id="5_6axho"]
+[ext_resource type="Texture2D" uid="uid://oxdn1uyfqpg6" path="res://Assets/Sprites/Players/sdead.png" id="5_n63yu"]
+[ext_resource type="Texture2D" uid="uid://x3fbpa1cte8u" path="res://Assets/Sprites/Players/mdead.png" id="7_rjlg5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8s632"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f4aw8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f4aw8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jepb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qxijm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bud5e")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qgxxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bud5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n63yu")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0wip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6axho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rjlg5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Default Worm Model" type="Node2D" unique_id=1837985798]
+scale = Vector2(5, 5)
+script = ExtResource("1_xumos")
+bodySegments = 3
+
+[node name="Earth Worm Head" type="AnimatedSprite2D" parent="." unique_id=2042557716]
+sprite_frames = SubResource("SpriteFrames_8s632")
+
+[node name="Caterpillar Head" type="AnimatedSprite2D" parent="." unique_id=376406028]
+visible = false
+position = Vector2(1, 1.5)
+sprite_frames = SubResource("SpriteFrames_8jepb")
+
+[node name="Snail Head" type="AnimatedSprite2D" parent="." unique_id=646881389]
+visible = false
+position = Vector2(1.5, -2)
+sprite_frames = SubResource("SpriteFrames_qgxxk")
+
+[node name="Maggot Head" type="AnimatedSprite2D" parent="." unique_id=657372590]
+visible = false
+position = Vector2(1, 0.5)
+sprite_frames = SubResource("SpriteFrames_v0wip")
